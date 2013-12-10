@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>รับมือกับข้อผิดพลาด Error Handling CodeIgniter</title>
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='รับมือกับข้อผิดพลาด Error Handling CodeIgniter' />
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+รับมือกับข้อผิดพลาด
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+<h1>รับมือกับข้อผิดพลาด</h1>
+<p>CodeIgniter
+ยอมให้คุณสร้างรายงานข้อผิดพลาดสำหรับแอพพลิเคชั่นของคุณเองโดยใช้ฟังก์ชันที่อธิบายด้านล่าง
+อีกนิด, มันยังมีคลาสเก็บข้อผิดพลาด (error logging class)
+ซึ่งอนุญาตให้ข้อความผิดพลาดหรือบกพร่องถูกเก็บบันทึกเป็นไฟล์ข้อความได้
+(text files)</p>
+<p class="important"><strong>ข้อสังเกตุ:</strong>
+โดยทั่วไปแล้ว CodeIgniter จะแสดงข้อผิดพลาดทั้งหมดของ PHP
+คุณสามารถเปลี่ยนพฤติกรรมนี้ได้เมื่อคุณพัฒนาระบบเสร็จแล้ว
+คุณจะเจอฟังก์ชัน <dfn>error_reporting()</dfn>
+อยู่ในส่วนบนสุดของไฟล์หลัก index.php
+การปิดการรายงานจะไม่กระทบต่อการเก็บข้อผิดพลาดลงไปยังไฟล์</p>
+<p>ซึ่งแตกต่างจากระบบส่วนใหญ่ของ&nbsp;CodeIgniter,
+ฟังก์ชันข้อผิดพลาดเป็นสิ่งง่ายในการดำเนินการซึ่งสามารถใช้ได้ทั่วทั้งแอพพลิเคชั่น
+โดยแบบนี้จะอนุญาตให้ใช้ข้อความผิดพลาดโดยไม่ต้องกังวลเกี่ยวกับขอบเขตของฟังก์ชันหรือคลาส</p>
+<p>โดยฟังก์ชันต่างๆต่อไปนี้จะช่วยให้คุณสร้างข้อความข้อผิดพลาด</p>
+<h2>show_error('<var>message</var>' [, int <var>$status_code</var>= 500 ] )</h2>
+<p>ฟังก์ชันนี้จะแสดงข้อความผิดพลาด โดยใช้แม่แบบข้อผิดพลาดในไฟล์นี้</p>
+<p><dfn>application/errors/</dfn><kbd>error_general.php</kbd></p>
+<p>$status_code ซึ่งเป็นพารามิเตอร์ซึ่งเป็นทางเลือกเป็นตัวกำหนดว่าสถานะ HTTP โค้ดอะไรที่จะถูกส่งไปพร้อมกับข้อผิดพลาด</p>
+
+<h2>show_404('<var>page</var>')</h2>
+<p>ฟังก์ชันนี้จะแสดงข้อความผิดพลาด 404
+โดยใช้แม่แบบข้อผิดพลาดในไฟล์นี้</p>
+<p><dfn>application/errors/</dfn><kbd>error_404.php</kbd></p>
+<p>ฟังก์ชันจะคาดหวัง string
+ที่จะถูกส่งต่อไปเพื่อเป็นเส้นทางของไฟล์เมื่อหน้าที่ต้องการไม่ถูกพบ
+สังเกตุว่า&nbsp;CodeIgniter จะโชว์ข้อความ 404
+อย่างอัตโนมัติถ้าตัวควบคุม(controller) ไม่ถูกพบ</p>
+<h2>log_message('<var>level</var>', '<samp>message</samp>')</h2>
+<p>ฟังก์ชันนี้ยอมให้คุณเขียนข้อความไปยังไฟล์ข้อมูลบันทึก
+คุณต้องเลือก 1 ใน 3 "ระดับ"
+ในพารามิเตอร์แรก, โดยเป็นการแยกประเภทของข้อความว่ามันคืออะไร(debug,
+error, info), ด้วยข้อความของตัวมันที่อยู่ในพารามิเตอร์ที่สอง
+ตัวอย่างเช่น</p>
+<code>
+if ($some_var == "")<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;log_message('error', 'Some
+variable did not contain a value.');<br />
+}<br />
+else<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;log_message('debug', 'Some
+variable was correctly set');<br />
+}<br />
+<br />
+log_message('info', 'The purpose of some variable is to provide some
+value.');<br />
+</code>
+<p>โดยมีข้อความสามแบบ:</p>
+<ol>
+<li>ข้อความรายงานข้อผิดพลาด. นี้เป็นข้อผิดพลาดที่เกิดขึ้นจริง
+เช่น ข้อผิดพลาด PHP หรือข้อผิดพลาดของการใช้งาน</li>
+<li>ข้อความรายงานข้อบกพร่อง.
+ข้อความเหล่านี้จะช่วยเหลือในการหาข้อบกพร่อง เช่น ถ้าคลาสนี้เกิดขึ้น
+คุณสามารถที่จะเก็บบันทึกข้อมูลนี้เป็นข้อมูลในการหาข้อบกพร่อง</li>
+<li>ข้อความรายงานข้อมูลข่าวสาร.
+นี้คือข้อความที่มีความสำคัญน้อยที่สุด โดยให้ข้อมูลสำหรับบางการทำงานซึ่ง
+CodeIgniter ไม่สามารถสร้างข้อความรายงานข้อมูลได้ตามธรรมชาติ
+ซึ่งคุณอาจจะต้องการในแอพพลิเคชั่นของคุณ</li>
+</ol>
+<p class="important"><strong>ข้อสังเกตุ:</strong>
+เพื่อการไฟล์เก็บบันทึกจะสามารถถูกเขียนได้ โฟลเดอร์&nbsp;"logs"
+จะต้องสามารถเขียนได้ เพิ่มเติมอีกหน่อยคุณจะต้องตั้งค่า "threshold"
+สำหรับการบันทึกข้อมูล
+คุณอาจจะต้องการเก็บบันทึกเฉพาะข้อความรายงานข้อผิดพลาดและไม่เอาอีก 2
+ชนิดแต่ถ้าคุณตั้งค่าเป็น 0 การบันทึกจะถูกปิดการใช้งาน</p>
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="routing.html">การกำหนดเส้นทาง URI</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="caching.html">เก็บข้อมูลไว้ในหน่วยความจำ (Caching)</a>
+</p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

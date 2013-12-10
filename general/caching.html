@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>เก็บข้อมูลไว้ในหน่วยความจำ Web Page Cache CodeIgniter</title>
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='เก็บข้อมูลไว้ในหน่วยความจำ Web Page Cache CodeIgniter' />
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+เก็บข้อมูลไว้ในหน่วยความจำ Web Page Cache
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+<h1>การเก็บหน้าเว็บไซต์เอาไว้ในหน่วยความจำ (Web Page Caching)</h1>
+<p>CodeIgniter
+ยอมให้คุณเก็บหน้าต่างๆของคุณไว้เพื่อที่จะทำให้เกิดประสิทธิภาพสูงสุด</p>
+<p>ถึงแม้ว่า CodeIgniter ค่อนข้างเร็ว
+แต่จำนวนข่าวสารที่ไม่อยู่นิ่งที่แสดงในหน้าต่างๆจะทำให้ส่งผลกับการใช้ทรัพยากรเซิร์ฟเวอร์
+, ความจำ , และกระบวนการดำเนินการให้เป็นประโยชน์
+ซึ่งมีผลกับความเร็วในการโหลดหน้าเว็บของคุณ
+ในการทำการเก็บข้อมูลหน้าเว็บไว้ในหน่วยความจำ
+มันจะถูกบันทึกเอาไว้เมื่อมันอยู่ในขั้นตอนที่แสดงผลสมบูรณ์
+คุณสามารถทำให้เกิดประสิทธิภาพที่ใกล้เคียงกับหน้าเว็บแบบคงที่ (static
+web pages)</p>
+<h2>การเก็บทำงานอย่างไร?</h2>
+<p>การเก็บข้อมูลในหน่วยความจำ(Caching) สามารถเปิดได้แบบในแต่ละหน้าได้
+และคุณสามารถตั้งความยาวของเวลาที่หน้านั้นจะคงอยู่จนกว่าจะถูกกระตุ้นความจำ
+(refresh) เมื่อหน้าถูกโหลดสำหรับครั้งแรก
+ไฟล์ที่เก็บจะถูกเขียนอยู่ในโฟลเดอร์ <dfn>system/cache</dfn>
+ลำดับถัดมาเมื่อหน้าถูกโหลดไฟล์ที่เก็บจะรับและส่งคำร้องไปยังบราวเซอร์ของผู้ใช้
+ถ้ามันหมดอายุมันจะถูกลบและถูกกระตุ้นความจำก่อนที่จะส่งกลับไปยังบราวเซอร์</p>
+<p>ข้อสังเกตุ: The Benchmark tag
+จะไม่ถูกเก็บดังนั้นคุณยังสามารถดูความเร็วในการโหลดเมื่อเมื่อคุณเปิดใช้การเก็บข้อมูลไว้ในหน่วยความจำ
+(caching)</p>
+<h2>เปิดใช้งานการเก็บ</h2>
+<p>การเปิดใช้งานคุณสมบัติการเก็บ
+ให้เราใส่คำสั่งนี้ลงไปในส่วนไหนก็ได้ของฟังก์ชันของตัวควบคุม (controller)</p>
+<code>$this-&gt;output-&gt;cache(<var>n</var>);</code>
+<p>โดย <var>n</var> คือตัวเลขจำนวน <strong>นาที</strong>
+ที่คุณต้องการเก็บหน้าไว้ระหว่างการถูกกระตุ้นความจำ</p>
+<p>ในคำสั่งด้านบนสามารถใช้ได้ทุกที่ในฟังก์ชัน
+มันไม่ได้มีผลโดยลำดับที่ถูกใช้
+ดังนั้นให้วางไว้ในที่ที่ๆมันมีเหตุผลที่สุดกับคุณ เมื่อคำสั่งนี้ถูกใช้
+หน้าต่างๆของคุณจะเริ่มถูกเก็บ</p>
+<p class="important"><strong>ข้อควรระวัง:</strong>
+เพราะวิธีการเก็บผลลัพธ์เนื้อหาของ&nbsp;CodeIgniter&nbsp;
+การเก็บจะสามารถใช้ได้เฉพาะเมื่อคุณสร้างหน้าแสดงสำหรับตัวควบคุมด้วย&nbsp;<a href="./views.html">view (ส่วนแสดง)</a> เท่านั้น</p>
+<p class="important"><strong>ข้อสังเกตุ:</strong>
+ก่อนที่ไฟล์ที่เก็บจะสามารถถูกเขียนคุณจะต้องตั้งค่าการยินยอมการใช้ไฟล์
+(file permission) บนโฟลเดอร์
+<dfn>system/cache</dfn> ให้ถูกเขียนได้</p>
+<h2>การลบไฟล์ที่ถูกเก็บ</h2>
+<p>ถ้าคุณไม่ต้องการที่จะเก็บไฟล์คุณสามารถลบคำสั่งการเก็บและมันจะไม่ถูกกระตุ้นหน่วยความจำเมื่อมันหมดอายุ
+ข้อสังเกตุ:
+เมื่อลบคำสั่งมันจะไม่ลบไฟล์ที่ถูกเก็บทันที มันจะหมดอายุตามปกติ
+ถ้าคุณต้องการที่จะเอามันออกเร็วขึ้นคุณต้องไปลบเองในโฟลเดอร์ cache</p>
+</div>
+
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="errors.html">รับมือกับข้อผิดพลาด</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="profiling.html">รวบรวมข้อมูลในแอพพลิเคชั่นของคุณ</a>
+</p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

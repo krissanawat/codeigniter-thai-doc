@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CodeIgniter Controllers (ตัวควบคุม)</title>
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='CodeIgniter Controllers (ตัวควบคุม)' />
+</head>
+<body>
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+Controllers (ตัวควบคุม)
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+  <h1>Controllers (ตัวควบคุม)</h1>
+  <p>Controllers (ตัวควบคุม) เป็นหัวใจของแอพพลิเคชันของคุณเลยทีเดียว, เนื่องจากมันเป็นตัวกำหนดว่าการร้องขอ HTTP ใดควรจะถูกกระทำ(ตอบสนอง)อย่างไร</p>
+  <ul>
+    <li><a href="#what">Controller (ตัวควบคุม) คืออะไร?</a></li>
+    <li><a href="#hello">Hello World</a></li>
+    <li><a href="#functions">ฟังก์ชันต่างๆ</a></li>
+    <li><a href="#passinguri">การส่งค่าแบบเป็นส่วนๆของ URI ผ่านฟังก์ชันของคุณเอง</a></li>
+    <li><a href="#default">กำหนด </a><a href="#default">Controller (ตัวควบคุม) แบบปริยาย</a></li>
+    <li><a href="#remapping">การเรียกใช้ฟังก์ชันกำหนดเส้นทาง</a></li>
+    <li><a href="#output">การควบคุมข้อมูลแสดงออก</a></li>
+    <li><a href="#private">ฟังก์ชันปกปิด</a></li>
+    <li><a href="#subfolders">จัดระบบ Contoller (ตัวควบคุม) ต่างๆแบบโฟลเดอร์ย่อย</a></li>
+    <li><a href="#constructors">Class Constructors (คลาสตัวสร้าง</a>)</li>
+    <li><a href="#reserved">ฟังก์ชันสงวน</a></li>
+  </ul>
+  <a name="what" id="what"></a>
+  <h2>อะไรคือ Controller (ตัวควบคุม)?</h2>
+  <p><dfn>Controller (ตัวควบคุม) เป็นไฟล์คลาสแบบง่ายๆ ที่ถูกตั้งชื่อในลักษณะที่สามารถจับคู่กับ URI นึงๆได้</dfn></p>
+  <p>ลองพิจารณา URI นี้:</p>
+  <code>example.com/index.php/<var>blog</var>/</code>
+  <p>ในตัวอย่างข้างต้น CodeIgniter จะพยายามหา controller (ตัวควบคุม)ที่ชื่อว่า blog.php และโหลดไฟล์นี้</p>
+  <p><strong>เมื่อชื่อของ Controller (ตัวควบคุม) ตรงกับส่วนแรกของ URI controller (ตัวควบคุม) นั้นจะถูกโหลด</strong></p>
+  <a name="hello" id="hello"></a>
+  <h2>ลองกันเลย:&nbsp; Hello World!</h2>
+  <p>เรามาลองสร้าง controller (ตัวควบคุม)แบบง่ายๆ เพื่อที่คุณจะเห็นการทำงานของมัน โดยใช้เท็กซ์เอดิเตอร์ของคุณเอง สร้างไฟล์ blog.php และนำโค้ดด้านล่างนี้ไปวาง</p>
+    <textarea name="textarea" cols="50" rows="10" class="textarea" style="width:100%">
+<?php
+class Blog extends Controller {
+
+	function index()
+	{
+		echo 'Hello World!';
+	}
+}
+?>
+  </textarea>
+  
+  <p>แล้วบันทึกไว้ไฟล์ไว้ที่โฟลเดอร์ <dfn>application/controllers/</dfn></p>
+  <p>ลองเปิดหน้านี้ด้วย URL แบบนี้:</p><code>example.com/index.php/<var>blog</var>/</code>
+  <p>ถ้าไม่มีอะไรผิดพลาด คุณจะเห็นประโยค <samp>Hello World!</samp></p>
+  <p>หมายเหตุ: ชื่อของคลาสควรขึ้นต้นด้วยตัวอักษรตัวใหญ่, แบบนี้ถูกต้อง:</p>
+  <code>&lt;?php<br />
+    class <var>Blog</var> extends Controller {<br />
+  <br />
+    }<br />
+    ?&gt;</code>
+  <p>แบบนี้ไม่ถูกต้อง:</p>
+  <code>&lt;?php<br />
+    class <var>blog</var> extends Controller {<br />
+  <br />
+    }<br />
+    ?&gt;</code>
+  <p>เช่นเดียวกัน ให้แน่ใจว่า controller (ตัวควบคุม)ของคุณได้<span class="style1">ขยาย</span>มาจากคลาส controller เพราะมันจะมีฟังก์ชันสืบทอดมาให้ได้ใช้งานทั้งหมด</p>
+  <p>&nbsp;</p>
+  <a name="functions" id="functions"></a>
+  <h2>ฟังก์ชันต่างๆ</h2>
+  <p>ในตัวอย่างข้างบน ฟังก์ชันที่ชื่อว่า <span class="style1">index()</span> ฟังก์ชัน &quot;index&quot; จะถูกโหลดเสมอโดยปริยายถ้าไม่การระบุส่วนไปใน URI  อีกวิธีที่จะแสดงข้อความ &quot;Hello World!&quot; ก็คือ:</p>
+  <code>example.com/index.php/<var>blog</var>/<samp>index</samp>/</code>
+  <p><strong>ส่วนที่สองของ URI บอกว่าฟังก์ชันไหนใน controller (ตัวควบคุม) จะถูกเรียก</strong></p>
+  <p>ลองเพิ่มฟังก์ชันใหม่นี้ใน controller (ตัวควบคุม) ของคุณ:</p>
+    <textarea name="textarea" cols="50" rows="15" class="textarea" style="width:100%">
+<?php
+class Blog extends Controller {
+
+	function index()
+	{
+		echo 'Hello World!';
+	}
+
+	function comments()
+	{
+		echo 'Look at this!';
+	}
+}
+?>
+  </textarea>
+  
+  <p>แล้วเรียกตาม URL ข้างล่างนี้ เพื่อดูผลของฟังก์ชัน <dfn>comment</dfn>:</p><code>example.com/index.php/<var>blog</var>/<samp>comments</samp>/</code>
+  <p>คุณควรจะเห็นเป็นข้อความใหม่:</p>
+  <a name="passinguri" id="passinguri"></a>
+  <h2>ส่งค่าแบบเป็นส่วนๆของ URI ผ่านฟังก์ชันของคุณเอง</h2>
+  <p>ถ้า URI ของคุณมีส่วนมากกว่าสองส่วนมันจะถูกส่งไปให้ฟังก์ชัน เหมือนเป็นพารามิเตอร์</p>
+  <p>ตัวอย่าง, สมมติว่า URI ของคุณเป็นแบบนี้:</p><code>example.com/index.php/<var>products</var>/<samp>shoes</samp>/<kbd>sandals</kbd>/<dfn>123</dfn></code>
+  <p>ฟังก์ชันของคุณจะได้รับค่าจาก URI ส่วนที่ 3 และ 4 (&quot;sandals&quot; และ &quot;123&quot;):</p><code> &lt;?php<br />
+    class Products extends Controller {<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;function shoes($sandals, $id)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $sandals;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $id;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+    }<br />
+    ?&gt; </code>
+  <p class="important"><strong>สำคัญ:</strong>&nbsp; ถ้าคุณใช้ <a href="routing.html">URI Routing</a>, ส่วนที่ถูกส่งไปให้กับฟังก์ชันคุณจะถูกกำหนดเส้นทางใหม่</p>
+  <a name="default" id="default"></a>
+  <h2>กำหนด Controller (ตัวควบคุม) แบบปริยาย</h2>
+  <p>CodeIgniter สามารถบอกให้โหลด controller (ตัวควบคุม) โดยปริยายเมื่อ URI ไม่ได้บ่งบอกว่าเป็นตัวไหน เหตุการณ์นี้จะเิกิดขึ้นเฉพาะ URL รากของคุณถูกเรียก การกำหนด controller (ตัวควบคุม) โดยปริยาย ใหคุณเปิดไฟล์<dfn> application/config/routes.php</dfn> หาและตั้งค่าตัวแปรนี้:</p><code>$route['default_controller'] = '<var>Blog</var>';</code> 
+  <p><var>Blog</var> เป็นชื่อของคลาส controller (ตัวควบคุม) ที่คุณต้องการเรียกใช้ ถ้าคุณเรียก index.php โดยไม่ระบุ ส่วนของ URI เลย คุณจะเห็นข้อความ Hello World โดยอัตโันมัติิ</p>
+  <p><a name="remapping" id="remapping"></a></p>
+  <h2>การเรียกใช้ฟังก์ชันกำหนดเส้นทาง</h2>
+  <p>ตามหมายเหตุด้านบน ส่วนที่สองของ URI จะเป็นการกำหนดว่าฟังก์ชันไหนของ controler (ตัวควบคุม) จะถูกเรียก CodeIgniter อนุญาตให้คุณกำหนดเองได้โดยการใช้ฟังก์ชัน _remap():</p><code>function _remap()<br />
+    {<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;// Some code here...<br />
+    }</code>
+  <p class="important"><strong>สำคัญ:</strong>&nbsp; ถ้า controller (ตัวควบคุม) ของคุณมีฟังก์ชันที่ชื่อว่า _remap() ส่วนของ URI ก็จะไม่มีผล ตัว _remap()จะทับส่วนของ URI ในการทำงานทั่วๆไป ซึ่ง URI กำหนดว่าฟังก์ชันไหนจะถูกเรียกใช้ เป็นการอนุญาตให้คุณกำหนดกฏการเลือกเส้นทางในฟังก์ชันของคุณขึ้นมาเอง</p>
+  <p>ฟังก์ชันที่เขียนทับ (ปกติจะเป็นส่วนที่สองของ URI) จะถูกส่งค่าให้เป็นพารามิเตอร์ให้แก่ฟังก็ชัน _remap():</p><code>function _remap(<var>$method</var>)<br />
+    {<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;if ($method == 'some_method')<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;$method();<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;else<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;default_method();<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+    }</code> <a name="output" id="output"></a>
+  <h2>กระบวนการแสดงผลัพธ์</h2>
+  <p>CodeIgniter มีคลาสที่เอาไว้ใช้ทำหน้าที่ส่งข้อมูลที่ผ่านการประมวลผลแล้ว แล้วส่งไปให้กับเว็บ บราวเซอร์ (web browser) โดยอัติโนมัติ สามารถดูข้อมูลเพิ่มเติมได้จาก <a href="views.html">Views</a> และ <a href="../libraries/output.html">Output class</a> ในบางกรณี ไม่ว่าอะไรก็ตาม คุณอาจจะต้องการจัดการข้อมูลก่อนที่จะเป็นข้อมูลที่ประมวลผลเสร็จด้วยวิธีการบางอย่าง และส่งข้อมูลไปให้กับบราวเซอร์ (browser) ด้วยตัวคุณเอง CodeIgniter อนุญาตให้คุณสามารถเพิ่มฟังก์ชัน <dfn>_output()</dfn>เข้าไปใน controller (ตัวควบคุม)ของคุณ ซึ่งมันเป็นฟังก์ชันที่จะรับข้อมูลสุดท้ายที่จะแสดงออกต่อไป</p>
+  <p><strong>สำคัญ:</strong>&nbsp;ถ้า controller (ตัวควบคุม)ของคุณมีฟังก์ชันที่ชื่อว่า <kbd>_output()</kbd>, ฟังก์ชันนี้จะถูกเรียกใช้ก่อน แทนที่จะแสดงออกข้อมูลโดยตรงเลย พารามิเตอร์ตัวแรกจะเป็นจะเป็นข้อมูลผลลัพธ์สุดท้าย</p>
+  <p>ดังตัวอย่าง:</p>
+  <code> function _output($output)<br />
+    {<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;echo $output;<br />
+    }</code>
+  <p class="important">โปรดจำไว้ว่า ฟังก์ชัน <dfn>_output()</dfn> ของคุณ จะรับข้อมูลในสถานะที่ได้ประมวลเสร็จแล้ว การเปรียบเทียบวัดและการใช้หน่วยความจำจะถูกประมวลผล ไฟล์เก็บค่าชั่วคราว (cache) จะถูกเขียนข้อมูลลงไป (ถ้าระบบการจำค่าชั่วคราว(caching) ของคุณเปิดใช้งาน), และข้อมูลส่วนหัวจะถูกส่ง(ถ้าคุณใชคุณสมบัติที่กล่าวไปนั้น <a href="../libraries/output.html">feature</a>)ก่อนที่มันจะถูกส่งไปให้ฟังก์ชัน _output  ถ้าคุณกำลังใช้คุณสมบัตินี้ตับจับเวลาการประมวลผลหน้าและสถานะการใช้หน่วยความมันอาจจะไม่ถูกต้องสมบูรณ์เนื่องจากข้อมูลเหล่านั้นจะไม่ถูกนำเข้าไม่ว่ากระบวนการใดๆที่คุณทำก็ตามในทางกลับกันวิธีที่จะควบคุมผลลัพธ์ <em>ก่อน</em>ที่กระบวนการต่างๆจะเสร็จสมบุรณ์ กรุณาดูรายการเมธอดที่มีได้ที่ <a href="../libraries/output.html">Output Class</a></p>
+  <a name="private" id="private"></a>
+  <h2>ฟังก์ชันส่วนตัว</h2>
+  <p>ในบางกรณีคุณอาจจะต้องการให้ฟัังก์ชันของคุณถูกซ่อนไว้ ซึ่งจะเข้าถึงจากภายนอกไม่ได้ และเพื่อทำให้เป็นแบบนี้ ง่ายๆเลยคุณเติมเครื่องหมาย _ (underscore) เข้าด้านหน้าของชื่อฟังก์ชันนั้น ซึ่งมันจะไม่ถูกให้บริการผ่านการร้องขอทาง URL ถ้าคุณมีฟังก์ชันคล้ายๆแบบนี้:</p><code> function _utility()<br />
+    {<br />
+    &nbsp;&nbsp;// some code<br />
+    }</code>
+  <p>แล้วถ้าคุณลองเข้าโดยพิมพ์ URL แบบด้านล่างนี้ มันก็จะเข้าไม่ได้</p><code>example.com/index.php/<var>blog</var>/<samp>_utility</samp>/</code> <a name="subfolders" id="subfolders"></a>
+  <p>หรือจะใช้วิธีแบบเดิมของการเขียน PHP ก็ทำได้โดย</p><code>private function utility()<br />
+{<br />
+&nbsp;&nbsp;// some code<br />
+}</code>
+  <h2>จัดระบบ Contoller (ตัวควบคุม) ต่างๆแบบโฟลเดอร์ย่อย</h2>
+  <p>ถ้าคุณทำงานกับแอพพลิเคชันที่ขนาดใหญ่ มันจะสะดวกกว่าถ้าคุณจะแบ่ง controller (ตัวควบคุม)ของคุณออกเป็นโฟลเดอร์ย่อยๆ CodeIgniter ยอมให้ทำเช่นนั้นได้</p>
+  <p>ง่ายๆเลยก็คือคุณสร้า้งโฟลเดอร์ไว้ข้างใน<dfn> application/controllers</dfn> แล้วสร้าง controller (ตัวควบคุม) ของคุณไว้ในโฟลเดอร์นี้</p>
+  <p><strong>หมายเหตุ:</strong>ถ้าคุณใช้แบบส่วนแรกของ URI คุณต้องระบุชื่อโฟลเดอร์นั้นด้วย ตัวอย่าง, สมมติว่าคุณมี controller (ตัวควบคุม) ที่อยู่ใน:</p><code>application/controllers/<kbd>products</kbd>/shoes.php</code>
+  <p>เพื่อเรียก controller (ตัวควบคุม) ดังแบบด้านบน URI ของคุณจะมีลักษณะดังนี้:</p><code>example.com/index.php/products/shoes/show/123</code>
+  <p>โฟลเดอร์ย่อยแต่ละอันของคุณอาจจะมี controller (ตัวควบคุม) แบบปริยาย(เรียกโดยอัติโนมัติ) ซึ่งจะถูกเรียกเมื่อมีการทำงานของโฟลเดอร์นั้นๆ ชื่อของ controller (ตัวควบคุม) แบปริยาย(เรียกโดยอัติโนมัติ) แบบง่ายๆที่จะระบุในไฟล์ <dfn>application/config/routes.php</dfn></p>
+  <p>CodeIgniter ยอมให้คุณกำหนดเส้นทางใหม่ให้กับ URI ของคุณโดยใช้ <a href="routing.html">URI Routing</a></p>
+  <h2><a name="constructors" id="constructors"></a>Class Constructors (ตัวสร้างคลาส)</h2>
+  <p>ถ้าคุณตั้งใจที่จะใช้ constructor (ตัวสร้าง) ใน controler (ตัวควบคุม)ของคุณ คุณ<strong>ต้อง</strong>ต้องนำโค้ดข้างล่างนี้ไปวางไว้ใน constructor (ตัวสร้าง)ของคุณ:</p><code>parent::Controller();</code>
+  <p>เหตุผลที่โค้ดนี้จำเป้นก็เพาะว่า constructor (ตัวสร้าง) ของคุณจะทับ constructor (ตัวสร้าง) ของคลาสแม่ ดังนั้นเราจึงต้องเรียก constructor (ตัวสร้าง) ของคลาสแม่เอง</p>
+  <p>&nbsp;</p>
+  <p>ถ้าคุณยังไม่คุ้นเคยกับ constructor (ตัวสร้าง) สักเท่าไหร่ ใน PHP 4 ,constructor (ตัวสร้าง) นั้นจะมีชื่อเหมือนกับชื่อคลาส:</p><code> &lt;?php<br />
+    class <kbd>Blog</kbd> extends Controller {<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function <kbd>Blog()</kbd><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<var>parent::Controller();</var><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+    }<br />
+    ?&gt;</code></p>
+  <p>ใน PHP5, constructor (ตัวสร้าง) จะใช้รูปแบบดังนี้:</p><code> &lt;?php<br />
+    class <kbd>Blog</kbd> extends Controller {<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function <kbd>__construct()</kbd><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<var>parent::Controller();</var><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+    }<br />
+    ?&gt;</code>
+  <p>Constructor (ตัวสร้าง)ต่างๆ เมื่อคุณต้องการการทำงานโดยอัติโนมัติตอนเริ่มต้นมันจะมีประโยชน์มาก หรือจะใช้ให้กระบวนการบางอย่างในคลาสทำงานโดยอัติโนมัติ constructor (ตัวควบคุม)นั้นมันไม่สามารถคืนค่าใดๆออกมาได้ มันแค่เอาไว้ทำงานโดยอัติโนมัติตอนเริ่มต้นเท่านั้น</p>
+  <p>&nbsp;</p>
+  <a name="reserved" id="reserved"></a>
+  <h2>ชื่อฟังก์ชันสงวน</h2>
+  <p>เมื่อ controller (ตัวควบคุม)ของคุณได้ขยายมากจาก controller (ตัวควบคุม) ของระบบ คุณต้องแน่ใจว่าชื่อฟังก์ชันของคุณจะไม่ไปซ้ำกับฟังก์ชันของคลาสระบบ มิฉะนั้นฟังก์ชันของคุณจะไปทับกับฟังก์ชันของระบบเอาซะ ดูรายชื่อ<a href="reserved_names.html">คำสงวน (Reserved Names)</a> ทั้งหมด</p>
+  <h2>นั่นแหละ!</h2>
+  <p>ทั้งหมดนั้นเป็นข้อมูลสรุปคร่าวๆของ controller (ตัวควบคุม)</p>
+</div>
+<!-- END CONTENT -->
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="urls.html">CodeIgniter URLs</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="reserved_names.html">คำสงวน</a></p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

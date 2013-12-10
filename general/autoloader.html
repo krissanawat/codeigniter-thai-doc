@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>การโหลดทรัพยากรแบบอัตโนมัติ CodeIgniter</title>
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='การโหลดทรัพยากรแบบอัตโนมัติ CodeIgniter' />
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+การโหลดทรัพยากรแบบอัตโนมัติ
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>การโหลดทรัพยากรแบบอัตโนมัติ</h1>
+
+<p>CodeIgniter มีความสามารถใน "การโหลดทรัพยากรแบบอัตโนมัติ" เพื่ออนุญาตเปิดใช้งานไลบราีรี่ (libraries), ผู้ช่วย (helpers), และ ส่วนเพิ่มเติม (plugins)
+แบบอัตโนมัติในทุกครั้งที่ระบบเริ่มทำงาน. ถ้าคุณแน่ใจว่าต้องการใช้ทรัพยากรเหล่านั้นผ่านแอพพลิเคชั่นของคุณบ่อยๆ คุณควรเปิดทิ้งไว้แบบอัตโนมัติ.</p>
+
+<p>รายการด้านล่างคือสิ่งที่คุณสามารถเปิดใช้งานได้อัตโนมัติ:</p>
+
+<ul>
+<li>คลาสหลัก (Core classes) สามารถพบได้ในโฟลเดอร์ "libraries"</li>
+<li>ไฟล์ผู้ช่วย (Helper files) สามารถพบได้ในโฟลเดอร์  "helpers"</li>
+<li>ส่วนเพิ่มเติม (Plugins) สามารถพบได้ในโฟลเดอร์ "plugins"</li>
+<li>ไฟล์ค่าของระบบ (Custom config files) สามารถพบได้ในโฟลเดอร์ "config"</li>
+<li>ไฟล์ภาษา (Language files) สามารถพบได้ในโฟลเดอร์ "system/language" </li>
+<li>แบบจำลอง (Models) สามารถพบได้ในโฟลเดอร์ &quot;models&quot;</li>
+</ul>
+
+<p>การเรียกทรัพยากรใช้อัตโนมัติ, เปิดไฟล์ <var>application/config/autoload.php</var> และทำการเพิ่มรายการที่คุณต้องการเรียกใช้งาน
+  <samp>อัตโนมัติ</samp> ในชุดข้อมูลอะเรย์ (array). คุณสามารถค้นหาชื่อได้จากที่อยู่ในรายการด้านบน และนำมากรอกตามแต่ละประเภทของทรัพยากร.</p>
+
+<p class="important"><strong>บันทึก:</strong> ให้ใส่แต่ชื่อเท่านั้น ไม่ต้องใส่นามสกุลของไฟล์ (.php).</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="hooks.html">Hooks(ตะขอ) - ขยายระบบหลัก</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="common_functions.html">ฟังก์ชันทั่วไป</a></p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

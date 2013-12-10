@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ทางเลือกการเขียนไวยากรณ์  PHP Syntax CodeIgniter</title>
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='ทางเลือกการเขียนไวยากรณ์  PHP Syntax CodeIgniter' />
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+ทางเลือกการเขียนไวยากรณ์ PHP
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>ทางเลือกการเขียนไวยากรณ์ PHP สำหรับไฟล์ View</h1>
+
+<p>ถ้าคุณไม่ได้ใช้ CodeIgniter's <a href="../libraries/parser.html">template engine</a> คุณก็จะใช้ได้เพียง PHP เพียงอย่างเดียวในไฟล์ View (ส่วนแสดง)  ในการลดการใช้โค้ด PHP ในไฟล์เหล่านี้และทำให้ง่ายต่อการค้นหาส่วนของโค้ดเราแนะนำให้คุณใช้ตัวเลือกของ PHP สำหรับไวยากรณ์ควบคุมโครงสร้างและการใช้ echo แบบสั้น ถ้าคุณไม่คุ้นกับไวยการณ์แบบนี้ มันทำให้คุณลบเครื่องหมายปีกกาไปจากโค้ดและรวมถึงลบการเขียนคำสั่ง &quot;echo&quot; ได้</p>
+
+<h2>สนับสนุนการใช้ลักษณะแบบสั้นแบบอัตโนมัติ</h2>
+
+<p><strong>ข้อสังเกตุ:</strong> ถ้าคุณพบว่าไวยากรณ์ในหน้าที่อธิบายอยู่นี้ไม่สามารถใช้กับเซิร์ฟเวอร์ของคุณได้ มันอาจหมายถึงคุณสมบัติ &quot;ลักษณะแบบสั้น (short tags)&quot; ถูกปิดอยู่ในไฟล์ PHP.ini. CodeIgniter จะเขียนใหม่เองอย่างอัตโนมัติ เพื่อให้คุณสามารถใช้ไวยากรณ์นี้โดยแม้แต่เครื่องเซิร์ฟเวอร์ของคุณไม่สนับสนุนเลยก็ตาม  โดยคุณสมบัตินี้สามารถถูกเปิดได้ในไฟล์
+<dfn>config/config.php</dfn></p>
+
+<p class="important">โดยสังเกตุว่าถ้าคุณใช้คุณสมบัตินี้ แล้วคุณพบข้อผิดพลาดภายใน<strong>ไฟล์ View</strong> ข้อความข้อผิดพลาดและบันทัดที่ผิดพลาดจะโชว์ขึ้นมาแทนที่ทุกข้อผิดพลาดที่ปกติถูกโชว์จาก ข้อผิดพลาดของ <kbd>eval()</kbd></p>
+
+
+<h2>ทางเลือก Echos</h2>
+
+<p>โดยปกติเวลาใช้ echo หรือ print ค่าของตัวแปรออกมาเราจะทำแบบนี้</p>
+
+<code>&lt;?php echo $variable; ?></code>
+
+<p>ด้วยทางเลือกไวยากรณ์เราสามารถแบบนี้ได้ (ไม่จำเป็นต้องเป็น CodeIgniter ถึงจะทำได้ด้วย ถ้าเซิร์ฟเวอร์ได้เปิดสนับสนุน short tags)</p>
+
+<code>&lt;?=$variable?></code>
+
+
+
+<h2>ทางเลือการควบคุมโครงสร้าง</h2>
+
+<p>การควบคุมโครงสร้าง เช่น <var>if</var>, <var>for</var>, <var>foreach</var>, และ <var>while</var> สามารถถูกเขียนได้ด้วยรูปแบบที่เรียบง่ายได้ด้วย นี้คือตัวอย่างการใช้งาน foreach</p>
+
+<code>
+&lt;ul><br />
+<br />
+<var>&lt;?php foreach($todo as $item): ?></var><br />
+<br />
+&lt;li><var>&lt;?=$item?></var>&lt;/li><br />
+<br />
+<var>&lt;?php endforeach; ?></var><br />
+<br />
+&lt;/ul></code>
+
+<p>สังเกตุว่าไม่มีเครื่องหมายปีกกา  และแทนที่จะใช้ปีกกาปิดเราใช้แทนด้วยคำว่า <var>endforeach</var>
+โดยการควบคุมโครงสร้างด้านบนเหมือนการใช้การปิดไวยาการณ์อื่นๆ
+<var>endif</var>, <var>endfor</var>, <var>endforeach</var>, และ <var>endwhile</var></p>
+
+<p>ข้อสังเกตุอีกนิดแทนที่เราจะใช้ semicolon(;) หลังจากแต่ละโครงสร้าง (ยกเว้นอันสุดท้าย), เราใช้ colon(:)  <span class="style1">ซึ่งสิ่งนี้เป็นสิ่งสำคัญ!</span></p>
+
+<p>นี้คืออีกตัวอย่างหนึ่งของการใช้ if/elseif/else. สังเกตุที่ colon(:)</p>
+
+
+<code><var>&lt;?php if ($username == 'sally'): ?></var><br />
+<br />
+&nbsp;&nbsp;&nbsp;&lt;h3>Hi Sally&lt;/h3><br />
+<br />
+<var>&lt;?php elseif ($username == 'joe'): ?></var><br />
+<br />
+&nbsp;&nbsp;&nbsp;&lt;h3>Hi Joe&lt;/h3><br />
+<br />
+<var>&lt;?php else: ?></var><br />
+<br />
+&nbsp;&nbsp;&nbsp;&lt;h3>Hi unknown user&lt;/h3><br />
+<br />
+<var>&lt;?php endif; ?></var></code>
+
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="environments.html">Handling Multiple Environments</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="security.html">ระบบรักษาความปลอดภัย</a>
+</p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

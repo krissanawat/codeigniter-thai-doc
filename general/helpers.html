@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Helper (ผู้ช่วย) CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Helper (ผู้ช่วย) CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+Helpers (ผู้ช่วย)
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>ฟังก์ชันต่างๆของผู้ช่วย</h1>
+
+<p>ผู้ช่วย เหมือนเป็นชื่อแนะนำ, ช่วยงานที่ยากๆของคุณ ผู้ช่วยแต่ละตัวเก็บฟังก์ชันต่างๆในแต่ละประเภทไว้ มี <dfn>URL Helpers</dfn> (ผู้ช่วยด้าน URL) ซึ่งช่วยในการสร้างการเชื่อมโยงต่างๆ, <dfn>Form Helpers</dfn> (ผู้ช่วยด้านแบบฟอร์ม) ซึ่งช่วยคุณสร้างสิ่งต่างๆในแบบฟอร์ม, <dfn>Text Helpers</dfn> ช่วยในการจัดรูปแบบของข้อความที่ใช้ประจำ, <dfn>Cookie Helpers</dfn> สร้างและอ่านค่าจาก คุ๊กกี้ (cookie), <dfn>File Helpers</dfn> ช่วยให้คุณติดต่อกับไฟล์ต่างๆ , และอื่นๆอีกมาก</p>
+<p>Helper (ผู้ช่วย)จะไม่เหมือนกับระบบส่วนมากใน CodeIgniter, Helper (ผู้ช่วย)ไม่ได้สร้างเป็นรูปแบบเชิงวัตถุ มันเป็นแค่ฟังก์ชัน ที่ใช้งานง่าย แต่ละฟังก์ชันของ helper (ผู้ช่วย) จะมีหน้าที่ในการปฏิบัติงานที่ชัดเจน(เฉพาะอย่าง) ซึ่งไม่ขึ้นกับฟังก์ชันอื่นๆเลย</p>
+<p>CodeIgniter ไม่ได้ทำการโหลด Helper (ผู้ช่วย)ให้เราโดยอัติโนมัติ ถ้าเราจะใช้ก่อนอื่นเราต้องโหลดมันมาไว้ก่อน โหลดแค่ครั้งเดียวเท่านั้น มันจะสามารถใช้ได้ทุกที่ทั้งใน <a href="../general/controllers.html">controller</a> (ตัวควบคุม)และ <a href="../general/views.html">view </a>(ส่วนแสดง)</p>
+
+<p>Helper (ผู้ช่วย)ต่างๆจะถูกเก็บไว้ใน <dfn>system/helpers</dfn>, หรือ <dfn>system/application/helpers</dfn> </p>
+
+<p>Helpers are typically stored in your <dfn>system/helpers</dfn>, or <dfn>system/application/helpers </dfn>CodeIgniter จะดูในส่วน <dfn>system/application/helpers</dfn> ก่อน ถ้าส่วนนี้ไม่มีหรือไม่ได้ถูกกำหนดให้ใช้ CI จึงจะไปดูในส่วน <dfn>system/helpers</dfn> แทน</p>
+
+
+<h2>โหลดผู้ช่วยมาใช้งาน</h2>
+
+<p>การโหลดผู้ช่วย(helper) นั้นง่ายมาก เพียงใช้ฟังก์ชันตามด้านล่างนี้เท่านั้น:</p>
+<code>$this->load->helper('<var>name</var>');</code>
+<p><var>name</var> เป็นชื่อไฟล์ผู้ช่วย(helper) ไม่ต้องใส่ส่วนขยาย .php หรือ เส้นทางไปหาไฟล์ helper (ผู้ช่วย)</p>
+<p>ตัวอย่าง, จะเป็นการโหลดไฟล์ <dfn>URL Helper (ผ้ช่วยด้าน URL)</dfn> ซึ่งมีชื่อไฟล์ว่า <var>url_helper.php</var> คำสั่งที่ใช้จะเป็นแบบนี้:</p>
+<code>$this->load->helper('<var>url</var>');</code>
+<p>ผู้ช่วยสามารถโหลดจากที่ไหนก็ได้ในฟังก์ชันต่างๆของ controller (ตัวควบคุม) (แม้กระทั้งใน View (ส่วนแสดง), ถึงแม้จะไม่ใช่วิธีที่ดีนักก็ตาม) คุณสามารถทำการโหลดผู้ช่วย ต่างๆมาไว้ ใน constructor (ตัวสร้าง)ได้ ซึ่งผู้ช่วยจะถูกโหลดโดยอัติโนมัต สามารถเรียกใช้ในฟังก์ชันไหนก็ได้ หรือคุณจะโหลดผู้ช่วย มาไว้ในเฉพาะฟังก์ชันที่คุณต้องการใช้เท่านั้นก็ได้</p>
+<p>&nbsp;</p>
+<p class="important">หมายเหตุ: การโหลด helper แบบข้างบนจะไม่มีการคืนค่าใดๆออกมาจากฟังก์ชัน ดังนั้นจึงไม่ต้องกำหนดตัวแปรมารับค่าจากเรียกใช้ฟังก์ชันในการโหลด helper (ผู้ช่วย) แค่โหลดมาเฉยๆก็พอ</p>
+
+<h2>โหลดหลายผู้ช่วย</h2>
+
+<p>ถ้าคุณต้องการโหลดผู้ช่วย มากกว่าหนึ่งตัว ก็สามารถใช้อาเรย์เข้ามาช่วยไ้ด้ ดังนี้:</p>
+<code>$this->load->helper( <samp>array(</samp>'<var>helper1</var>', '<var>helper2</var>', '<var>helper3</var>'<samp>)</samp> );</code>
+<h2>โหลดผู้ช่วยแบบอัตโนมัติ</h2>
+
+<p>ถ้าคุณพบว่าคุณต้องการใช้ผู้ช่วยตัวนั้นตลอดแอพพลิเคชันของคุณ คุณสามารถให้ CodeIgniter โหลดผู้ช่วย ตัวนั้นระหว่างช่วงการกำหนดค่าเริ่มต้นของระบบได้ ให้คุณเปิดไฟล์ <var>application/config/autoload.php</var> ขึ้นมาแล้วเพิ่มรายการที่จะทำการโหลดโดยอัติโนมัติเป็นอาเรย์</p>
+<code>$autoload['helper'] = array('url','array');</code>
+<h2>การใช้ผู้ช่วย</h2>
+
+<p>เมื่อคุณโหลดผู้ช่วยที่มีฟังก์ชันที่คุณตั้งใจจะใช้งานมาแล้ว คุณก็สามารถเรียกใช้ฟังก์ชันของผู้ช่วยนั้นๆ เหมือนกับเรียกฟังก์ชันปกติทั่วไป</p>
+<p>ตัวอย่าง, เป็นการสร้างจุดเชื่อมโยงด้วยฟังก์ชัน <dfn>anchor()</dfn> ในไฟล์ view (ส่วนแสดง) จะมีลักษณะดังนี้:</p>
+<code>&lt;?php echo anchor('blog/comments', 'Click Here');?&gt;</code>
+<p>ซึ่ง &quot;Click Here&quot;เป็นชื่อของจุดเชื่อมโยง ส่วน  &quot;blog/comments&quot; เป็น URI เพื่อเรียก contoller (ตัวควบคุม)ตัวไหน และฟังก์ชันอะไร (controller/function)</p>
+<h2>ขยายการทำงานให้กับผู้ช่วย</h2>
+
+<p>ในการขยายการทำงานให้กับผู้ช่วย คุณต้องสร้างไฟล์ไว้ในโฟลเดอร์ <dfn>application/helpers/</dfn> ที่มีชื่อเดียวกับไฟล์ helper ที่คุณต้องการเพิ่มเติมการทำงานอื่นๆลงไป แต่ให้ใช้ <kbd>MY_</kbd> นำหน้าชื่อไฟล์นั้นแทน (สามารถทำการตั้งค่าได้ ดูด้านล่าง)</p>
+<p>เสร็จแล้ว ที่คุณต้องการก็คือเพิ่มฟังก์ชันสักอันเข้าไป บางทีอาจจะเพิ่มหนึ่งหรือสองฟังก์ชัน หรือเปลี่ยนแปลงฟังก์ชันที่มีอยู่แล้วเพื่อให้ได้ลักษณะการทำงานใหม่ี่่คุณต้องการ ดังนั้นมันเป็นการเสียเวลามากเกินไปในการทับผู้ช่วยทั้งหมดด้วยเวอร์ชั่นของคุณเอง โดยในตัวอย่างนี้มันง่ายที่จะขยายการทำงานไปในผู้ช่วย การทำงานของผู้ช่วยนั้นยอมให้คุณเพิ่มฟังก์ชันหรือแก้ไขการทำงานแบบเก่าได้</p>
+<p>ตัวอย่างเช่น, ในการจะต่อเติม <kbd>Array Helper</kbd> ให้คุณสร้างไฟล์ชื่อ <dfn>application/helpers/</dfn><kbd>MY_array_helper.php</kbd>, และเขียนเพิ่มหรือทับฟังก์ชัน</p>
+
+<code>
+// any_in_array() is not in the Array Helper, so it defines a new function<br />
+function any_in_array($needle, $haystack)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$needle = (is_array($needle)) ? $needle : array($needle);<br />
+	<br />
+&nbsp;&nbsp;&nbsp;&nbsp;foreach ($needle as $item)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (in_array($item, $haystack))<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return TRUE;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+	<br />
+&nbsp;&nbsp;&nbsp;&nbsp;return FALSE;<br />
+}<br />
+<br />
+// random_element() is included in Array Helper, so it overrides the native function<br />
+function random_element($array)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;shuffle($array);<br />
+&nbsp;&nbsp;&nbsp;&nbsp;return array_pop($array);<br />
+}<br />
+</code>
+
+<h3>ตั้งคำนำหน้าด้วยตัวคุณเอง</h3>
+
+<p>ชื่อไฟล์นำหน้าสำหรับเพิ่มเติมผู้ช่วยเหมือนกับการใช้เพื่อเพิ่มไลบรารี่ลงไปยังคลาสหลักของระบบ การที่จะตั้งค่าคำนำหน้าของคุณนั้นให้เปิดไฟล์ <dfn>application/config/config.php</dfn> และมองหาสิ่งนี้</p>
+
+<code>$config['subclass_prefix'] = 'MY_';</code>
+
+<p>โปรดสังเกตุว่าทุกๆไลบรารี่ของ CodeIgniter จะมีคำนำหน้าเป็น <kbd>CI_</kbd> ดังนั้นอย่าใช้คำนี้เป็นคำนำหน้าของคุณ</p>
+
+
+<h2>แล้วไงต่อ?</h2>
+
+<p>ในตารางเนื้อหาต่างๆ คุณจะพบรายการทั้งหมดของไฟล์ผู้ช่วย (Helper Files) ลองเข้าไปอ่านโดยคร่าวๆเพื่อรู้ว่าแต่ละอันทำงานอะไร</p>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="models.html">Models (แบบจำลอง)</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="libraries.html">วิธีใช้ไลบรารี่ของ CodeIgniter</a>
+</p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

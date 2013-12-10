@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ขั้นตอนการติดตั้ง CodeIgniter</title>
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='ขั้นตอนการติดตั้ง CodeIgniter' />
+</head>
+<body>
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+ขั้นตอนการติดตั้ง
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน &nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+<!-- START CONTENT -->
+<div id="content">
+<h1>ขั้นตอนการติดตั้ง</h1>
+<p>CodeIgniter ติดตั้งเสร็จได้ภายใน 4 ขั้นตอน :</p>
+<ol>
+    <li>แตกไฟล์ zip</li>
+    <li>อัพโหลดไฟล์และโฟลเดอร์ไปยังเซิร์ฟเวอร์ของคุณ โดยปกติ index.php จะต้องอยู่ชั้นแรกสุดเสมอ</li>
+    <li>เปิดไฟล์ application/config/config.php ด้วยตัวแก้ไขเนื้อหา (Text Editor) และตั้งค่าที่ตั้ง URL(Base URL) ถ้าคุณตั้งใจจะใช้การเข้ารหัสหรือเซสชั่น ให้ตั้งค่าคีย์เข้ารหัส</li>
+    <li>ถ้าคุณตั้งใจจะใช้ฐานข้อมูล เปิดไฟล์ application/config/database.php ด้วยตัวแก้ไขเนื้อหา (Text Editor) และตั้งค่าฐานข้อมูล</li>
+</ol>
+
+<p>ถ้าคุณปราถนาที่จะเพิ่มความปลอดภัยในการหลบซ่อนที่อยู่ของไฟล์ CodeIgniter คุณสามารถเปลี่ยนชื่อโฟลเดอร์ system ไปเป็นบางอย่างที่เป็นส่วนตัว ถ้าคุณเปลี่ยนชื่อมัน คุณต้องเปิดไฟล์ index.php และตั้งค่าตัวแปร <samp>$system_folder</samp> ซึ่งอยู่ด้านบนของหน้าไปเป็นชื่อที่คุณได้เลือกเปลี่ยนไป</p>
+
+<p>สำหรับการรักษาความปลอดภัยที่ดีที่สุดทั้งระบบและแอพลิเคชัน สามารถสร้างไฟล์ .htaccess ในโฟลเดอร์ที่จะช่วยป้องกันการเข้าถึงโดยตรง หรือ ในกรณีที่เว็บเซิร์ฟเวอร์เปลี่ยนแปลงการกำหนดค่าหรือไม่ปฏิบัติตาม .htaccess</p>
+
+<p>คุณสามารถย้าย system, โดยการเปิดไฟล์ <kdb>index.php</kbd> ค้นหาตัวแปรชื่อ <samp>$system_folder</samp> และ <samp>$application_folder</samp> และแก้ไข path ลิ้งไปยังที่อยู่ เช่น '<dfn>/www/MyUser/system</dfn>'</p>
+
+<p>อีกหนึ่งวิธีคือการปิดการรายงานข้อผิดพลาด PHP และอื่น ๆ ที่พัฒนาฟังก์ชั่นเท่านั้น ใน CodeIgniter นี้สามารถทำได้โดยการตั้งค่าคงที่สภาพแวดล้อมซึ่งจะอธิบายเพิ่มเติมอย่างเต็มที่ในระบบรักษาความปลอดภัย</p>
+
+<p>ใช้งานให้สนุุกนะครับ ^^</p>
+
+<p>หากคุณเพิ่งเริ่มต้นใช้งาน แนะนำให้อ่านคู่มือให้ละเอียดก่อนนะครับ</p>
+
+</div>
+<!-- END CONTENT -->
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="../installation/downloads.html">ดาวน์โหลด CodeIgniter</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="upgrading.html">อัพเกรดจากเวอร์ชั่นเก่า</a>
+</p>
+
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

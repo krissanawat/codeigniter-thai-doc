@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CodeIgniter คุณสมบัติเด่นที่สนับสนุน</title>
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='CodeIgniter คุณสมบัติเด่นที่สนับสนุน' />
+</head>
+<body>
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+คุณสมบัติเด่นที่สนับสนุน
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน &nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>คุณสมบัติเด่นที่มีใน CodeIgniter</h1>
+
+<p>การดูคุณสมบัติต่างๆในตัวมันเองเป็นการตัดสินแอพพลิเคชั่นที่ไม่ดีเลย ตั้งแต่ที่พวกเขาไม่ได้บอกคุณถึงประสบการณ์ของผู้ใช ้หรือว่าตัวมันเองถูกออกแบบมาได้อย่างไรหรือฉลาดเพียงใด คุณสมบัติไม่ได้เปิดเผยคุณภาพของโค้ดหรือประสิทธิภาพ หรือรายละเอียดอื่นๆหรือแม้แต่วิธีปฎิบัติเรื่องความปลอดภัย ทางที่จะตัดสินแอพคือการลองใช้มันและรู้โค้ด <a href="../installation/">การติดตั้ง</a> CodeIgniter เป็นของง่ายดังนั้นเราจึงสนับสนุนให้คุณลองทำดู นี้คือคุณสมบัติหลักที่มีใน CodeIgniter ตอนนี้</p>
+
+<ul>
+<li>ระบบบนพื้นฐาน Model-View-Controller</li>
+<li>รองรับ PHP 4</li>
+<li>แอพพลิเคชั่นเบาสุดขีด</li>
+<li>คุณสมบัติครบถ้วนสำหรับฐานข้อมูลและสนับสนุนหลายแพลตฟอร์ม</li>
+<li>สนับสนุนการใช้ฐานข้อมูลแบบ Active Record</li>
+<li>การตรวจสอบฟอร์มและข้อมูล</li>
+<li>ความปลอดภัยและระบบกลั่นกรอง XSS (Cross Site Scripting)</li>
+<li>การจัดการ Session</li>
+<li>คลาสส่งอีเมล์ สนับสนุนการแนบไฟล์ , อีเมล์แบบ HTML/Text , รองรับหลายโปรโตคอลพร้อมกัน (ส่งเมล์, SMTP, และ Mail) และอีกมาก</li>
+<li>ไลบรารี่จัดการรูปภาพ (ตัด , ย่อ, หมุน, ฯลฯ).  สนับสนุน GD, ImageMagick, และ NetPBM</li>
+<li>คลาสอัพโหลดไฟล์ (<a href="../libraries/file_uploading.html">File Uploading Class</a>)</li>
+<li>FTP Class (คลาส FTP)</li>
+<li>Localization (หรือการทำหลายภาษา)</li>
+<li>Pagination (หมายเลขหน้า)</li>
+<li>Data Encryption (การเ้ข้ารหัสข้อมูล)</li>
+<li>Benchmarking (การทดสอบเพื่อวัดความสามารถในการประมวลผล)</li>
+<li>Full Page Caching (การเก็บหน้าทั้งหน้าอยู่ในแคช)</li>
+<li>Error Logging (การบันทึกข้อผิดพลาด)</li>
+<li>Application Profiling (การรวบรวมรายละเอียดของแอพพลิเคชั่น)</li>
+<li>Scaffolding (การทำโครงยกพื้น)</li>
+<li>Calendaring Class (คลาสปฎิทิน)</li>
+<li>User Agent Class (คลาสตัวแทนผู้ใช้)</li>
+<li>Zip Encoding Class (คลาสเข้ารหัส zip)</li>
+<li>Template Engine Class (คลาสกลไลแม่แบบ)</li>
+<li>Trackback Class (คลาสระบบติดตามลิงค์กลับ)</li>
+<li>XML-RPC Library (ไลบรารี่ XML-RPC)</li>
+<li>Unit Testing Class (คลาสทดสอบเฉพาะหน่วย)</li>
+<li>URL ที่เป็นมิตรกับเซิร์ชเอนจิ้น</li>
+<li>เส้นทาง URI ที่ยืดหยุ่น</li>
+<li>สนับสนุนสำหรับ Hooks - (ตะขอ), สอบขยายคลาสและ Plugins</li>
+<li>ไลบรารี่ขนาดใหญ่สำหรับฟังก์ชั่น &quot;ผู้ช่วย&quot;</li>
+</ul>
+</div>
+<!-- END CONTENT -->
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="cheatsheets.html">แผ่นโกง CodeIgniter</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="appflow.html">ขั้นตอนการทำงานของแอพพลิเคชั่น</a>
+</p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

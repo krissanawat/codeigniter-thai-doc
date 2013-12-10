@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ฟังก์ชันทั่วไป CodeIgniter</title>
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='ฟังก์ชันทั่วไป CodeIgniter' />
+</head>
+<body>
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+ฟังก์ชันทั่วไป
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>ฟังก์ชันทั่วไป</h1>
+
+<p>CodeIgniter มีฟังก์ชันที่ถูกประกาศใช้งานได้ในทุกๆที่และคุณสามารถใช้มันได้ตลอดทุกจุด โดยสิ่งนี้ไม่ต้องการโหลดไลบรารี่หรือผู้ช่วย</p>
+
+<h2>is_php('<var>version_number</var>')</h2>
+<p>is_php() ตรวจสอบเวอร์ชั่น PHP ที่ถูกใช้อยู่ว่าเกินกว่า <var>ตัวเลขเวอร์ชั่น</var> ที่กำหนดหรือไม่</p>
+<code>if (is_php('5.3.0'))<br/>
+{<br/>
+    $str = quoted_printable_encode($str);<br/>
+}</code>
+<p>คืนค่าเป็น <kbd>TRUE</kbd> ถ้าเวอร์ชั่น PHP ที่ติดตั้งมีค่าเท่ากับหรือมากกว่าตัวเลขเวอร์ชั่น คืนค่าเป็น  <kbd>FALSE</kbd> ถ้าเวอร์ชั่น PHP ที่ติดตั้งมีค่าน้อยกว่าตัวเลขเวอร์ชั่น</p>
+
+<h2>is_really_writable('<var>path/to/file</var>')</h2>
+<p>is_writable() คืนค่าเป็น TRUE บน Windows servers
+เมื่อคุณไม่สามารถเขียนไฟล์นี้ได้จริงๆ แต่จะคืนค่าเป็น FALSE
+ก็ต่อเมื่อไฟล์มีการตั้งค่าเป็น read-only(อ่านได้อย่างเดียว)
+ดังนั้นจึงอาจเกิดความผิดพลาดได้ดังนั่น
+ฟังก์ชันนี้จะตัดสินใจว่ามันถูกเขียนได้ไหมจากการลองที่จะเขียนจริงๆ
+โดยทั่วไปแนะนำให้ใช้กับแพลตฟอร์มที่ข้อมูลนี้อาจจะไม่ปลอดภัย</p>
+<code>if (is_really_writable('file.txt'))<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo "I could write to this if I wanted to";<br />
+}<br />
+else<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo "File is not writable";<br />
+}</code>
+<h2>config_item('<var>item_key</var>')</h2>
+<p><a href="../libraries/config.html">Config library</a>
+มีความสำคัญมากกว่าในการเข้าถึงข้อมูลปรับแต่งต่างๆ แต่อย่างไรก็ตาม
+config_item() สามารถถูกใช้เพื่อรับข้อมูลเพียงตัวเดียว
+ดูข้อมูลเพิ่มเติมได้ที่หน้า <a href="../libraries/config.html">Config library</a>&nbsp;</p>
+<h2>show_error('<var>message</var>'), show_404('<var>page</var>'), log_message('<var>level</var>', '<samp>message</samp>')</h2>
+<p>ฟังก์ชันเหล่านี้ถูกสรุปไว้ในหน้า&nbsp;<a href="errors.html">รับมือกับข้อผิดพลาด</a>&nbsp;</p>
+
+<h2>set_status_header(<var>code</var>, '<var>text</var>');</h2>
+<p>อนุญาตให้คุณตั้งค่าหัวสถานะของเซิร์ฟเวอร์ (Header Status) ได้เองตัวอย่างเช่น</p>
+<code>set_status_header(401);<br/>
+// ตั้งค่าหัวสถานะเป็น:  ไม่มีสิทธิเข้า(Unauthorized)</code>
+<p><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">อ่านเพิ่มเติมได้ที่นี้</a> สำหรับรายการของหัวสถานะทั้งหมด</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="autoloader.html">การโหลดทรัพยากรแบบอัตโนมัติ</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="routing.html">การกำหนดเส้นทาง URI</a></p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

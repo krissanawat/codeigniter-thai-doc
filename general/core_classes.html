@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Creating Core System Classes : CodeIgniter User Guide</title>
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='CodeIgniter User Guide' />
+</head>
+<body>
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+สร้างคลาสสำหรับส่วนสำคัญของระบบ
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>สร้างคลาสสำหรับส่วนสำคัญของระบบ</h1>
+
+<p>ทุกๆครั้งที่ CodeIgniter รันมีคลาสอยู่หลายคลาสถูกสร้างขึ้นแบบอัตโนมัติซึ่งเป็นส่วนสำคัญของระบบ
+มันเป็นไปได้ที่คุณจะปรับเปลี่ยนแก้ไขระบบหลักหรือขยายระบบหลักเป็นในแบบของคุณเอง</p>
+
+<p><strong>ผู้ใช้ส่วนใหญ่จะไม่ต้องใช้สิ่งนี้แต่มันเป็นทางเลือกที่จะแทนที่หรือเพิ่มเติมความสามารถระบบหลักของ CodeIgniter</strong><strong>.</strong></p>
+
+<p class="important"><strong>หมายเหตุ:</strong>&nbsp; การยุ่งกับคลาสส่วนระบบสำคัญของระบบมีสิ่งที่เกี่ยวข้องหลายอย่าง ดังนั้นให้คุณแน่ใจว่าคุณกำลังทำอะไรอะอยู่ก่อนทดลองมัน</p>
+
+
+<h2>รายชื่อคลาสของระบบ</h2>
+
+<p>รายชื่อต่อไปนี้คือไฟล์ระบบหลักซึ่งถูกใช้งานทุกๆครั้งที่รัน CodeIgniter</p>
+
+<ul>
+<li>Benchmark</li>
+<li>Config</li>
+<li>Controller</li>
+<li>Exceptions</li>
+<li>Hooks</li>
+<li>Input</li>
+<li>Language</li>
+<li>Loader</li>
+<li>Log</li>
+<li>Output</li>
+<li>Router</li>
+<li>URI</li>
+</ul>
+
+<h2>แทนที่คลาสหลัก</h2>
+
+<p>การใช้คลาสระบบหลักของคุณเองนอกเหนือจากการใช้ของเดิมที่มีอยู่แล้วให้คุณเพียงใส่คลาสของคุณไปในไดเรคทอรี่ <dfn>application/libraries</dfn>:</p>
+
+<code>application/libraries/<dfn>some-class.php</dfn></code>
+
+<p>ถ้ายังไม่มีไดเรคทอรี่นี้ให้คุณสร้างมันขึ้นมา</p>
+
+<p>ชื่อไฟล์ใดๆที่มีชื่อเหมือนกับรายการด้านบนจะถูกใช้แทนอันเดิมที่มีอยู่แล้ว</p>
+
+<p>โปรดสังเกตุว่าคลาสของคุณจะต้องใช้คำว่า <kbd>CI</kbd> เป็นคำนำหน้า ยกตัวอย่างเช่น ถ้าุไฟล์ของคุณชื่อ <kbd>Input.php</kbd> คลาสจะมีชื่อว่า:</p>
+
+<code>
+class CI_Input {<br /><br />
+
+}
+</code>
+
+
+
+<h2>ขยายคลาสหลัก</h2>
+
+<p>ถ้าความต้องการทั้งหมดของคุณต้องการเพิ่มฟังก์ชั่นบางอย่างให้กับไลบรารี่  ที่มีอยู่แล้ว - บางทีอาจจะเพิ่มสักหนึ่งหรือสองฟังก์ชั่น -  ดังนั้นมันเป็นการมากเกินไปที่จะแทนที่ไลบรารี่ทั้งหมดด้วบแบบฉบับของคุณ  ในกรณีี้นี้มันเป็นการดีกว่าที่คุณเพียงขยายคลาสเท่านั้น  การขยายคลาสใกล้เคียงกับการแทนที่คลาสซึ่งมาพร้อมกับข้อยกเว้นบางอย่าง</p>
+
+<ul>
+<li>คลาสที่ประกาศจะต้องขยายมาจากคลาสพ่ิอแม่</li>
+<li>คลาสใหม่ของคุณจะต้องมีคำนำหน้าชื่อและชื่อไฟล์ด้วยคำว่า<kbd> MY_</kbd> (สิ่งนี้สามารถแก้ไขได้ดูด้านล่าง).</li>
+</ul>
+
+<p>ยกตัวอย่างเช่น, ในการที่จะขยายคลาส <kbd>Input</kbd> คุณจะต้องสร้างชื่อไฟล์ชื่อ <dfn>application/libraries/</dfn><kbd>MY_Input.php</kbd>, และประกาศคลาสดังนี้:</p>
+
+<code>
+class MY_Input extends CI_Input {<br /><br />
+
+}</code>
+
+<p>หมายเหตุ: ถ้าคุณต้องการใช้ตัวสร้างคลาสภายในคลาสของคุณ ให้แน่ใจว่าคุณขยายมาจากตัวสร้างคลาสพ่อแม่:</p>
+
+<code>
+class MY_Input extends CI_Input {<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;function My_Input()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent::CI_Input();<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+}</code>
+
+<p class="important"><strong>เคล็ดลับ:</strong>&nbsp; ถ้าฟังก์ชั่นไหนในคลาสของคุณมีชื่อเหมือนคลาสพ่อแม่ ฟังก์ชั่นนั้นจะถูกใช้แทนของเดิมของพ่อแม่ 
+(สิ่งนี้เรียกว่า &quot;ลบล้างวิธีการ&quot; [method overriding]).
+สิ่งนี้ยินยอมให้คุณปรับเปลี่ยนระบบหลักของ CodeIgniter อย่างเป็นชิ้นเป็นอัน</p>
+
+<p>ถ้าคุณทำการขยายคลาสควบคุมหลัก (Controller core class), ดังนั้นให้แน่ใจว่าคุณเรียกคลาสใหม่ของคุณในตัวสร้างคลาสควบคุมแอพพลิเคชั่นของคุณด้วย</p>
+
+<code>class Welcome extends MY_Controller {<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;function Welcome()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent::MY_Controller();<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;function index()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->load->view('welcome_message');<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+}</code>
+
+<h3>ตั้งค่าคำนำหน้าของคุณ</h3>
+
+<p>สำหรับการตั้งค่าคำนำหน้าของคลาสรองของคุณ ให้เปิดไฟล์ application/config/config.php และมองหาสิ่งนี้</p>
+
+<code>$config['subclass_prefix'] = 'MY_';</code>
+
+<p>สังเกตุว่าไลบรารี่พื้นฐานของ CodeIgniter มีคำนำหน้าว่า  CI_ ดังนั้นอย่าใช้มันเป็นคำนำหน้าของคุณ</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="creating_libraries.html">สร้างไลบรารี่ของคุณเอง</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="hooks.html">Hooks (ตะขอ) - ขยายระบบหลั</a>
+</p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

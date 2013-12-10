@@ -1,0 +1,629 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>แนะนำวิธีเขียน PHP  CodeIgniter</title>
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+<style type="text/css" media="screen">code{white-space: pre;}</style>
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='แนะนำวิธีเขียน PHP CodeIgniter' />
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+แนะนำวิธีเขียน PHP 
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>รูปแบบทั่วไปและไวยากรณ์</h1>
+
+<p>หน้านี้อธิบายกฎของการเขียนโค้ดซึ่งใช้กับการพัฒนาด้วย CodeIgniter</p>
+
+<h2>เนื้อหาต่างๆ</h2>
+<ul class="minitoc">
+	<li><a href="#php_closing_tag">การปิดแท็ก PHP</a></li>
+	<li><a href="#class_and_method_naming">การตั้งชื่อคลาสและเมธอด</a></li>
+	<li><a href="#variable_names">ชื่อตัวแปร</a></li>
+	<li><a href="#commenting">การใส่ข้อคิดเห็นหรือคำอธิบาย</a></li>
+	<li><a href="#constants">ค่าคงที่</a></li>
+	<li><a href="#true_false_and_null">TRUE, FALSE, และ NULL</a></li>
+	<li><a href="#logical_operators">ตัวดำเนินตรรกะ</a></li>
+	<li><a href="#comparing_return_values_and_typecasting">เปรียบเทียบค่าที่คืนกลับมาและการเปลี่ยนรูปแบบ</a></li>
+	<li><a href="#debugging_code">ตรวจสอบโค้ด</a></li>
+	<li><a href="#whitespace_in_files">ช่องว่างในไฟล์</a></li>
+	<li><a href="#compatibility">ความเข้ากันได้</a></li>
+	<li><a href="#class_and_file_names_using_common_words">ตั้งชื่อคลาสและไฟล์ด้วยคำทั่วไป</a></li>
+	<li><a href="#database_table_names">ตั้งชื่อตารางฐานข้อมูล</a></li>
+	<li><a href="#one_file_per_class">หนึ่งไฟล์หนึ่งคลาส</a></li>
+	<li><a href="#whitespace">ช่องว่าง</a></li>
+	<li><a href="#line_breaks">ขึ้นบรรทัดใหม่</a></li>
+	<li><a href="#code_indenting">ย่อหน้าโค้ด</a></li>
+	<li><a href="#bracket_spacing">เครื่องหมายก้ามปูและวงเล็บ</a></li>
+	<li><a href="#localized_text_in_control_panel">เนื้อหาเฉพาะพื้นที่ในแผงควบคุม</a></li>
+	<li><a href="#private_methods_and_variables">เมธอดและตัวแปรส่วนตัว</a></li>
+	<li><a href="#php_errors">ข้อผิดพลาดของ PHP</a></li>
+	<li><a href="#short_open_tags">การใช้แท็กแบบสั้น</a></li>
+	<li><a href="#one_statement_per_line">หนึ่งงานหนึ่งบรรทัด</a></li>
+	<li><a href="#strings">สตริง</a></li>
+	<li><a href="#sql_queries">คิวรี่ SQL</a></li>
+	<li><a href="#default_function_arguments">ค่าที่ถูกเลือกอัตโนมัติสำหรับส่งไปยังฟังก์ชัน</a></li>
+	<li><a href="#overlapping_tag_parameters">การทับซ้อนของแท็กตัวแปร</a></li>
+</ul>
+
+<h2><a name="php_closing_tag"></a>การปิดแท็ก PHP</h2>
+		<div class="guidelineDetails">
+			<p>แท็กปิด PHP ในเอกสาร PHP (<strong>?&gt;</strong>) ซึ่งเป็นทางเลือกหนึ่งของ  PHP parser  อย่างไรก็ตามถ้าใช้มัน whitespace ที่ตามหลังมันอาจจะทำให้เกิดผลลัพธ์ที่ไม่ถูกต้องหรือ PHP errors ได้หรือถูกระงับในภายหลัง ด้วยเหตุผลเหล่านี้ไฟล์ PHP ทุกไฟล์ควร<strong>ละเลย</strong>การปิดแท็ก PHP และใช้การแทรกคำอธิบาย (comment) ลงไปในตำแหน่งจุดสิ้นสุดของไฟล์และบอกที่อยู่ของมันโดยขึ้นอยู่ภายใต้ application root.
+				สิ่งนี้จะทำให้คุณค้นพบไฟล์ได้สะดวกไม่ถูกตัดโดย PHP parser</p>
+<code><strong>วิธีที่ไม่ถูกต้อง</strong>:
+&lt;?php
+
+echo "Here's my code!";
+
+?&gt;<strong> <br />
+วิธีที่ถูกต้อง</strong>:
+&lt;?php
+
+echo "Here's my code!";
+
+/* End of file myfile.php */
+/* Location: ./system/modules/mymodule/myfile.php */
+</code>
+		</div>
+
+	
+		<h2><a name="class_and_method_naming"></a>การตั้งชื่อคลาสและเมธอด</h2>
+		<div class="guidelineDetails">
+			<p>ชื่อคลาสควรจะตั้งตัวอักษรแรกเป็นตัวพิมพ์ใหญ่ และเมธอดตัวสร้าง (constructor) จะต้องตรงกัน  ถ้ามีหลายคำควรแ่บ่งแยกคำด้วย underscore(_), และไม่ใช่แบบตัวอักษรแรกของคำเป็นตัวพิมพ์ใหญ่ เช่น CamelCased.  โดยเมธอดส่วนที่เหลือภายในคลาสจะต้องเป็นตัวเล็กและถูกตั้งชื่ออย่างชัดเจนเพื่อแดสงการทำงาน โดยเฉพาะอย่างยิ่งมีการใส่คำกริยา(verb)ลงไป  พยายามหลีกเลี่ยงคำจำนวนมากและชื่อที่ใช้คำมากเกินไป</p>
+
+	<code><strong>วิธีที่ไม่ถูกต้อง</strong>:
+class superclass
+class SuperClass<strong> <br />
+วิธีที่ถูกต้อง</strong>:
+class Super_class</code>
+
+		  <p>สังเกตุว่าคลาสและเมธอดตัวสร้าง(constructor method) จะต้องเหมือนกันทั้งชื่อและตัวพิมพ์</p>
+
+	<code>class Super_class {
+
+	function Super_class()
+	{
+
+	}
+}</code>
+
+			<p>ตัวอย่างการตั้งชื่อเมธอด</p>
+
+	<code><strong>วิธีที่ไม่ถูกต้อง</strong>:
+function fileproperties()		// ไม่ได้ถูกบรรยายและต้องการ underscore(_) เพื่อแยกคำ 
+function fileProperties()		// ไม่ได้ถูกบรรยายและใช้แบบ CamelCase (ตัวอักษรแรกของคำเป็นตัวพิมพ์ใหญ่) 
+function getfileproperties()		// ดีขึ้นแต่ยังขาด underscore(_) เพื่อแยกคำ 
+function getFileProperties()		// ใช้ CamelCase 
+function get_the_file_properties_from_the_file()	// ใช้คำเยอะเกินไป<strong><br />
+วิธีที่ถูกต้อง</strong>:
+function get_file_properties()	// บรรยายดี, ใช้ underscore(_) เพื่อแยกคำ, และเป็นตัวอักษรพิมพ์เล็กทั้งหมด</code>
+
+		</div>
+	
+	
+		<h2><a name="variable_names"></a>ชื่อตัวแปร</h2>
+		<div class="guidelineDetails">
+			<p>นโยบายการตั้งชื่อมีลักษณะใลก้เคียงกับการตั้งเมธอดของคลาส  โดยชื่อจะต้องมีเฉพาะอักษรพิมพ์เล็กใช้ underscore(_) ในการแยกคำและตั้งชื่ออย่างมีเหตุผลเพื่อแสดงจุดประสงค์และเนื้อหา โดยใช้คำสั้นๆ และใช้คำยกเว้นตัวแปรที่ต้องใช้ใน for() loops</p>
+<code><strong>วิธีที่ไม่ถูกต้อง</strong>:
+$j = &apos;foo&apos;;		// ตัวแปรมีอักษรเดียวถ้าจะใช้ก็ใช้ใน for() loops เท่านั้น
+$Str			// มีตัวอักษรแบบพิมพ์ใหญ่
+$bufferedText		// ใช้ CamelCase และควรจะทำให้สั้นกว่านี้โดยไม่เสียความหมายเดิม
+$groupid		// หลายคำ แต่ไม่มี underscore(_)
+$name_of_last_city_used	// ยาวเกินไป
+
+<strong>วิธีที่ถูกต้อง</strong>:
+for ($j = 0; $j &lt; 10; $j++)
+$str
+$buffer
+$group_id
+$last_city
+</code>
+		</div>
+	
+	
+		<h2><a name="commenting"></a>การใส่ข้อคิดเห็นหรือคำอธิบาย</h2>
+		<div class="guidelineDetails">
+			<p>โดยปกติ , โค้ดควรที่จะถูกเขียนคำอธิบายอย่างสมบูรณ์ มันไม่ช่วยแค่อธิบายการทำงานหรือเจตนาของโค้ดสำหรับโปรแกรมเมอร์ที่มีประสบการณ์น้อยเท่านั้น แต่มันสามารถตรวจสอบสิ่งที่ประเมิณไม่ได้เมื่อคุณกลับมาดูโค้ดของตัวเองหลังจากผ่านไปหลายเดือน  ไม่มีรูปแบบตายตัวสำหรับการใส่ข้อคิดเห็นหรือคำอธิบายแต่ทำตามแบบถัดไปนี้เป็นข้อแนะนำ</p>
+
+			<p> รูปแบบการใส่ข้อคิดเห็นหรือคำอธิบายแบบ<a href="http://manual.phpdoc.org/HTMLSmartyConverter/HandS/phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#basics.docblock"> DocBlock</a> ที่มาก่อนการประกาศคลาสและเมธอดเป็นที่ถูกเลือกใช้งานใน  IDE หลายตัว:</p>
+
+<code>/**
+ * Super Class
+ *
+ * @package		ชื่อแพคเกจ
+ * @subpackage	แพคเกจย่อย
+ * @category		หมวดหมู่
+ * @author		ชื่อผู้จัดทำ
+ * @link			http://example.com
+ */
+class Super_class {</code>
+
+<code>/**
+ * เข้ารหัสสตริงเพื่อใช้ใน XML
+ *
+ * @access	public
+ * @param	string
+ * @return	string
+ */
+function xml_encode($str)</code>
+
+		  <p>ใช้การใส่ความคิดเห็นหรือคำอธิบายเพียงบรรทัดในส่วนของโค้ด และให้ปล่อยบรรทัดว่างไว้ระหว่างข้อคิดเห็นจำนวนมากและโค้ด</p>
+
+<code>// แยกสตริงด้วยบรรทัดใหม่
+$parts = explode("\n", $str);
+
+// เป็นข้อคิดเห็นที่ยาวซึ่งต้องบอกข้อมูลให้ชัดเจนมากขึ้นว่าเกิดอะไรขึ้น
+// และทำไมถึงใช้หลายการแสดงข้อคิดเห็นแบบบรรทัดเดียว(single-line comments)
+// โดยพยายามจำกัดความกว้างอย่างมีเหตุมีผล โดยใช้ตัวอักษรประมาณ 70 ตัวอักษร
+// เพื่อให้อ่านง่ายที่สุด และอย่าลังเลที่จะลิงค์แหล่งข้อมูลภายนอก ถ้ามันรายละเอียดที่ดีกว่า
+//
+// http://example.com/information_about_something/in_particular/
+
+$parts = $this->foo($parts);
+</code>
+		</div>
+	
+	
+		<h2><a name="constants"></a>ค่าคงที่</h2>
+		<div class="guidelineDetails">
+		  <p>ค่าคงที่ให้ทำตามแบบเดียวกับข้อแนะนำให้การสร้างตัวแปร ยกเว้นเรื่องหนึ่งคือค่าคงที่จะต้องเป็นตัวใหญ่พิมพ์ใหญ่ทั้งหมดเสมอ.  <em>ใช้ค่าคงที่มีในเตรียมไว้ใน ExpressionEngine อย่างสม่ำเสมอ เช่น SLASH, LD, RD, PATH_CACHE, etc.</em></p>
+<code><strong>วิธีที่ไม่ถูกต้อง</strong>:
+myConstant	// ขาด underscore(_) เพื่อแยกคำและไม่ใช่ตัวพิมพ์ใหญ่ทั้งหมด
+N		// ห้ามใช้ตัวอักษรเดียวกับค่าคงที่
+S_C_VER		// ไม่สามารถอธิบายได้
+$str = str_replace('{foo}', 'bar', $str);	// ควรใช้ค่าคงที่ LD และ RD 
+
+<strong>CORRECT</strong>:
+MY_CONSTANT
+NEWLINE
+SUPER_CLASS_VERSION
+$str = str_replace(LD.'foo'.RD, 'bar', $str);
+</code>
+		</div>
+	
+	
+		<h2><a name="true_false_and_null"></a>TRUE, FALSE, และ NULL</h2>
+		<div class="guidelineDetails">
+			<p><strong>TRUE</strong>, <strong>FALSE</strong>, และ <strong>NULL</strong> คำเหล่านี้ควรจะใช้เป็นตัวพิมพ์ใหญ่ทั้งหมด</p>
+<code><strong>วิธีที่ไม่ถูกต้อง</strong>:
+if ($foo == true)
+$bar = false;
+function foo($bar = null)
+
+<strong>วิธีที่ถูกต้อง</strong>:
+if ($foo == TRUE)
+$bar = FALSE;
+function foo($bar = NULL)</code>
+		</div>
+	
+
+	
+		<h2><a name="logical_operators"></a>ตัวดำเนินตรรกะ</h2>
+		<div class="guidelineDetails">
+			<p>การใช้ <strong>||</strong> เป็นสิ่งที่ไม่เห็นด้วยเพราะความชัดเจนต่ำของมันในอุปกรณ์บางอย่างทำให้มีลักษณะคล้ายกับผลลัพธ์อื่นๆ เช่น คล้ายๆเลข 11 
+				ส่วน <strong>&amp;&amp;</strong> ถูกแนะนำให้ใช้มากกว่า<strong> AND</strong> แต่ถ้าจะใช้ก็ยอมรับได้ สุดท้ายควรใส่ช่องว่างข้างหน้าและตามหลังเครื่องหมาย <strong>!</strong></p>
+<code><strong>วิธีที่ไม่ถูกต้อง</strong>:
+if ($foo || $bar)
+if ($foo AND $bar)  // โอเคแต่ไม่แนะนำสำหรับการไฮไลต์ไวยากรทั่วไปของแอพพลิเคชั่น 
+if (!$foo)
+if (! is_array($foo))<strong> <br />
+วิธีที่ถูก</strong>:
+if ($foo OR $bar)
+if ($foo &amp;&amp; $bar) // แนะนำ
+if ( ! $foo)
+if ( ! is_array($foo))
+</code>
+		</div>
+	
+	
+	
+		<h2><a name="comparing_return_values_and_typecasting"></a>เปรียบเทียบค่าที่คืนกลับมาและการเปลี่ยนรูปแบบ</h2>
+<div class="guidelineDetails">
+		  <p>ฟังก์ชัน PHP จะคืนค่าเป็น FALSE เมื่อเกิดความล้มเหลวแต่อาจมีค่าที่ส่งกลับมาเป็น &quot;&quot; หรือ 0 ซึ่งจะถูกแปลงเป็น FALSE เมื่ออยู่ในการเปรียบเทียบ  เพื่อความชัดเจนเมื่อไรที่มีการเปรียบเทียบค่าของตัวแปร ให้แน่ใจว่าค่าที่คืนออกมาเป็นสิ่งที่คุณคาดหวังไว้และไม่ใช่ค่าที่มีค่าเทียบเท่าเมื่อถูกแปลง </p>
+			<p>ใช้ความเข้มงวดทั้งการคืนค่าและตรวจสอบค่าของตัวแปร  ใช้ <strong>===</strong> และ <strong>!==</strong> เมื่อจำเป็น</p>
+
+<code><strong>วิธีที่ไม่ถูกต้อง</strong>:
+// ถ้า 'foo' อยู่ตำแหน่งเริ่มต้นของสตริง, strpos จะคืนค่าเป็น 0,
+// โดยผลลัพธ์ของเงื่อนไขนี้น่าจะเป็น TRUE
+if (strpos($str, 'foo') == FALSE)
+
+<strong>วิธีที่ถูก</strong>:
+if (strpos($str, 'foo') === FALSE)
+</code>
+
+<code><strong>วิธีที่ไม่ถูกต้อง</strong>:
+function build_string($str = "")
+{
+	if ($str == "")	// uh-oh!  จะเป็นอย่างไรถ้า FALSE หรือเลข 0 ถูกส่งมา?
+	{
+
+	}
+}
+
+<strong>วิธีที่ถูก</strong>:
+function build_string($str = "")
+{
+	if ($str === "")
+	{
+
+	}
+}
+</code>
+	<p>ดูข้อมูลเพิ่มเติ่มเกี่ยวกับ <a href="http://us3.php.net/manual/en/language.types.type-juggling.php#language.types.typecasting">typecasting</a>
+	, ซึ่งมีประโยชน์พอสมควร.  Typecasting has a slightly different effect which may be desirable.  When เปลี่ยนค่าตัวแปรเป็นสตริง 
+	, ตัวอย่างเช่น NULL และบูลีน FALSE จะกลายเป็นสตริงทีแบบว่าง , 0 (และตัวเลขอื่นๆ) กลายเป็นสตริงที่เป็นตัวเลข, และบูลีน TRUE กลายเป็น "1":</p>
+
+<code>$str = (string) $str;	// เปลี่ยน $str เป็นสตริง</code>
+
+</div>
+	
+	
+		<h2><a name="debugging_code"></a>ตรวจสอบโค้ด</h2>
+		<div class="guidelineDetails">
+		  <p>ไม่มีใช้โค้ดตรวจสอบหลงเหลือได้ก่อนจะที่ถูกยินยอมนำไปใช้ ยกเว้นว่ามันจะถูกคอมเม้นต์ออก เช่น  ไม่มี var_dump(), print_r(), die(), and exit() ถูกเหลือในขณะที่สร้าง ยกเว้นมันถูกคอมเม้นต์ออก</p>
+
+<code>// print_r($foo);</code>
+		</div>
+	
+
+	
+		<h2><a name="whitespace_in_files"></a>ช่องว่างในไฟล์</h2>
+		<div class="guidelineDetails">
+			<p>ไม่มีช่องว่างอยู่ข้างหน้าตัวแท็กเปิด PHP หรือตามหลังแท็กปิด PHP.  ผลลัพธ์ของ ExpressionEngine นั้นถูกเก็บไว้, ดังนั้นช่องว่างในไฟล์ของคุณสามาถทำให้เกิดผลลัพธ์ก่อนที่ ExpressionEngine จะส่งผลลัพธ์ของมัน , ซึ่งนำไปสู่การเปิดข้อผิดพลาดและไม่สามารถทำงานได้สำหรับ ExpressionEngine ในการส่ง header ที่้เหมาะสม.  ในตัวอย่างด้านล่างนี้ ให้เลือกข้อความด้วยเมาส์ของคุณเพื่อเห็นผลลัพธ์ที่เป็นช่องว่าง</p>
+
+			<p><strong>วิธีที่ไม่ถูกต้อง</strong>:</p>
+<code>     
+&lt;?php
+	// ...มันมีช่องว่างและการขึ้นบรรทัดใหม่เหนือคำแท็กเปิด PHP
+	// และยังมีช่องว่างหลังปิดแท็ก PHP
+?&gt;    
+</code>
+		  <p><strong>วิธีที่ถูกต้อง</strong>:</p>
+<code>&lt;?php
+	// นี้คือตัวอย่างที่ไม่มีช่องว่างก่อนหรือหลังการเปิดปิดแท็ก PHP
+?&gt;</code>
+
+		</div>
+	
+	
+		<h2><a name="compatibility"></a>ความเข้ากันได้</h2>
+		<div class="guidelineDetails">
+			<p>นอกจากลักษณะเฉพาะที่กล่าวถึงในเอกสารที่เพิ่มมาของคุณ , โค้ดทั้งหมดจะต้องรองรับ PHP เวอร์ชั่น 4.3 ขึ้นไป.  เพิ่มเติมอย่าใช้ฟังก์ชัน PHP ซึ่งต้องการไลบรารี่ที่ไม่ใช่ไลบรารี่ปกติ ในการติดตั้งนอกจากโค้ดของคุณมีทางเลือกของเมทอด สำหรับฟังก์ชันที่ใช้ไม่สามารถใช้ได้ หรือบอกในเอกสารของคุณว่าต้องการไลบรารี่ PHP ตัวใด</p>
+		</div>
+		
+
+	
+		<h2><a name="class_and_file_names_using_common_words"></a>ตั้งชื่อคลาสและไฟล์ด้วยคำทั่วไป</h2>
+		<div class="guidelineDetails">
+			<p>เมื่อไรที่ชื่อคลาสหรือไฟล์ของคุณใช้คำทั่วไปหรืออาจจะเหมือนกับชื่อ PHP Script ตัวอื่นแนะนำให้คุณใส่คำนำหน้าเพื่อป้องกันชื่อชนกัน  ให้นึกเสมอว่าผู้ใช้อาจจะใช้ตัวเสริมหรือ PHP Script จากที่อื่น ดังนั้นให้คุณเลือกคำนำหน้าที่เฉพาะเจาะจงกับลักษณะเฉพาะของผู้พัฒนาหรือบริษัทที่สร้าง</p>
+
+<code><strong>วิธีที่ไม่ถูกต้อง</strong>:
+class Email		pi.email.php
+class Xml			ext.xml.php
+class Import		mod.import.php
+
+<strong>วิธีที่ถูกต้อง</strong>:
+class Pre_email		pi.pre_email.php
+class Pre_xml		ext.pre_xml.php
+class Pre_import		mod.pre_import.php
+</code>
+		</div>
+	
+	
+		<h2><a name="database_table_names"></a>ตั้งชื่อตารางฐานข้อมูล</h2>
+		<div class="guidelineDetails">
+			<p>ตารางใดก็ตามที่โปรแกรมเสริมของคุณอาจจะใช้ จะต้องมีคำนำหน้าตารางด้วยคำที่บงบอกถึงโปรเจค เช่น 'exp_' ตามด้วยคำนำหน้าของผู้พัฒนาหรือบริษัทและถึงจะเป็นชื่อคำอธิบายตาราง  คุณไม่ต้องยึดหลักนี้สำหรับการตั้งคำนำหน้าในฐานข้อมูลที่จะไปใช้ โดยในคลาสฐานข้อมูลของ ExpressionEngine นั้นใช้ 'exp_' เป็นคำนำหน้า (ดังนั้นถ้าใช้ CI อาจจะใช้คำว่า 'ci_' หรืออื่นๆ)</p>
+
+<code><strong>วิธีที่ไม่ถูกต้อง</strong>:
+email_addresses		// missing both prefixes
+pre_email_addresses	// missing exp_ prefix
+exp_email_addresses	// missing unique prefix
+
+<strong>วิธีที่ถูกต้อง</strong>:
+exp_pre_email_addresses
+</code>
+
+			<p class="important"><strong>ข้อสังเกตุ:</strong> อันนี้ผมได้ทำการแปลใหม่ เพื่อให้ใช้คำแนะนำนี้ได้มากขึ้นโดยไม่จำเป็นต้องใช้ CodeIgniter เสริมอีกนิดข้อควรระวังคือ MySQL นั้นจำกัดตัวอักษรของชื่อตารางที่ 64 ตัวอักษร ดังนั้นหลีกเลี้ยงการใช้คำยาวๆ</p>
+	
+
+	
+		<h2><a name="one_file_per_class"></a>หนึ่งไฟล์หนึ่งคลาส</h2>
+		<div class="guidelineDetails">
+			<p>แยกไฟล์สำหรับคลาสแต่ละอันของคุณ ยกเว้นว่าคลาสเหล่านั้นจะ <em>ใกล้ชิดกันอย่างมาก</em> ยกตัวอย่างเช่น ไฟล์ของ ExpressionEngine ซึ่งมีหลายคลาสคือคลาส Database (ฐานข้อมูล) ซึ่งมีทั้งคลาส DB และ DB_Cache และ Magpie plugin ซึ่งมีทั้งคลาส  Magpie และ Snoopy</p>
+</div>
+	
+
+	
+		<h2><a name="whitespace"></a>ช่องว่าง</h2>
+		<div class="guidelineDetails">
+			<p>ใช้การแท็บสำหรับช่องว่างในโค้ดของคุณ ไม่ใช่กด space(bar) หลายๆครั้ง สิ่งนี้อาจเห็นเป็นสิ่งเล็กน้อยแต่การใช้แท็บแทนการใช้ space นั้นยอมให้ผู้พัฒนาผู้อื่นเห็นโค้ดของคุณได้ตามที่เขาต้องการตามและปรับเปลี่ยนแก้ไขได้ง่าย และผลประโยชน์ทางอ้อมคือไฟล์เล็กลง โดยเปรียบเทียบระหว่างหนึ่งแท็บกับ 4 space(bar) ตัวอักษร</p>
+		</div>
+	
+
+	
+		<h2><a name="line_breaks"></a>ขึ้นบรรทัดใหม่</h2>
+		<div class="guidelineDetails">
+			<p>ไฟล์ต่างๆต้องถูกบันทึกด้วยการขึ้นบรรทัดใหม่ของ Unix(Unix line breaks)  ซึ่งเป็นปัญหาสำหรับนักพัฒนาที่ทำงานใน Windows มากกว่าแต่ยังไงก็ตาม ให้คุณแน่ใจว่า Text Editor(ตัวแก้ไขไฟล์) ของคุณมีการบันทึกไฟล์ด้วยการขึ้นบรรทัดใหม่ของ Unix</p>
+		</div>
+	
+
+	
+		<h2><a name="code_indenting"></a>ย่อหน้าโค้ด</h2>
+		<div class="guidelineDetails">
+			<p>ให้คุณใช้การย่อหน้าแบบ Allman (Allman Style) ยกเว้นการประกาศชื่อคลาส วงเล็บปีกกาถูกว่างไว้เสมอบนบรรทัดโดยมีเฉพาะตัวมันเอง และถูกย่อหน้าเข้าไปไว้กับระดับตัวควบคุมการทำงานที่เป็นของพวกมัน</p>
+
+<code><strong>วิธีที่ไม่ถูกต้อง</strong>:
+function foo($bar) {
+	// ...
+}
+
+foreach ($arr as $key => $val) {
+	// ...
+}
+
+if ($foo == $bar) {
+	// ...
+} else {
+	// ...
+}
+
+for ($i = 0; $i &lt; 10; $i++)
+	{
+	for ($j = 0; $j &lt; 10; $j++)
+		{
+		// ...
+		}
+	}
+
+<strong>วิธีที่ถูกต้อง</strong>:
+function foo($bar)
+{
+	// ...
+}
+
+foreach ($arr as $key => $val)
+{
+	// ...
+}
+
+if ($foo == $bar)
+{
+	// ...
+}
+else
+{
+	// ...
+}
+
+for ($i = 0; $i &lt; 10; $i++)
+{
+	for ($j = 0; $j &lt; 10; $j++)
+	{
+		// ...
+	}
+}</code>
+		</div>
+	
+
+	<h2><a name="bracket_spacing"></a>เครื่องหมายก้ามปูและวงเล็บ</h2>
+		<div class="guidelineDetails">
+		  <p>โดยทั่วไปเครื่องหมายวงเล็บและก้ามปูเวลาใช้ไม่ควรใส่ช่องว่างเพิ่ม  มีข้อยกเว้นเดียวนั้นคือช่องว่างที่จะตามด้วยโครงสร้างควบคุมใน PHP ซึ่งรับ argument ด้วยวงเล็บ (declare, do-while, elseif, for, foreach, if, switch, while), เพื่อช่วยให้แยกแยะจากฟังก์ชันและทำให้อ่านง่ายขึ้น</p>
+			
+<code><strong>วิธีที่ไม่ถูกต้อง</strong>:
+$arr[ $foo ] = 'foo';
+
+<strong>วิธีที่ถูกต้อง</strong>:
+$arr[$foo] = 'foo'; // ไม่มีช่องว่างระหว่างอาร์เรย์คี
+
+
+<strong>วิธีที่ไม่ถูกต้อง</strong>:
+function foo ( $bar )
+{
+	
+}
+
+<strong>วิธีที่ถูกต้อง</strong>:
+function foo($bar) // ไม่มีช่องว่างระหว่างวงเล็บในการประกาศฟังก์ชัน
+{
+	
+}
+
+
+<strong>วิธีที่ไม่ถูกต้อง</strong>:
+foreach( $query->result() as $row )
+
+<strong>วิธีที่ถูกต้อง</strong>:
+foreach ($query->result() as $row) // เว้นช่องว่างเดียวแล้วตามด้วยตัวควบคุมโครงสร้างแต่ไม่ได้อยู่ภายในวงเล็บ
+</code>
+		</div>
+	
+	
+	
+		<h2><a name="localized_text_in_control_panel"></a>เนื้อหาเฉพาะพื้นที่ในแผงควบคุม</h2>
+		<div class="guidelineDetails">
+			<p>เนื้อหาใดๆซึ่งมีผลลัพธ์ในแผงควบคุมควรใช้ตัวแปรภาษาในไฟล์โมดูลภาษา (module's lang) เพื่อรองรับการทำ  localization (การจำกัดเฉพาะพื้นที่).</p>
+
+<code><strong>วิธีที่ไม่ถูกต้อง</strong>:
+return "Invalid Selection";
+
+<strong>วิธีที่ถูกต้อง</strong>:
+return $LANG->line('invalid_selection');</code>
+		</div>
+	
+
+	
+		<h2><a name="private_methods_and_variables"></a>เมธอดและตัวแปรส่วนตัว</h2>
+		<div class="guidelineDetails">
+		  <p>เมธอดและตัวแปรซึ่งถูกใช้งานได้ภายในคลาสของคุณ โดยฟังก์ชัน utility และ helper ซึ่งเป็นเมธอดสาธารณะแต่โค้ดยังไม่สมบูรณ์ ควรจะถูกนำหน้าด้วย underscore(_) เพื่อทำให้เป็นเมธอดหรือตัวแปรส่วนตัวไปก่อน</p>
+
+<code>convert_text()		// เมธอดสาธารณะ
+_convert_text()		// เมธอดส่วนตัว</code>
+		</div>
+	
+
+	
+		<h2><a name="php_errors"></a>ข้อผิดพลาดของ PHP</h2>
+		<div class="guidelineDetails">
+			<p>โค้ดจะต้องถูกเรียกโดยไม่มีข้อผิดพลาดและไม่ขึ้นคำเตือนและข้อสังเกตุให้เห็น เพื่อตรงความต้องการ ในกรณีนี้ อย่าใช้ตัวแปรที่คุณไม่ได้สร้างขึ้นมาเอง (อย่างเช่นอาเรย์ $_POST) โดยไม่มีการเช็คว่าถูกสร้างหรือไม่ก่อนด้วยคำสั่ง isset()</p>
+
+			<p>ให้คุณแน่ใจว่าขณะที่พัฒนา รายงานข้อผิดพลาดถูกเปิดใช้งานสำหรับผู้ใช้ทุกคนและ display_errors ถูกใช้งานในสภาพแวดล้อมในการพัฒนาด้วย PHP   คุณสามารถตรวจสอบค่านี้ได้ด้วยดังนี้</p>
+
+<code>if (ini_get('display_errors') == 1)
+{
+	exit "Enabled";
+}</code>
+
+			<p>บนเครื่องเซิฟร์เวอร์ที่ปิด display_errors และคุณไม่มีสิทธิที่จะไปเปลี่ยนใน php.ini คุณสามารถเปิดใช้งานมันได้ด้วยคำสั่ง</p>
+
+<code>ini_set('display_errors', 1);</code>
+
+			<p class="important"><strong>ข้อสังเกตุ:</strong> การตั้งค่า <a href="http://us.php.net/manual/en/ref.errorfunc.php#ini.display-errors">display_errors</a> ด้วยคำสั่ง ini_set() จะเกิดขึ้นตอนเวลากำเนินการ(runtime) ซึ่งไม่เหมือนกับการตั้งค่าเปิดการทำงานในสภาพแวดล้อมของ PHP กล่าวคือมันจะไม่เกิดผลใดๆ ถ้าสคริปเกิดมีข้อผิดพลาด สรุปก็คือมันจะไม่ขึ้น Warning (คำเตือน) ถ้าเกิดมี Error (ข้อผิดพลาด)</p>
+		</div>
+	
+
+	
+		<h2><a name="short_open_tags"></a>การใช้แท็กแบบสั้น</h2>
+		<div class="guidelineDetails">
+		  <p>ใช้แท็ก PHP แบบตัวเต็มทุกครั้ง ในกรณีที่เซิฟร์เวอร์ไม่ได้เปิดการใช้งาน &quot;การใช้แท็กแบบสั้น&quot; (short_open_tag) </p>
+
+<code><strong>วิธีที่ไม่ถูกต้อง</strong>:
+&lt;? echo $foo; ?&gt;
+
+&lt;?=$foo?&gt;
+
+<strong>วิธีที่ถูกต้อง</strong>:
+&lt;?php echo $foo; ?&gt;</code>
+		</div>
+	
+
+	
+		<h2><a name="one_statement_per_line"></a>หนึ่งงานหนึ่งบรรทัด</h2>
+		<div class="guidelineDetails">
+		  <p>อย่ารวมงานหลายๆงานภายในหนึ่งบรรทัด</p>
+
+<code><strong>วิธีที่ไม่ถูกต้อง</strong>:
+$foo = 'this'; $bar = 'that'; $bat = str_replace($foo, $bar, $bag);
+
+<strong>วิธีที่ถูกต้อง</strong>:
+$foo = 'this';
+$bar = 'that';
+$bat = str_replace($foo, $bar, $bag);
+</code>
+		</div>
+	
+
+	
+		<h2><a name="strings"></a>สตริง</h2>
+		<div class="guidelineDetails">
+		  <p>ใช้สตริงแบบ single quoted (') เสมอยกเว้นว่าคุณต้องการใส่ตัวแปรเพื่อประมวลผล และในกรณีคุณต้องการให้ตัวแปรถูกประมวลผล ให้ใช้วงเล็บปีกกา ({ }) เพื่อป้องกันสิ่งที่ไม่เกี่ยวข้องถูกส่งไปด้วย  คุณอาจจะใช้ double-quoted strings (&quot;) ถ้าภายในสตริงมีการใช้  single quotes ดังนั้นคุณเลยไม่ต้องใช้ตัวอักษรลี้ภัย(escape characters)</p>
+
+<code><strong>วิธีที่ไม่ถูกต้อง</strong>:
+"My String"					// ไม่มีการใส่ตัวแปลดังนั้นไม่ต้องใช้ double quotes
+"My string $foo"				// ต้องการวงเล็บปีกกา
+'SELECT foo FROM bar WHERE baz = \'bag\''	// ดูไม่ดี
+
+<strong>วิธีที่ถูกต้อง</strong>:
+'My String'
+"My string {$foo}"
+"SELECT foo FROM bar WHERE baz = 'bag'"</code>
+		</div>
+	
+
+	
+		<h2><a name="sql_queries"></a>คิวรี่ SQL</h2>
+		<div class="guidelineDetails">
+			<p>คำหลักที่ใช้งานใน MySQL  จะเป็นตัวใหญ่ทั้งหมด: SELECT, INSERT, UPDATE, WHERE, AS, JOIN, ON, IN, etc.</p>
+
+			<p>แตกคิวรี่ยาวๆเป็นหลายๆบรรทัดเพื่อความชัดเจนและอ่านง่าย โดยแนะนำว่าให้แตกออกเป็นแต่ละประโยค</p>
+
+<code><strong>วิธีที่ไม่ถูกต้อง</strong>:
+// คำีหลักที่ใช้งานเป็นตัวเล็กและคิวรี่ยาวมากสำหรับ
+// บรรทัดเดียว (... เป็นสัญลักษณ์เพื่อบอกว่าบรรทัดนี้เป็นบรรทัดที่ต่อจากบรรทัดก่อน)
+$query = $this->db->query("select foo, bar, baz, foofoo, foobar as raboof, foobaz from exp_pre_email_addresses
+...where foo != 'oof' and baz != 'zab' order by foobaz limit 5, 100");
+
+<strong>วิธีีที่ถูกต้อง</strong>:
+$query = $this->db->query("SELECT foo, bar, baz, foofoo, foobar AS raboof, foobaz
+				FROM exp_pre_email_addresses
+				WHERE foo != 'oof'
+				AND baz != 'zab'
+				ORDER BY foobaz
+				LIMIT 5, 100");</code>
+		</div>
+	
+
+	
+		<h2><a name="default_function_arguments"></a>ค่าที่ถูกเลือกอัตโนมัติสำหรับส่งไปยังฟังก์ชัน</h2>
+		<div class="guidelineDetails">
+			<p>เหมาะสมเมื่อไรให้เราจัดหาค่าอัตโนมัติที่จะถูกส่งไปยังฟังก์ชัน ซึ่งช่วยป้องกันข้อผิดพลาด PHP โดยที่เรียกใช้ผิดและเสนอค่าทางเลือก ซึ่งช่วยประหยัดเวลาเขียนโค้ดได้หลายบรรทัด ตัวอย่างเช่น:</p>
+
+<code>function foo($bar = '', $baz = FALSE)</code>
+		</div>
+	
+
+	
+		<h2><a name="overlapping_tag_parameters"></a>การทับซ้อนของแท็กตัวแปร</h2>
+		<div class="guidelineDetails">
+			<p>หลีกเลี่ยงการใช้หลายแท็กตัวแปรที่ให้ผลเหมือนกัน  ตัวอย่างเช่น แทนที่จะใช้ <strong>include=</strong>และ <strong>exclude=</strong> บางทีเราจะยอมให้ <strong>include=</strong> ดูแลแค่ตัวแปรเดียวตามด้วยคำว่า "not", ยกตัวอย่างเช่น <strong>include="not bar"</strong>.  สิ่งนี้จะป้องกันปัญหาตัวแปรทับซ้อนกันหรือมีความกังวลว่าตัวแปรไหนมีความสำคัญกว่าอีกตัวหนึ่ง</p>
+            <p class="important"><strong>เสริม:</strong> สิ่งที่เขาบอกเป็นเพียงตัวอย่างให้เห็นภาพ เพื่อที่จะได้ไม่ใช้ตัวแปรพร่ำเพรื่อ แล้วทำให้เกิดความสับสนและกังกลกับการเลือกและใช้ตัวแปร</p>
+		</div>
+        
+</div>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="security.html">ระบบรักษาความปลอดภัย</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="../doc_style/index.html">แบบเขียนเอกสาร</a>
+</p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

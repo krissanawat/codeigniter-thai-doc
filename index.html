@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ขอต้อนรับท่านเข้าสู่คู่มือการใช้งาน CodeIgniter</title>
+<style type='text/css' media='all'>@import url('userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='userguide.css' />
+<script type="text/javascript" src="nav/nav.js"></script>
+<script type="text/javascript" src="nav/prototype.lite.js"></script>
+<script type="text/javascript" src="nav/moo.fx.js"></script>
+<script type="text/javascript" src="nav/user_guide_menu.js"></script>
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='คู่มือการใช้งาน CodeIgniter' />
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('null');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp; คู่มือการใช้งาน CodeIgniter
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน &nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+
+<br clear="all" />
+
+<div class="center"><img src="images/ci_logo_flame.jpg" width="150" height="164" border="0" alt="CodeIgniter" /></div>
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h2>ยินดีต้อนรับเข้าสู่คู่มือการใช้งาน CodeIgniter</h2>
+
+<p>CodeIgniter เป็นเฟรมเวิร์คสำหรับพัฒนาแอปผลิเคชั่น - เครื่องมือ - สำหรับคนที่ต้องการสร้างเว็บไซค์โดยใช้ PHP , จุดประสงค์หลักของ CodeIgniter ก็คือทำให้คุณพัฒนาโครงการ เร็วกว่าที่คุยเคยเขียนมา โดยเฉพาะอย่างยิ่งถ้าคุณเคยเขียนโค้ดทุกอย่างด้วยด้วยตัวเองการพัฒนาโครงการเป็นเรื่องที่ลำบากมาก ถ้าคุณพัฒนาด้วย CodeIgniter โดยมีไลบรารี่ต่างๆจัดเตรียมไว้สำหรับงานทั่วๆไปที่ต้องการ และยังเข้าใช้ไลบรารี่เหล่านี้ได้อย่างง่ายดาย ยังไม่พอ CodeIgniter ยังทำให้คุณสามารถมุ่งเน้นไปที่ความคิดสร้างสรรค์กับโครงงานของคุณ โดยลดจำนวนโค้ดที่ต้องการลง สำหรับงานทุกชิ้น</p>
+
+
+<h2>CodeIgniter เกิดมาเพื่อใคร ?</h2>
+
+<p>CodeIgniter เป็นสิ่งที่ใช่สำหรับคุณถ้า :</p>
+
+<ul>
+    <li>คุณต้องการเฟรมเวิร์คที่เรียนรู้ง่าย</li>
+    <li>คุณต้องการประสิทธิภาพที่ยอดเยี่ยม</li>
+    <li>คุณต้องการการรองรับกับโฮสพื้นฐานที่ถูกดำเนินการด้วย PHP หลากหลายรุ่นและการปรับแต่งที่ต่างกัน</li>
+    <li>คุณต้องการเฟรมเวิร์คที่แทบจะไม่ต้องปรับแต่งค่าพารามิเตอร์ สำหรับการใช้งาน</li>
+    <li>คุณต้องการเฟรมเวิร์คที่ไม่ต้องให้คุณใช้ Command Line</li>
+    <li>คุณต้องการเฟรมเวิร์คที่ไม่ต้องยึดติดกับกฎการเขียนโค้ด</li>
+    <li>คุณไม่สนใจไลบรารี่ที่มีขนาดใหญ่มากอย่าง PEAR</li>
+    <li>คุณไม่ต้องการถูกบังคับให้เรียนภาษาเทมเพลต (แต่เรามี template parser รองรับอยู่ ถ้าคุณต้องการ)</li>
+    <li>คุณเหลีกเลี่ยงความสลับซ้อบซ้อน และชอบแก้ปัญหาด้วยวิธีง่ายๆ</li>
+    <li>คุณต้องการเอกสารประกอบที่ละเอียดถี่ถ้วน</li>
+</ul>
+
+</div>
+<!-- END CONTENT -->
+
+<div id="footer">
+<p><a href="#top">ขึ้นบน</a></p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+
+
+</body>
+</html>

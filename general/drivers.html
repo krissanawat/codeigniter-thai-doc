@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>การใช้ไดร์เวอร์ใน CodeIgniter User Guide</title>
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='การใช้ไดร์เวอร์ใน CodeIgniter User Guide' />
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+การใช้ไดร์เวอร์ใน CodeIgniter
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>การใช้ไดร์เวอร์ใน CodeIgniter</h1>
+
+
+<p>Drivers are a special type of Library that has a parent class and any number of potential child classes.  Child classes have access to the parent class, but not their siblings.  Drivers provide an elegant syntax  in your <a href="controllers.html">controllers</a> for libraries that benefit from or require being broken down into discrete classes.</p>
+
+<p><kbd>ข้างบน ติดใว้ก่อนครับ อ่านแล้ว งง หรือใครเข้าใจก็ช่วยบอกทีครับ</kbd></p>
+
+<p>คุณสามารถหาไดร์เวอร์ได้ในโฟลเดอร์ <dfn>system/libraries</dfn> ในโฟลเดอร์ชื่อไฟล์จะเหมือนกันกับชื่อคลาสที่เรียกใช้งาน เมื่อคุณเปิดเข้าไปคุณจะเห็นโฟลเดอร์ชื่อ <kbd>drivers</kbd> ซึ่งรวมค่าคงที่ทั้งหมดที่มีอยู่ใว้ในคลาสไฟล์</p>
+
+<p>เมื่อต้องการใช้ไดร์เวอร์คุณจะเริ่มต้นมันอยู่ภายในตัว controller การใช้ฟังก์ชั่นเริ่มต้นดังต่อไปนี้ :</p>
+
+<code>$this->load->driver('<var>class name</var>'); </code>
+
+<p>ที่ชื่อคลาสคือชื่อของไดร์เวอร์ที่คุณต้องการเรียกถึง เหมือนในตัวอย่าง เราต้องการโหลดไฟล์เวอร์ที่ชื่อ "Some Parent" คุณสามารถเขียนได้ดังนี้ :</p>
+
+<code>$this->load->driver('<var>some_parent</var>');</code>
+
+<p>คุณสามารถอ้างถึงคลาสได้โดย :</p>
+
+<code>$this->some_parent->some_method();</code>
+
+<p>ลูกคลาสของตัวเองสามารถเรียกใช้ได้โดยตรงจากคลาสหลัก โดยที่คุณไม่ต้องตั้งค่าการเรียกอีก :</p>
+
+<code>$this->some_parent->child_one->some_method();<br />
+$this->some_parent->child_two->another_method();</code>
+
+<h2>สร้างไดร์เวอร์ของคุณเอง</h2>
+
+<p>กรุณาอ่านบทความนี้ในคู่มือ หากคุณต้องการสร้างไฟล์เวอร์ของคุณเอง  อ่านได้ที่ <a href="creating_drivers.html">สร้างไดร์เวอร์ของคุณเอง</a>.</p>
+
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="creating_libraries.html">สร้างไลบรารี่ของคุณเอง</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="creating_drivers.html">สร้างไดร์เวอร์ของคุณเอง</a>
+</p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

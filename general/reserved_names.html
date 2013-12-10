@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>คำสงวนที่ห้ามใช้ใน CodeIgniter</title>
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='คำสงวนที่ห้ามใช้ใน CodeIgniter' />
+</head>
+<body>
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+คำสงวนที่ห้ามใช้ใน CodeIgniter
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>คำสงวนที่ห้ามใช้ใน CodeIgniter</h1>
+
+<p>ในชุดเครื่องมือทั้งหมด, CodeIgniter มีการใช้ฟังก์ชั่น (function) และชื่อต่างๆ (names) ในการจัดการระบบ. เพราะฉะนั้น, ชื่อบางชื่อ ผู้พัฒนาไม่สามารถสร้างขึ้นมาใช้งานเองได้. ด้านล่างนี้จะเป็นรายชื่อที่เป็นคำสงวนทั้งหมดที่ห้ามใช้.</p>
+<h3>ชื่อตัวควบคุม (Controller names)</h3>
+<p>เริ่มต้นจาก controller classes ของคุณจะทำการเพิ่มส่วนขยาย (extend) ไปที่ controller หลักของ CodeIgniter
+ดังนั้นจึงมีคำสงวน ที่คุณต้องระวังในการใช้ตั้งชื่อฟังก์ชั่น (function), ยกเว้นการสร้างฟังก์ชั่น (function) ขึ้นมาใช้เอง โดยไม่เกี่ยวข้องกับระบบหลัก .  
+ด้านล่างนี้เป็นรายชื่อคำสงวนทั้งหมดที่ห้ามใช้ในการตั้งเป็นชื่อฟังก์ชั่น (function) :</p>
+<ul>
+	<li>Controller</li>
+	<li>CI_Base</li>
+	<li>_ci_initialize</li>
+	<li>_ci_scaffolding</li>
+</ul>
+<p><br />
+	ถ้าคุณทำงานบน PHP 4 จะมีชื่อที่ห้ามใช้เพิ่มเติมโดยแบ่งเป็นประเภทได้ดังนี้. (เฉพาะผู้ใช้ CodeIgniter บน PHP 4 เท่านั้น).</p>
+<ul>
+	<li>CI_Loader</li>
+	<li>config</li>
+	<li>database</li>
+	<li>dbutil</li>
+	<li>dbforge</li>
+	<li>file</li>
+	<li>helper</li>
+	<li>helpers</li>
+	<li>language</li>
+	<li>library</li>
+	<li>model</li>
+	<li>plugin</li>
+	<li>plugins</li>
+	<li>scaffolding</li>
+	<li>script</li>
+	<li>view</li>
+	<li>vars</li>
+	<li>_ci_assign_to_models</li>
+	<li>_ci_autoloader</li>
+	<li>_ci_init_class</li>
+	<li>_ci_init_scaffolding</li>
+	<li>_ci_is_instance</li>
+	<li>_ci_load</li>
+	<li>_ci_load_class</li>
+	<li>_ci_object_to_array</li>
+</ul>
+<h3>ฟังก์ชัน</h3>
+<ul>
+	<li>base_url()</li>
+	<li>site_url()</li>
+	<li>is_really_writable()</li>
+	<li>load_class()</li>
+	<li>get_config()</li>
+	<li>config_item()</li>
+	<li>show_error()</li>
+	<li>show_404()</li>
+	<li>log_message()</li>
+	<li>_exception_handler()</li>
+	<li>get_instance()</li>
+	</ul>
+<h3>ตัวแปร</h3>
+<ul>
+	<li>$config</li>
+	<li>$mimes</li>
+	<li>$lang</li>
+</ul>
+<h3>ค่าคงที่</h3>
+<ul>
+	<li>EXT</li>
+	<li>FCPATH</li>
+	<li>SELF</li>
+	<li>BASEPATH</li>
+	<li>APPPATH</li>
+	<li>CI_VERSION</li>
+	<li>FILE_READ_MODE</li>
+	<li>FILE_WRITE_MODE</li>
+	<li>DIR_READ_MODE</li>
+	<li>DIR_WRITE_MODE</li>
+	<li>FOPEN_READ</li>
+	<li>FOPEN_READ_WRITE</li>
+	<li>FOPEN_WRITE_CREATE_DESTRUCTIVE</li>
+	<li>FOPEN_READ_WRITE_CREATE_DESTRUCTIVE</li>
+	<li>FOPEN_WRITE_CREATE</li>
+	<li>FOPEN_READ_WRITE_CREATE</li>
+	<li>FOPEN_WRITE_CREATE_STRICT</li>
+	<li>FOPEN_READ_WRITE_CREATE_STRICT</li>
+</ul>
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="controllers.html">Controllers (ตัวควบคุม)</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="views.html">Views (ส่วนแสดง)</a></p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>สร้างไลบรารี่ของคุณเอง CodeIgniter</title>
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='สร้างไลบรารี่ของคุณเอง CodeIgniter' />
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+สร้างไลบรารี่ของคุณเอง
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>สร้างคลาสไลบรารี่ของคุณเอง</h1>
+
+<p>เมื่อไรที่ผมพูดถึง &quot;ไลบรารี่&quot; ผมหมายถึงคลาสที่อาศัยอยู่ในไดเรคทอรี่ <kbd>libraries</kbd>
+และถูกอธิบายอยู่ในเอกสารอ้างอิงคลาส.  ในกรณีนี้เราจะอธิบายวิธีการสร้างไลบรารี่ของคุณเองโดยอยู่ในไดเรคทอรี่ <dfn>application/libraries</dfn> โดยทำการแยกระหว่างไลบรารี่ที่ใช้เฉพาะแอพพลิเคชั่นกับไลบรารี่ที่ถูกใช้ทั่วเฟรมเวิร์ค</p>
+
+<p>เพิ่มเติม CodeIgniter ยินยอมให้ไลบรารี่ของคุณสามารถขยาย (<kbd>extend</kbd>) มาจากคลาสพื้นฐานที่มีให้ ถ้าคุณต้องการเพิ่มฟังก์ชั่นบางอย่างลงไปในไลบรารี่ที่มีอยู่แล้ว หรือคุณสามารถที่จะแทนที่ไลบรารี่พื้นฐานได้โดยใช้ชื่อของคลาสที่ต้องการจะแทนที่ลงไปในโฟลเดอร์ <dfn>application/libraries</dfn></p>
+<p class="important"><strong>หมายเหตุ :</strong> การวางแยกระหว่าง 2 โฟลเดอร์แท้จริงแล้ว เพื่อให้รู้ว่าไลบรารี่ที่เราทำเองหรือไปทับนั้นจะทำงานเฉพาะแอพพลิเคชั่นตัวเดียวหรือทุกๆแอพพลิเคชั่น ที่อยู่ในระบบเลย โดยถ้าอยู่ภายใน application/libraries นั้นก็จะใช้ได้เฉพาะแอพพลิเคชั่นนั้น แต่ถ้าเป็นโฟลเดอร์ libraries นั้นหมายถึงทุกๆแอพพลิเคชั่น</p>
+
+<p>ข้อสรุป:</p>
+
+<ul>
+<li>คุณสามารถสร้างไลบรารี่ใหม่เลยได้</li>
+<li>คุณสามารถขยายคลาสที่มีอยู่แล้วได้</li>
+<li>คุณสามารถแทนที่ไลบรารี่ที่มีอยู่แล้วได้</li>
+</ul>
+
+<p>ในหน้าด่านล่างนี้จะเป็นการอธิบายแนวคิด 3 อย่างแบบละเอียด</p>
+
+<p class="important"><strong>หมายเหตุ:</strong> คลาสฐานข้อมูล (Database Class) ไม่สามารถถูกขยายหรือแทนที่ได้ด้วยคลาสของคุณหรือคลาส Loader ใน PHP 4 ส่วนที่เหลือสามารถขยายหรือแทนที่ได้</p>
+
+
+<h2>สถานที่เก็บ</h2>
+
+<p>คลาสไลบรารี่ของคุณควรถูกเก็บไว้ในโฟลเดอร์ <dfn>application/libraries</dfn> ในที่ๆ CodeIgniter จะมองหาเมื่อระบบเริ่มต้น</p>
+
+
+<h2>ข้อตกลงการตั้งชื่อ</h2>
+
+<ul>
+<li>ชื่อไฟล์ตัวแรกต้องเป็นตัวอักษรพิมพ์ใหญ่ เช่น <dfn>Myclass.php</dfn></li>
+<li>การประกาศชื่อคลาสตัวแรกต้องเป็นตัวอักษรพิมพ์ใหญ่ เช่น  <kbd>class Myclass</kbd></li>
+<li>ชื่อคลาสและชื่อไฟล์จะต้องตรงกัน</li>
+</ul>
+<p class="important"><strong>หมายเหตุ:</strong> สิ่งที่ผมมักจะผิดอยู่บ่อยๆก็คือการตั้งชื่อคลาสเป็น MyClass แบบนี้ซึ่งผิดนะครับ ระวังตรงส่วนนี้ด้วย</p>
+
+<h2>ไฟล์คลาส</h2>
+
+<p>คลาสควรมีฐานต้นแบบเป็นดังนี้ (หมายเหตุ:  เรากำลังใช้ชื่อ <kbd>Someclass</kbd> เป็นตัวอย่าง):</p>
+
+<code>&lt;?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<br /><br />
+class Someclass {<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;function some_function()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+}<br /><br />
+?&gt;</code>
+
+
+<h2>ใช้คลาสของคุณ</h2>
+
+<p>จากที่ไหนก็ได้ภายในฟังก์ชั่น <a href="controllers.html">ตัวควบคุม (Controller)</a> คุณสามารถเริ่มเรียกคลาสของคุณตามปกติ<code>$this->load->library('<kbd>someclass</kbd>');</code></p>
+
+<p>โดย <em>someclass</em> คือชื่อไฟล์ที่ไม่มีนามสกุล ".php" คุณสามารถใส่ชื่อไฟล์เป็นตัวใหญ่ทั้งหมดหรือเล็กทั้งหมด
+CodeIgniter ไม่สนใจ</p>
+
+<p>เมื่อคุณโหลดมาแล้ว คุณสามารถใช้งานคลาสของคุณโดยตอนนี้เป็นรูปแบบ <span class="style1">อักษรพิมพ์เล็ก</span></p>
+
+<code>$this-><kbd>someclass</kbd>->some_function();&nbsp; // ออบเจ็คที่ถูกสร้างขึ้นจะเป็นตัวพิมพ์เล็กเสมอ</code>
+
+
+
+<h2>ส่งพารามิเตอร์เมื่อจะโหลดคลาส</h2>
+
+<p>ในฟังก์ชั่นโหลดไลบรารี่คุณสามารถส่งข้อมูลอะไรก็ได้ผ่านทางพารามิเตอร์ที่สองและมันจะถูกส่งไปยังตัวสร้างคลาส (class constructor) :</p>
+
+<code>
+$params = array('type' => 'large', 'color' => 'red');<br />
+<br />
+$this->load->library('Someclass', <kbd>$params</kbd>);</code>
+
+<p>ถ้าคุณใช้คุณสมบัตินี้คุณจะต้องเตรียมตัวสร้างคลาสของคุณรองรับกับการส่งข้อมูล:</p>
+
+<code>&lt;?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');<br />
+<br />
+class Someclass {<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;function Someclass($params)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Do something with $params<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+}<br /><br />
+?&gt;</code>
+
+<p class="important">คุณสามารถเก็บค่าพารามิเตอร์ไว้ในไฟล์ config ได้โดยสร้างไฟล์ config ขึ้นมาโดยใช้ <span class="style1">ชื่อไฟล์ของคลาส</span> ที่ต้องการและเก็บมันไว้ในโฟลเดอร์ <dfn>application/config/</dfn> ของคุณ.  สังเกตุว่าถ้าคุณใส่พารามิเตอร์แบบไดนามิคอย่างด้านบน ในกรณีนี้จะใช้แบบ config ไฟล์ไม่ได้</p>
+
+
+
+
+
+
+
+<h2>ใช้ประโยชน์จากทรัพยากร CodeIgniter กับไลบรารี่ของคุณ</h2>
+
+
+<p>การเข้าถึงทรัพยากรพื้นฐานของ CodeIgniter ด้วยไลบรารี่ของคุณนั้นจะต้องใช้ฟังก์ชั่น <kbd>get_instance()</kbd> โดยฟังก์ชั่นนี้จะเป็นการคืนค่า &quot;CodeIgniter super object&quot;</p>
+
+<p>โดยปกติแล้วภายในฟังก์ชั่นตัวควบคุม (controller) ของคุณจะเรียกฟังก์ชั่นอะไรที่สามารถใช้ได้ก็จะต้องใช้ผ่าน <kbd>$this</kbd></p>
+
+<code>
+<strong>$this</strong>->load->helper('url');<br />
+<strong>$this</strong>->load->library('session');<br />
+<strong>$this</strong>->config->item('base_url');<br />
+etc.
+</code>
+
+<p><kbd>$this</kbd>, อย่างไรก็ตามสามารถใช้ได้เพียงเวลาที่อยู่ในตัวควบคุม(controller) , แบบจำลอง (model) หรือส่วงแสดง (view) เท่านั้น ถ้าคุณต้องการจะใช้คลาสของ CodeIgniter ภายในคลาสของคุณนั้นจะต้องเรียกตามแบบนี้:</p>
+
+
+<p>ขั้นแรก, กำหนดค่าออบเจ็ค CodeIgniter ไปยังตัวแปร</p>
+
+<code>$CI =&amp; get_instance();</code>
+
+<p>เมื่อคุณกำหนดค่าไปยังตัวแปรแล้ว คุณจะต้องใช้มัน<em>แทนคำว่า</em> <kbd>$this</kbd>:</p>
+
+<code>
+$CI =&amp; get_instance();<br />
+<br />
+$CI->load->helper('url');<br />
+$CI->load->library('session');<br />
+$CI->config->item('base_url');<br />
+etc.
+</code>
+
+<p class="important"><strong>หมายเหตุ:</strong> คุณจะสังเกตุได้ว่าฟังก์ชั่น get_instance() จะถูกส่งไปแบบใช้ตำแหน่งอ้างอิง (pass by reference):<br />
+<br />
+<var>$CI =&amp; get_instance();</var>
+<br />
+<br />
+<span class="style3"><kbd>เรื่องนี้เป็นเรื่องสำคัญมาก.</kbd></span> การกำหนดค่าแบบอ้างอิงจะยอมให้คุณใช้ออบเจ็ค CodeIgniter จากต้นฉบับแทนที่จะเป็นตัวสำเนาของมัน<br />
+<br />
+<span class="style3"><kbd>เช่นเดียวกันโปรดสังเกตุว่า :</kbd></span> ถ้าคุณใช้ PHP 4 ควรจะหลีกเลี่ยงการเรียก <dfn>get_instance()</dfn>
+จากตัวสร้างคลาสของคุณ.  PHP 4 มีปัญหาการอ้างอิงกับ &quot;CI super object&quot; ตั้งแต่ตัวสร้างแอพพลิเคชั่นหรือออบเจ็ค จนกว่าคลาสจะถูกสร้างขึ้นเสร็จอย่างสมบูรณ์</p>
+
+
+<h2>แทนที่ไลบรารี่พื้นฐานด้วยแบบฉบับของคุณ</h2>
+
+<p>ง่ายๆโดยตั้งชื่อคลาสของคุณให้เหมือนคลาสพื้นฐานจะทำให้ CodeIgniter ใช้มันแทนตัวพื้นฐาน การจะใช้คุณสมบัตินี้คุณจะต้องตั้งชื่อไฟล์และคลาสเหมือนกับคลาสพื้นฐานตัวอย่างเช่น การแทนที่ไลบรารี่ <kbd>Email</kbd> พื้นฐานคุณจะต้องสร้างไฟล์ชื่อ <dfn>application/libraries/<span class="style4">Email.php</span></dfn>, และประกาศคลาสดังนี้</p>
+
+<code>
+class CI_Email {<br /><br />
+
+}</code>
+
+<p>สังเกตุว่าคลาสพื้นฐานส่วนมากจะมีคำนำหน้าเป็น <kbd>CI_</kbd>.</p>
+
+<p>การโหลดไลบรารี่ของคุณนั้นจะไม่แตกต่างกับการโหลดแบบปกติ</p>
+
+<code>$this->load->library('<kbd>email</kbd>');</code>
+
+<p class="important"><strong>อย่าลืม:</strong> ในตอนนี้คลาสฐานข้อมูล (Database Class) ยังไม่สามารถถูกแทนที่ด้วยแบบฉบับของคุณได้.</p>
+
+
+<h2>ขยายไลบรารี่พื้นฐาน</h2>
+
+<p>ถ้าความต้องการทั้งหมดของคุณต้องการเพิ่มฟังก์ชั่นบางอย่างให้กับไลบรารี่ที่มีอยู่แล้ว - บางทีอาจจะเพิ่มสักหนึ่งหรือสองฟังก์ชั่น - ดังนั้นมันเป็นการมากเกินไปที่จะแทนที่ไลบรารี่ทั้งหมดด้วบแบบฉบับของคุณ  ในกรณีี้นี้มันเป็นการดีกว่าที่คุณเพียงขยายคลาสเท่านั้น การขยายคลาสใกล้เคียงกับการแทนที่คลาสซึ่งมาพร้อมกับข้อยกเว้นบางอย่าง</p>
+
+<ul>
+<li>คลาสที่ประกาศจะต้องขยายมาจากคลาสพ่ิอแม่</li>
+<li>คลาสใหม่ของคุณจะต้องมีคำนำหน้าชื่อและชื่อไฟล์ด้วยคำว่า <kbd>MY_</kbd> (สิ่งนี้สามารถแก้ไขได้ดูด้านล่าง).</li>
+</ul>
+
+<p>ยกตัวอย่างเช่น, ในการที่จะขยายคลาส <kbd>Email</kbd> พื้นฐานคุณจะต้องสร้างไฟล์ชื่อ <dfn>application/libraries/</dfn><kbd>MY_Email.php</kbd>, และประกาศคลาสแบบนี้</p>
+
+<code>
+class MY_Email extends CI_Email {<br /><br />
+
+}</code>
+
+<p>หมายเหตุ: ถ้าคุณต้องการใช้ตัวสร้างคลาสภายในคลาสของคุณ ให้แน่ใจว่าคุณขยายมาจากตัวสร้างคลาสพ่อแม่:</p>
+
+
+<code>
+class MY_Email extends CI_Email {<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;function My_Email()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent::CI_Email();<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+}</code>
+
+
+<h3>การโหลดคลาสรองของคุณ</h3>
+
+<p>การจะโหลดคลาสรอง คุณจะสามารถที่จะใช้ตามมาตรฐานปกติ โดยไม่ต้องใส่คำนำหน้าของคุณ  โดยตัวอย่างนี้จะเป็นการโหลดตัวอย่างด้านบนซึ่งขยายมาจากคลาสอีเมล์ (Email Class) คุณจะต้องใช้:</p>
+
+<code>$this->load->library('<kbd>email</kbd>');</code>
+
+<p>เมื่อโหลดเสร็จแล้วคุณจะใช้ตัวแปรคลาสตามปกติสำหรับคลาสที่ต่อเติมมา ในกรณีคลาสอีเมล์นี้ (Email Class) จะเรียกแบบนี้ทั้งหมด</p>
+
+
+<code>$this-><kbd>email</kbd>->some_function();</code>
+
+
+<h3>ตั้งค่าคำนำหน้าของคุณ</h3>
+
+<p>สำหรับการตั้งค่าคำนำหน้าของคลาสรองของคุณ ให้เปิดไฟล์ <dfn>application/config/config.php</dfn> และมองหาสิ่งนี้</p>
+
+<code>$config['subclass_prefix'] = 'MY_';</code>
+
+<p>สังเกตุว่าไลบรารี่พื้นฐานของ CodeIgniter มีคำนำหน้าว่า  <kbd>CI_</kbd> ดังนั้นอย่าใช้มันเป็นคำนำหน้าของคุณ</p>
+
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="libraries.html">วิธีใช้ไลบรารี่ของ CodeIgniter</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="drivers.html">Using CodeIgniter Drivers</a>
+</p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

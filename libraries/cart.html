@@ -1,0 +1,329 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Shopping Cart Class : CodeIgniter User Guide</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='CodeIgniter User Guide' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+Shopping Cart Class
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>คลาสที่มช้จัดการตะกร้าสินค้า</h1>
+
+<p>คลาสนี้จะมีฟังก์ชัน ที่ใช้ช่วยเหลือลูกค้า โดยเก็บค่าสินค้าที่ลูกค้าเลือก ไม่ว่าจะเป็นชนิดจำนวน</p>
+
+<p>คลาสนี้มีแค่ระบบตะกร้าอย่างเดียวนะครับ ไม่ได้รวมฟังก์ชันจัดส่งของหรือตัดบัตรเครดิต</p>
+
+
+<h2>การเริ่มใช้งานคลาส Shopping Cart </h2>
+
+<p><strong>สิ่งสำคัญ:</strong>คลาส Cart ใช้งานคลาส CodeIgniter's
+<a href="sessions.html">Session</a>  โดยเก็บค่าลงฐานข้อมูล ไปดูข้อมูลเพิ่มเติมได้ที่
+<a href="sessions.html">Session Documentation</a> แล้วเราก็ต้องไปตั้งค่าที่ไฟล์ <kbd>application/config/config.php</kbd></p>
+
+<p>แล้วก็มาเริ่มต้นด้วยการ โหลดคลาส Shopping Cart ใน constructor โดยใชฟังก์ชัน<dfn>$this->load->library</dfn></p>
+
+<code>$this->load->library('cart');</code>
+<p>เต่อไปเราก็สามารถเรียกใ้ช้คลาสแบบสั้นๆ ได้แบบนี้ครับ <dfn>$this->cart</dfn></p>
+
+<p class="important"><strong>หมายเหตุ:</strong> 
+เมื่อเราโหลดคลาส Cart แล้วก็ไม่จำเป็นต้องโหลดคลาส Session อีกเเล้วนะครับ</p>
+
+<h2>การเพิ่มสินค้าลงตะกร้า</h2>
+
+<p>เราจะใช้เมทอด <dfn>$this->cart->insert()</dfn>แล้วส่งค่าที่เป็นอาเรย์ที่บรรจุรายละเอียด ของสินค้า:</p>
+
+<code>
+$data = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'id'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => 'sku_123ABC',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'qty'&nbsp;&nbsp;&nbsp;&nbsp; => 1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'price'&nbsp;&nbsp; => 39.95,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name'&nbsp;&nbsp;&nbsp; => 'T-Shirt',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'options' => array('Size' => 'L', 'Color' => 'Red')<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+
+$this->cart->insert($data);
+
+</code>
+
+<p class="important"><strong>สิ่งที่สำคัญ:</strong>คีย์สี่ตัวแรกของอาเรย์ (<dfn>id</dfn>, <dfn>qty</dfn>, <dfn>price</dfn>, and <dfn>name</dfn>) เราต้องใส่ไปให้ครบนะครับ.</p>
+
+<p>คำอธิบายคีย์ที่เราต้องใส่ไป โดยคีย์เหล่านี้เป็นคำสงวนของคลาส Cart</p>
+
+<ul>
+<li><strong>id</strong> - id ของสินค้า .</li>
+<li><strong>qty</strong> -จำนวนที่เพิ่ม.
+<li><strong>price</strong> - ราคาของสินค้า.
+<li><strong>name</strong> -ชื่อของสินค้า.
+<li><strong>options</strong> - รายละเอียดอื่นๆ ซึง่จะใส่มาในรูปแบบของอาเรย์
+</ul>
+
+<p>นอกจากนี้ยังมีคำว่า <dfn>rowid</dfn> และ <dfn>subtotal</dfn>. ซึ่งเป็นคำสงวนที่ใช้ภายในคลาส Cart.</p>
+
+<h2>การเพิ่มสินค้าหลายๆ ชิ้น</h2>
+
+<p>โดยการใช้อาเรย์หลายมิติ เพื่อกรณีที่ให้ผู้ใช้งาน เลือกสินค้าหลายๆชนิด ในหน้าเดียวกัน.</p>
+
+
+<code>
+$data = array(<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'id'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => 'sku_123ABC',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'qty'&nbsp;&nbsp;&nbsp;&nbsp; => 1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'price'&nbsp;&nbsp; => 39.95,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name'&nbsp;&nbsp;&nbsp; => 'T-Shirt',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'options' => array('Size' => 'L', 'Color' => 'Red')<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'id'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => 'sku_567ZYX',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'qty'&nbsp;&nbsp;&nbsp;&nbsp; => 1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'price'&nbsp;&nbsp; => 9.95,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name'&nbsp;&nbsp;&nbsp; => 'Coffee Mug'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'id'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => 'sku_965QRS',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'qty'&nbsp;&nbsp;&nbsp;&nbsp; => 1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'price'&nbsp;&nbsp; => 29.95,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name'&nbsp;&nbsp;&nbsp; => 'Shot Glass'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+
+$this->cart->insert($data);
+
+</code>
+
+
+
+
+<h2>การแสดงตระกร้า</h2>
+
+<p>เราจะสร้าง <a href="../general/views.html">view file</a>โดยตามโค้ดที่แสดงด้านล่าง เป็นตัวอย่าง.</p>
+
+
+<textarea class="textarea" style="width:100%" cols="50" rows="55">
+&lt;?php echo form_open('path/to/controller/update/function'); ?>
+
+&lt;table cellpadding="6" cellspacing="1" style="width:100%" border="0">
+
+&lt;tr>
+  &lt;th>QTY&lt;/th>
+  &lt;th>Item Description&lt;/th>
+  &lt;th style="text-align:right">Item Price&lt;/th>
+  &lt;th style="text-align:right">Sub-Total&lt;/th>
+&lt;/tr>
+
+&lt;?php $i = 1; ?>
+
+&lt;?php foreach ($this->cart->contents() as $items): ?>
+
+	&lt;?php echo form_hidden($i.'[rowid]', $items['rowid']); ?>
+
+	&lt;tr>
+	  &lt;td>&lt;?php echo form_input(array('name' => $i.'[qty]', 'value' => $items['qty'], 'maxlength' => '3', 'size' => '5')); ?>&lt;/td>
+	  &lt;td>
+		&lt;?php echo $items['name']; ?>
+
+			&lt;?php if ($this->cart->has_options($items['rowid']) == TRUE): ?>
+
+				&lt;p>
+					&lt;?php foreach ($this->cart->product_options($items['rowid']) as $option_name => $option_value): ?>
+
+						&lt;strong>&lt;?php echo $option_name; ?>:&lt;/strong> &lt;?php echo $option_value; ?>&lt;br />
+
+					&lt;?php endforeach; ?>
+				&lt;/p>
+
+			&lt;?php endif; ?>
+
+	  &lt;/td>
+	  &lt;td style="text-align:right">&lt;?php echo $this->cart->format_number($items['price']); ?>&lt;/td>
+	  &lt;td style="text-align:right">$&lt;?php echo $this->cart->format_number($items['subtotal']); ?>&lt;/td>
+	&lt;/tr>
+
+&lt;?php $i++; ?>
+
+&lt;?php endforeach; ?>
+
+&lt;tr>
+  &lt;td colspan="2">&nbsp;&lt;/td>
+  &lt;td class="right">&lt;strong>Total&lt;/strong>&lt;/td>
+  &lt;td class="right">$&lt;?php echo $this->cart->format_number($this->cart->total()); ?>&lt;/td>
+&lt;/tr>
+
+&lt;/table>
+
+&lt;p>&lt;?php echo form_submit('', 'Update your Cart'); ?>&lt;/p>
+</textarea>
+
+
+
+
+<h2>การแก้ไขข้อมูลในตะกร้า</h2>
+
+<p>เราส่่งส่งอาเรย์ ที่มี id ของสินค้า โดยคีย์ชื่อ<kbd>Row ID</kbd> 
+และจำนวนของสินค้า ให้กับฟังก์ชัน <dfn>$this->cart->update()</dfn> </p>
+
+<p class="important"><strong>หมายเหตุ:</strong>ถ้าใส่ไปเป็น 0 หมายถึงเราลบออกนะคับ</p>
+
+<code>
+$data = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'rowid' => 'b99ccdf16028f015540f341130b6d8ec',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'qty'&nbsp;&nbsp; => 3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+
+$this->cart->update($data);
+<br /><br />
+// Or a multi-dimensional array<br /><br />
+$data = array(<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'rowid'&nbsp;&nbsp; => 'b99ccdf16028f015540f341130b6d8ec',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'qty'&nbsp;&nbsp;&nbsp;&nbsp; => 3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'rowid'&nbsp;&nbsp; => 'xw82g9q3r495893iajdh473990rikw23',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'qty'&nbsp;&nbsp;&nbsp;&nbsp; => 4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'rowid'&nbsp;&nbsp; => 'fh4kdkkkaoe30njgoe92rkdkkobec333',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'qty'&nbsp;&nbsp;&nbsp;&nbsp; => 2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+
+$this->cart->update($data);
+
+
+
+
+</code>
+
+<p>ค่า Row ID ถูกสุ่มสร้างขึ้นมา เพื่อให้สินค้าชนิดเดียวกันแต่มีรายละเอียดต่างกัน ไม่ซ้ำกันอย่าง
+เสื้อชนิดเดียวกัน แต่คนละขนาด ก็ต้องถูกแยกออกเป็นคนละ id .</p>
+
+
+
+<p>&nbsp;<br /></p>
+
+
+<h1>คำอธิบายวิธีการใช้งานฟังก์ชัน</h1>
+
+<h2>$this->cart->insert();</h2>
+
+<p>ใช้เพิ่มสินค้า</p>
+
+
+<h2>$this->cart->update();</h2>
+
+<p>ใช้แก้ไขสินค้า.</p>
+
+
+<h2>$this->cart->total();</h2>
+
+<p>ใช้แสดงจำนวนราคาของสินค้าทั้งหมดในตะกร้า.</p>
+
+
+<h2>$this->cart->total_items();</h2>
+
+<p>แสดงจำนวนของสินค้าทั้งหมด</p>
+
+
+<h2>$this->cart->contents();</h2>
+
+<p>ใช้ดึงรายละเอียดข้อมูลของสินค้า ทั้งหมดที่มีอยู่ในตะกร้า</p>
+
+
+
+<h2>$this->cart->has_options(rowid);</h2>
+
+<p>ใช้ตรวจสอบว่าสินค้า มีการตั้งค่าเพิ่มเติม หรือไม่ ถูกออกแบบมาให้ใช้ในฟังก์ชัน
+<dfn>$this->cart->contents()</dfn>, 
+
+<h2>$this->cart->product_options(rowid);</h2>
+
+<p>ใช้ดึงรายละเอียดของสินค้า ถูกสร้างมาเพื่อใช้ใน ฟังก์ชัน<dfn>$this->cart->contents()</dfn>, เราสามารถส่ง <kbd>rowid</kbd> </p>
+
+
+
+<h2>$this->cart->destroy();</h2>
+
+<p>ฟังก์ชันนี้จะถูกเรียก เมื่อผู้ใช้งานทำการยืนยันการสั่งซื้อสินค้า</p>
+
+
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="calendar.html">Calendar Class</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="config.html">Config Class</a>
+</p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

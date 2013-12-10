@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ระบบรักษาความปลอดภัย CodeIgniter</title>
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='ระบบรักษาความปลอดภัย CodeIgniter' />
+</head>
+<body>
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+ระบบรักษาความปลอดภัย
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>ระบบรักษาความปลอดภัย</h1>
+
+<p>หน้านี้ได้อธิบาย &quot;วิธีปฎิบัติที่ดีที่สุด&quot; บางส่วนเกี่ยวกับความปลอดภัยของเว็บและรายละเอียดความปลอดภัยภายใน CodeIgniter</p>
+
+
+<h2>ความปลอดภัยของ URI </h2>
+
+<p>CodeIgniter จำกัดตัวอักษรบางอย่างซึ่งตัวอักษรนั้นถูกยอมรับใน URI เพื่อช่วยในการลดข้อมูลที่มุ่งร้าย สามารถผ่านไปยังแอพพลิเคชั่นของคุณได้  URIs สามารถใช้ได้ดังต่อไปนี้:</p>
+
+<ul>
+<li>ตัวอักษรและตัวเลข</li>
+<li>Tilde: ~ </li>
+<li>Period: .</li>
+<li>Colon: :</li>
+<li>Underscore: _</li>
+<li>Dash: -</li>
+</ul>
+
+<h2>ข้อมูล GET, POST, และ COOKIE</h2>
+
+<p>ข้อมูลแบบ GET  ไม่ถูกอนุญาตให้ใช้โดย CodeIgniter ตั้งแต่ระบบมีการทำ URI เป็นส่วนๆแทนที่จะใช้ URL query strings ตามปกติ (ยกเว้นถ้าคุณต้องใช้ก็สามารถเปิดการใช้งานได้ในไฟล์ config) โดยรวมอาเรย์ GET จะยังไม่ถูกตั้งค่าจากคลาส Input เมื่อระบบอยู่ในช่วงพึงถูกเปิดการใช้งาน</p>
+
+<h2>Register_globals</h2>
+
+<p>เมื่ออยู่ในช่วงที่ระบบถูกเปิดใช้งาน ค่าตัวแปรทั่วไปจะยังไม่ตั้งค่า, ยกเว้นว่าพบว่ามีในอาเรย์ $_POST และ $_COOKIE การไม่ตั้งค่าเป็นประจำมีผลเหมือนการตั้งค่า  register_globals = off.</p>
+
+
+<h2>magic_quotes_runtime</h2>
+
+<p>คำสั่ง magic_quotes_runtime ถูกปิดเมื่อระบบอยู่ในช่วงเพิ่งเริ่มเปิดใช้งานดังนั้นคุณไม่ต้องนำเครื่องหมายสแลชออกเมื่อคุณต้องการรับข้อมูลจากฐานข้อมูล</p>
+
+<h1>วิธีปฎิบัติที่ดีที่สุด</h1>
+
+<p>ก่อนจะรับค่าใดๆมายังแอพพลิเคชั่นของคุณไม่ว่าจะเป็นข้อมูลแบบ POST จากยื่นแบบฟอร์ม (form submission) , ข้อมูล COOKIE , ข้อมูล URI ,
+ข้อมูล XML-RPC  หรือแม้กระทั้งข้อมูลจากอาเรย์ SERVER, คุณเน้นให้คุณปฎิบัติตาม 3 ขั้นตอนนี้</p>
+
+<ol>
+<li>กรองข้อมูลเหมือนกับมีจุดบกพร่อง</li>
+<li>ตรวจสอบข้อมูลให้ถูกต้องเพื่อให้แน่ใจว่ามันสอดคล้างกับรูปแบบที่ถูกต้อง , ความยาว , ขนาด , ฯลฯ (บางครั้งขั้นตอนนี้สามารถทำแทนขั้นตอนแรกได้)</li>
+<li>พาข้อมูลหลบภัย(escape the data) ก่อนที่จะส่งมอบไปยังฐานข้อมูล</li>
+</ol>
+
+<p>CodeIgniter ได้จัดหาฟังก์ชันเพื่อช่วยเหลือในงานนี้แล้วดังต่อไปนี้</p>
+
+<ul>
+
+<li>
+<h2>กรองข้อมูล XSS (Cross site Scripting)</h2>
+
+<p>CodeIgniter มาพร้อมกับตัวกรอง Cross Site Scripting  ตัวกรองนี้ถูกใช้โดยทั่วไปเพื่อกำจัดข้อมูล Javascript ที่เป็นอันตรายจากข้อมูลคุณ, หรือ โค้ดอื่นๆที่จะขโมยข้อมูลใน  cookies
+หรือทำอย่างอื่นที่มุ่งร้าย ตัวกรองข้อมูล XSS ถูกอธิบายไว้แล้ว <a href="../libraries/input.html">ที่นี้</a></p>
+</li>
+
+<li>
+<h2>ตรวจสอบข้อมูล</h2>
+
+<p>CodeIgniter มีคลาส <a href="../libraries/form_validation.html">Form Validation Class</a> เพื่อช่วยเหลือคุณในการตรวจสอบ , กรอง และเตรียมข้อมูล</p>
+</li>
+
+<li>
+<h2>พาข้อมูลทั้งหมดหลบภัยก่อนใส่เข้าไปในฐานข้อมูล</h2>
+
+<p>อย่าใส่ข้อมูลไปยังฐานข้อมูลของคุณโดยไม่ทำการหลบภัยมันก่อน โปรดดูหน้า
+<a href="../database/queries.html">queries</a> สำหรับข้อมูลเพิ่มเติม</p>
+
+</li>
+
+</ul>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="alternative_php.html">ทางเลือกการเขียนไวยากรณ์ PHP</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="styleguide.html">แนะนำวิธีเขียน PHP</a>
+</p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

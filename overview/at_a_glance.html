@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ชำเลืองมอง CodeIgniter</title>
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='ชำเลืองมอง CodeIgniter' />
+</head>
+<body>
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+CodeIgniter คืออะไร?
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน &nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>ชำเลืองมอง CodeIgniter</h1>
+
+
+<h2>CodeIgniter เป็นแอพพลิเคชั่นเฟรมเวิร์ค</h2>
+
+<p>CodeIgniter เป็นเครื่องมือสำหรับคนที่ต้องการสร้างเว็บแอพพลิเคชั่นด้วย PHP โดยจุดมุ่งหมายคือทำให้คุณพัฒนางานของคุณได้เร็วกว่าคุณเขียนโค้ดเองจากศูนย์ โดยนำเสนอกลุ่มของไลบรารี่ที่สมบูรณ์เพื่อทำงานทั่วๆไปที่ถูกทำเป็นประจำ รวมถึงการใช้งานที่ง่ายไม่ซับซ้อนในการเรียกใช้ไลบรารี่เหล่านี้ CodeIgniter ทำให้คุณสนใจเพียงการสร้างสรรค์ในงานของคุณโดยลดจำนวน Code ในการเขียนงานๆหนึ่งขึ้นมา</p>
+
+<h2>CodeIgniter เป็นของฟรี</h2>
+<p>CodeIgniter อยู่ภายใต้เงื่อนไขแบบ Apache/BSD ซึ่งเป็นใบอณุญาติแบบ Open Source ดังนั้นคุณจะใช้มันยังไงก็ได้อย่างที่คุณต้องการ
+สำหรับต้องการทราบข้อมูลเพิ่มเติมอ่านได้ที่ <a href="../license.html">ข้อตกลงในการทำไปใช้</a></p>
+
+
+<h2>CodeIgniter สามารถทำงานได้บน PHP 4</h2>
+<p>CodeIgniter ถูกเขียนมาให้ทำงานร่วมกับ PHP 4 ได้ถึงแม้ว่าเรารักความสามารถของการจัดการเชิงวัตถุ (object) ของ PHP 5 ซึ่งมันทำให้เราหาวิธีการริเริ่มบางอย่างเป็นเรื่องง่าย 
+แต่ตอนนี้การเขียน PHP 5 ยังไมได้ถูกใช้เป็นที่แพร่หลาย ซึ่งหมายความว่าเราอาจถูกเมินจากผู้ชมส่วนใหญ่ก็เป็นได้ ซ้ำแล้วผู้ขายระบบปฎิบัติอย่าง  RedHat ได้ดำเนินการอย่างช้าๆเพื่อที่จะทำให้รองรับ PHP 5 และพวกเขาไม่ชอบที่จะทำในเวลาอันสั้น ดังนั้นเรารู้สึกว่า เราไม่สามารถให้บริหารที่ดีที่สุดกับชุมชนของ PHP ได้โดยบังคับให้เขาใช้ CodeIgniter ได้เฉพาะ PHP 5</p>
+
+<p>ข้อสังเกตุ :  CodeIgniter จะทำงานบน PHP 5  ซึ่งความจริงแล้วเราไม่ได้ใช้คุณสมบัติใดๆเลยที่มีเฉพาะในเวอร์ชั่น 5</p>
+
+<h2>CodeIgniter มีน้ำหนักเบา</h2>
+<p>น้ำหนักเบาอยากแท้จริง  ระบบหลักต้องการเพียงไลบรารี่เล็กๆเพียงเล็กน้อย จึงเป็นความแตกต่างโดยสิ้นเชิงกับหลายๆเฟรมเวิร์คซึ่งจำเป็นต้องใ้ช้ทรัพยากรมากกว่า ส่วนเพิ่มเติมของไลบรารี่ถูกโหลดอย่างสร้างสรรค์เมื่อถูกร้องข้อ ซึ่งขึ้นอยู่กับขั้นตอนความต้องการของคุณ ดังนั้นระบบพื้นฐานจึงลีบมากและค่อนข้างเร็ว</p>
+
+<h2>CodeIgniter เร็ว</h2>
+<p>เร็วโดยแท้ เราท้าให้คุณหาเฟรมเวิร์คที่มีประสิทธิภาพมากกว่า CodeIgniter</p>
+
+
+<h2>CodeIgniter ใช้ M-V-C</h2>
+<p>CodeIgniter ใช้วิธีการ Model-View-Controller ซึ่งยอมให้แบ่งแยกส่วนสำคัญระหว่างระบบการใช้เหตุผลและส่วนแสดงผล ซึ่งมันเป็นผลดีอย่างยิ่งสำหรับงานที่ดีไซเนอร์กำลังทำงานกับไฟล์ Template ต่างๆ ซึ่งในไฟล์เหล่านี้จะมีโค้ดลดให้เหลือน้อยที่สุด เราจะอธิบายรายละเอียด MVC ต่อในหน้า <a href="mvc.html">Model-View-Controller</a></p>
+
+<h2>CodeIgniter สร้าง  URL ที่สะอาด</h2>
+<p>URL ต่างๆที่ถูกสร้างขึ้นโดย CodeIgniter สะอาดและเป็นมิตรกับกลไกการค้นหา (Search-Engine) เช่น Google , Yahoo ตรงข้ามกับการวิธีการใช้ "query string"
+กับ URL ซึ่งมีความหมายเหมือนกันกับระบบการเคลื่อนที่ CodeIgniter ใช้วิธีการแบ่งเป็นกลุ่ม</p>
+
+<code>example.com/<var>news</var>/<dfn>article</dfn>/<samp>345</samp></code>
+
+<p>สังเกตุ: โดยปกติแล้ว index.php จะถูกรวมเข้าไปใน URL แต่มันสามารถถูกขจัดออกไปโดยใช้ไฟล์ .htaccess แบบง่ายๆ</p>
+
+<h2>CodeIgniter มีหมัดเด็ดจำนวนมาก</h2>
+<p>CodeIgniter มาพร้อมกับไลบรารี่ที่สมบูรณ์ ซึ่งใช้ทำงานส่วนใหญ่ที่ต้องการในการพัฒนาเว็บไซต์ เช่น ติดต่อฐานข้อมูล , ส่งอีเมล์ , ตรวจสอบรูปแบบข้อมูล , ดำรงช่วงเวลาการสื่อสาร , จัดการกับรูปภาพ , ทำงานด้วยข้อมูล XML-RPC , ฯลฯ อีกมากมาย</p>
+
+<h2>CodeIgniter ขยายได้</h2>
+<p>ระบบสามารถถูกต่อเติมได้ง่ายผ่านไลบรารี่ plugin หรือ helper หรือผ่านการต่อเติมคลาส หรือ <a href="../general/hooks.html">ระบบตะขอ (Hook)</a></p>
+
+
+<h2>CodeIgniter ไม่ต้องการกลไล Template</h2>
+<p>ถึงแม้ว่า CodeIgniter ได้มาพร้อมกับ  Template Parser แบบง่ายซึ่งเป็นทางเลือกที่สามารถใช้ได้ โดยไม่ได้บังคับให้คุณต้องใช้มัน
+
+กลไล Template อย่างง่ายไม่สามารถมีประสิทธิภาพเท่ากับ PHP ตามธรรมชาติ และคุณต้องเรียนรู้ไวยากรณ์เพื่อใช้กลไล Template ซึ่งปกติแล้วมีขอบเขตการใช้งานที่ง่ายกว่าการเรียนพื้นฐานของ PHP ลองพิจารณาโค้ดต่อไปนี้</p>
+
+<code>&lt;ul><br />
+<br />
+&lt;?php foreach ($addressbook as $name):?><br />
+<br />
+&lt;li>&lt;?=$name?>&lt;/li><br />
+<br />
+&lt;?php endforeach; ?><br />
+<br />
+&lt;/ul></code>
+
+<p>เปรียบเทียบสิ่งนี้กับ pseudo-code (รหัสเทียม) ซึ่งถูกใช้ในไกไล Template</p>
+
+<code>&lt;ul><br />
+<br />
+{foreach from=$addressbook item="name"}<br />
+<br />
+&lt;li>{$name}&lt;/li><br />
+<br />
+{/foreach}<br />
+<br />
+&lt;/ul></code>
+
+<p>ใช่แล้วตัวอย่างกลไก Template สะอาดกว่านิดหน่อยแต่มันมาต้องแลกกับประสิทธิภาพ ซึ่ง pseudo-code จะถูกแปลงกลับไปเป็น PHP เพื่อทำงาน ดังนั้นถ้าจุดมุ่งหมายหนึ่งเราคือ  <em>มีประสิทธิภาพมากที่สุด</em> เราจึงเลือกที่ไม่้บังคับใช้กลไก Template</p>
+
+
+<h2>CodeIgniter ถูกทำเป็นเอกสารอย่างสมบูรณ์</h2>
+<p>โปรแกรมเมอร์รักที่จะโค้ดแต่เกลียดที่จะเขียนเอกสาร แน่นอนเราก็ไม่ต่างกัน แต่การเตรียมเอกสารเป็นเรื่องสำคัญไม่แพ้โค้ด เราถูกไว้วางใจให้ทำมัน ซอร์สโค้ดของเราสะอาดอย่างที่สุดและถูกอธิบายไว้อย่างดี</p>
+
+
+<h2>CodeIgniter มีกลุ่มผู้ใช้ที่เป็นมิตร</h2>
+
+<p>กลุ่มผู้ใช้ที่โตขึ้นของเรามีส่วนร่วมอย่างกระตื้อรือร้นใน<a href="http://codeigniter.com/forums/">ที่ประชุมชุมชน</a>ของเรา ส่วนของไทยกำลังเริ่มโตแลกเปลี่ยนและเสนอความคิดเห็นได้ใน<a href="http://codeigniter.in.th/forums/">เว็บบอร์ดแห่งนี้</a></p>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="getting_started.html">เริ่มต้นกับ Codeigniter</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="cheatsheets.html">แผ่นโกง CodeIgniter</a>
+</p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

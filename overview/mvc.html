@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Model-View-Controller (MVC) CodeIgniter User Guide</title>
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Model-View-Controller (MVC) CodeIgniter User Guide' />
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+Model-View-Controller (MVC)
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน &nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Model-View-Controller</h1>
+
+<p>CodeIgniter ถูกสร้างบนพื้นฐานการพัฒนาแบบ Model-View-Controller. 
+
+MVC คือวิธีการทางซอฟต์แวร์ที่แยกระบบการใช้เหตุผลของแอพพลิเคชั่นจากส่วนแสดงผล  ในทางปฎิบัติ มันอนุญาตให้หน้าเว็บของคุณมีสคริปเล็กๆเนื่องจากส่วนแสดงต้องแยกออกจากสคริป PHP</p>
+
+<ul>
+<li><strong>Model</strong> อธิบายโครงสร้างข้อมูล แบบฉบับของคลาสแบบจำลองจะมีฟังก์ชั่นที่ช่วยให้คุณรับ , ใส่ , ปรับปรุงข้อมูลของคุณในฐานข้อมูล</li>
+<li><strong>View</strong> คือข้อมูลที่ถูกแสดงให้กับผู้ใช้  View ส่วนใหญ่จะเป็นเว็บเพจ แต่ใน CodeIgniter , view สามารถเป็นเพียงบางส่วนของหน้าได้ เช่น ส่วนหัว ส่วนท้าย มันสามารถจะเป็นหน้า RSS หรือเป็นอย่างอื่นได้ที่เป็น "เพจ"</li>
+
+<li><strong>Controller</strong> ถูกใช้เป็น <em>สื่อกลาง</em> ระหว่าง Model , View และแหล่งที่มาอื่นๆที่ต้องการในการทำงาน HTTP request และการสร้างเว็บเพจ</li>
+
+</ul>
+
+<p>CodeIgniter ปล่อยวางวิธีการ MVC อย่างพอสมควรโดย Model เป็นสิ่งที่ไม่บังคับใช้ ถ้าคุณไม่ต้องการเพิ่มการแยกออก หรือหาวิธีบำรุงรักษา Model ซึ่งยุ่งยากกว่าที่คุณต้องการ คุณสามารถไม่สนใจมันและสร้างแอพพลิเคชั่นของคุณโดยใช้เพียง Controller และ View. CodeIgniter ยังยินยอมให้คุณรวมสคริปของคุณกับตัวมัน หรือแม้แต่พัฒนาไลบรารี่ส่วนสำคัญของระบบ ยอมให้คุณทำงานในแบบที่คุณเข้าใจได้มากที่สุด</p>
+
+</div>
+
+<!-- END CONTENT -->
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="appflow.html">ขั้นตอนการทำงานของแอพพลิเคชั่น</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="goals.html">จุดมุ่งหมายของสถาปัตยกรรม</a>
+</p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

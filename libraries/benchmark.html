@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Benchmarking Class : CodeIgniter User Guide</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='CodeIgniter User Guide' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+Benchmarking Class
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Benchmarking Class (การวัดประสิทธิภาพ)</h1>
+
+<p>CodeIgniter มีคลาสที่ใช้วัดประสิทธิภาพของเว็บ ซึ่่งทำงานอยู่ตลอดเวลา, วิธีการทำงานก็คือ จับเวลาในการวิ่งระหว่งจุดสองจุด.</p>
+
+<p class="important"><strong>Note:</strong> คลาสนี้ทำงานในอัติโนมัติอยู่แล้ว</p>
+
+
+<p>นอกจากนี้, คลาส benchmark จะเริ่มทำงานโดยอัติโนมัติตั้งแต่ framework เริ่มทำงาน, และเมื่อสิ้นสุดการทำงาน
+ก็จะส่ง.</p>
+
+
+<h3>สารบัญ</h3>
+
+<ul>
+<li><a href="#using">การใช้งาน</a></li>
+<li><a href="#profiler">การเก็บประวัติ</a></li>
+<li><a href="#execution">การแสดงระยะเวลาที่ใช้ในการประมวลผล</a></li>
+<li><a href="#memory">การแสดงจำนวน หน่วยความจำที่ใช้ไป</a></li>
+</ul>
+
+
+
+<a name="using"></a>
+<h2>การใช้งาน</h2>
+
+<p>คลาสนี้สามารถใช้ใน <a href="../general/controllers.html">controllers</a>,  <a href="../general/views.html">views</a>,หรือ  <a href="../general/models.html">models</a>. โดย</p>
+
+<ol>
+<li>กำหนดจุดเริ่มต้น</li>
+<li>กำหนดจุดสิ้นสุด</li>
+<li>เรียกใช้ฟังก์ชัน elapsed time เพื่อดูผลการทดสอบ</li>
+</ol>
+
+<p>ตัวอย่าง</p>
+
+<code>$this->benchmark->mark('code_start');<br />
+<br />
+// Some code happens here<br />
+<br />
+$this->benchmark->mark('code_end');<br />
+<br />
+echo $this->benchmark->elapsed_time('code_start', 'code_end');</code>
+
+<p class="important"><strong>หมายเหตุ</strong> คำว่า "code_start" และ "code_end" ไม่ใช่คำบังคับนะครับ:</p>
+
+<code>$this->benchmark->mark('dog');<br />
+<br />
+//ตัวอย่างนี้เราเปลี่ยนเป็นคำอื่นไป<br />
+<br />
+$this->benchmark->mark('cat');<br />
+<br />
+// More code happens here<br />
+<br />
+$this->benchmark->mark('bird');<br />
+<br />
+echo $this->benchmark->elapsed_time('dog', 'cat');<br />
+echo $this->benchmark->elapsed_time('cat', 'bird');<br />
+echo $this->benchmark->elapsed_time('dog', 'bird');</code>
+
+
+<a name="profiler"></a>
+<h2>การเก็บรวบรวมข้อมูล</h2>
+
+<p>ถ้าเราต้องการให้ค่าเก็บไปยัง คลาส 
+<a href="../general/profiling.html">Profiler</a> ชื่อของจุดที่เรา ตั้งไว้ต้องห้อยท้ายด้วย <kbd>_start</kbd> และ <kbd>_end</kbd>.
+. ตัวอย่าง:</p>
+
+<code>
+$this->benchmark->mark('my_mark<kbd>_start</kbd>');<br />
+<br />
+// Some code happens here...<br />
+<br />
+$this->benchmark->mark('my_mark<kbd>_end</kbd>');
+<br /><br />
+
+$this->benchmark->mark('another_mark<kbd>_start</kbd>');<br />
+<br />
+// Some more code happens here...<br />
+<br />
+$this->benchmark->mark('another_mark<kbd>_end</kbd>');
+</code>
+
+<p>อยากรู้ว่า <a href="../general/profiling.html">Profiler page</a> คืออะไรคลิ๊กตามลิ้งไปเลยครับ.</p>
+
+
+<a name="execution"></a>
+<h2>การแสดงเวลาที่ใช้ไป</h2>
+
+<p>เราจะใช้โค้ด ตามตัวอย่างด้านล่างในหน้า view เพื่อแสดงผล:</p>
+
+<code>&lt;?php echo $this->benchmark->elapsed_time();?&gt;</code>
+
+
+<p>สามารถใส่ เป็นแบบ template ตามนี้ได้</p>
+<code>{elapsed_time}</code>
+
+<p class="important"><strong>หมายเหตุ</strong> ต้องกำหนดจุดเริ่มต้นและจุดสิ้นสุดทุกครั้ง.</p>
+
+<a name="memory"></a>
+<h2>การแสดงจำนวน memory ที่ถูกใช้ไป</h2>
+
+<p>ในไฟล์ php.ini ต้องตั้งค่า --enable-memory-limit, เราถึงจะใช้โค้ดด้านล่างได้:</p>
+
+<code>&lt;?php echo $this->benchmark->memory_usage();?&gt;</code>
+<p>หมายเหตุ: ใช้ได้เฉพาะใน view เท่านั้น</p>
+
+<p>หรือจะเขียนเป็นแบบ template ก็ได้</p>
+<code>{memory_usage}</code>
+
+
+
+
+</div>
+<!-- END CONTENT -->
+
+
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="../doc_style/index.html">Writing Documentaion</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="calendar.html">Calendar Class</a>
+</p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

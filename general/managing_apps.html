@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>จัดการหลายแอพพลิเคชั่น CodeIgniter</title>
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='จัดการหลายแอพพลิเคชั่น CodeIgniter' />
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+จัดการหลายแอพพลิเคชั่น
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>จัดการหลายแอพพลิเคชั่น</h1>
+
+<p>โดยทั่วไปเราจะสมมุติว่าคุณต้องการใช้ CodeIgniter จัดการเพียงแอพพลิเคชั่นเดียว ซึ่งคุณจะสร้างระบบในไดเรคทอรี่
+<dfn>system/application/</dfn> โดยความเป็นจริงมันสามารถทำได้หลายแอพพลิเคชั่นด้วย CodeIgniter เพียงตัวเดียว แต่อย่างไรก็ตามสำหรับการจัดการหลายแอพพลิเคชั่นด้วย CodeIgniter ที่ลงเพียงตัวเดียวจะต้องเปลี่ยนชื่อหรือวางโฟลเดอร์ <dfn>application </dfn>ใหม่</p>
+
+<h2>การเปลี่ยนชื่อโฟลเดอร์ Application</h2>
+
+<p>ถ้าคุณต้องการเปลี่ยนชื่อโฟลเดอร์ <dfn>application</dfn> ของคุณก็สามารถทำได้เพียงแต่คุณต้องเปิดไฟล์ <kbd>index.php</kbd>
+และตั้งค่าตัวแปร <samp>$application_folder</samp> เป็นชื่อโฟลเดอร์ใหม่ของคุณด้วย</p>
+
+<code>$application_folder = "application";</code>
+
+<h2>ย้ายโฟลเดอร์ Application ของคุณ</h2>
+
+<p>มันเป็นไปได้ที่คุณจะย้ายโฟลเดอร์ <dfn>application</dfn> ไปในที่อื่นมากกว่าภายในโฟลเดอร์ <kbd>system</kbd> สำหรับวิธีการทำเปิดไฟล์ <kbd>index.php</kbd> และตั้งค่าเป็น <em>เส้นทางโฟลเดอร์แบบเต็ม </em> ในตัวแปร <samp>$application_folder</samp></p>
+
+
+<code>$application_folder = "/Path/to/your/application";</code>
+
+
+<h2>รันหลายแอพพลิเคชั่นภายในการติดตั้ง CodeIgniter เพียงตัวเดียว</h2>
+
+<p>ถ้าคุณชอบที่จะใช้หลายๆแอพพลิเคชั่นภายในการติดตั้ง CodeIgniter หนเดียวนั้น ให้เอาไดเรคทอรี่ทั้งหมดภายในโฟลเดอร์ <kbd>application</kbd> ไปยังโฟลเดอร์ย่อยที่คุณตั้ง</p>
+
+<p>ตัวอย่าง เช่น, คุณต้องการสร้างสองแอพพลิเคชั่นเป็น "foo" and "bar"  คุณจะมีโครงสร้างแอพพลิเคชั่นโฟลเดอร์ดังนี้</p>
+
+<code>system/application/<var>foo</var>/<br />
+system/application/<var>foo</var>/config/<br />
+system/application/<var>foo</var>/controllers/<br />
+system/application/<var>foo</var>/errors/<br />
+system/application/<var>foo</var>/libraries/<br />
+system/application/<var>foo</var>/models/<br />
+system/application/<var>foo</var>/views/<br />
+system/application/<samp>bar</samp>/<br />
+system/application/<samp>bar</samp>/config/<br />
+system/application/<samp>bar</samp>/controllers/<br />
+system/application/<samp>bar</samp>/errors/<br />
+system/application/<samp>bar</samp>/libraries/<br />
+system/application/<samp>bar</samp>/models/<br />
+system/application/<samp>bar</samp>/views/</code>
+
+
+<p>ในการเลือกใช้แอพพลิเคชั่นนั้นคุณต้องเปิดไฟล์ <kbd>index.php</kbd> และตั้งค่าตัวแปร <dfn>$application_folder</dfn>
+ตัวอย่างเช่นจะเลือกใช้แอพพลิเคชั่น "foo" คุณก็ต้องตั้งค่าเป็นแบบนี้</p>
+
+<code>$application_folder = "application/foo";</code>
+
+<p class="important"><strong>ข้อสังเกตุ:</strong>&nbsp; แต่ละแอพพลิเคชั่นของคุณต้องการไฟล์ <dfn>index.php</dfn> ของมันเองซึ่งเอาไว้เรียกแอพพลิเคชั่นที่ต้องการ ซึ่งไฟล์ index.php สามารถเป็นชื่ออะไรก็ได้ตามที่คุณต้องการ อย่างเช่น foo.php เวลาเรียกในหน้าแรกคุณก็เรียก foo.php มันก็จะเข้า app foo เป็นต้น</p>
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="cli.html">Running via the CLI</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="environments.html">Handling Multiple Environments</a>
+</p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

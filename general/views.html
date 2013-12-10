@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Views (ส่วนแสดง) CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Views (ส่วนแสดง) CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+Views (ส่วนแสดง)
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Views (ส่วนแสดง)</h1>
+
+<p><dfn>View หรือส่วนแสดง</dfn> เป็นหน้าเว็บแบบทั่วไป หรืออาจจะเป็นส่วนต่างๆของหน้าเว็บเพจ อย่างเช่น ส่วนหัว, ส่วนท้าย, แถบด้านข้าง, หรืออื่นๆ อันที่จริง view (ส่วนแสดง) ตัวมันสามารถที่จะฝัง(เป็นส่วนประกอบ) ไว้ใน view (ส่วนแสดง) อื่นได้ ถ้าคุณต้องการแบบลักษณะเป็นโครงสร้างลำดับชั้น</p>
+<p>View (ส่วนแสดง) จะไม่ถูกเรียกโดยตรงๆ แต่ <a href="controllers.html">controller</a> (ตัวควบคุม) จะเป็นตัวเรียก จำไว้ว่าเรามีแนวคิดแบบ MVC , Controller (ตัวควบคุม)เหมือนกับเป็นตำรวจจราจร ซึ่งมันจะทำหน้าที่ตอบสนองโดยการดึง view (ส่วนแสดง) ถ้าคุณยังไม่ไ่ด้อ่านเนื้อหาของ <a href="controllers.html">Controllers </a>คุณต้องอ่านก่อนเลย ก่อนที่จะไปต่อ</p>
+<p>ใช้ตัวอย่างในบท controller (ตัวควบคุม)ของคุณ แล้วเพิ่ม view (ส่วนแสดง)เข้าไป</p>
+<h2>สร้าง View (ส่วนแสดง)</h2>
+
+<p>ใช้เท็กซ์เอดิเตอร์ของคุณ ส้รางไฟล์ <dfn>blogview.php</dfn> แล้วนำโค้ดข้างล่างนี้ไปใส่:
+  <textarea class="textarea" style="width:100%" cols="50" rows="10">
+&lt;html>
+&lt;head>
+&lt;title>My Blog&lt;/title>
+&lt;/head>
+&lt;body>
+	&lt;h1>Welcome to my Blog!&lt;/h1>
+&lt;/body>
+&lt;/html>
+  </textarea>
+</p>
+<p>แล้วบันทึกไว้ในโฟลเดอร์ <dfn>application/views/</dfn></p>
+<h2>โหลด View (ส่วนแสดง)</h2>
+
+<p>เพื่อที่จะโหลด view (ส่วนแสดง) เฉพาะเจาะจง คุณควรใช้ฟังก์ชันข้างล่างนี้:</p>
+<code>$this->load->view('<var>name</var>');</code>
+<p><var>name</var> เป็นชื่อของไฟล์ view (ส่วนแสดง) ของคุณ <br />
+  หมายเหตุ: ส่วนขยาย .php ไม่ต้องระบุลงไปด้วย แม้คุณจะใช้นามสกุลอื่นนอกเหนือจาก .php ก็ตาม ก็ไม่ต้องระบุไป</p>
+<p>เปิดไฟล์ controller (ตัวควบคุม)ที่คุณได้สร้างไว้ก่อนหน้านี้ <dfn>blog.php</dfn> แล้วแทนด้วยชื่อ view (ส่วนแสดง) ที่คุณจะทำการโหลด ดังนี้:
+  <textarea class="textarea" style="width:100%" cols="50" rows="10">
+<?php
+class Blog extends Controller {
+
+	function index()
+	{
+		$this->load->view('blogview');
+	}
+}
+?>
+  </textarea>
+</p>
+<p>ถ้าคุณเรียกดูหน้าที่คุณได้ทำข้างต้น คุณจะเห็น view (ส่วนแสดง)อันใหม่ URL ที่ใช้เรียกดูจะมีหน้าตาแบบนี้:</p>
+<code>example.com/index.php/<var>blog</var>/</code>
+<h2>โหลด view (ส่วนแสดง) แบบหลายตัว</h2>
+<p>CodeIgniter มีความอัจฉริยะในการจัดการการเรียกแบบหลายๆตัว (การเรียก view (ส่วนแสดง)พร้อมกัน ถ้ามีหลายตัวถูกเรียกพร้อมกันมันก็จะถูกเพิ่มเข้าไปด้วยกัน ตัวอย่าง คุณมี view (ส่วนแสดง)ส่วนหัว, view (ส่วนแสดง)เมนู, view (ส่วนแสดง)เนื้อหา, และ view (ส่วนแสดง)ส่วนท้าย รูปแบบการเรียกจะเป็นลักษณะนี้:</p>
+<code>&lt;?php<br />
+<br />
+class Page extends Controller {<br /><br />
+
+ &nbsp;&nbsp;&nbsp;function index()<br />
+&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$data['page_title'] =  'Your title';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view('header');<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view('menu');<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view('content', $data);<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view('footer');<br />
+&nbsp;&nbsp;&nbsp;}<br />
+<br />
+}<br />
+	?&gt;</code>
+<p>ตัวอย่างข้างบนนั้นเราใช้การเพิ่มข้อมูลแบบพลวัติ(เปลี่ยนแปลงอยู่ตลอดเวลา), ซึ่งจะเห็นในข้างล่างต่อไปนี้</p>
+<h2>เก็บ view (ส่วนแสดง)ไว้ในโฟลเดอร์ย่อย</h2>
+<p>view (ส่วนแสดง)ของคุณสามารถเก็บไว้ในโลเดอร์ย่อยได้ ถ้าคุณชอบวิธีการแบบนี้ ถ้าคุณทำวิธีนี้คุณก็ต้องระบุชื่อโฟลเดอร์นั้นเพื่อที่จะโหลด view (ส่วนแสดง)ที่อยู่ในโฟลเดอร์นี้ ดังตัวอย่าง:</p>
+<code>$this->load->view('<kbd>folder_name</kbd>/<var>file_name</var>');</code>
+<h2>เพิ่มข้อมูลแบบพลวัติ(เปลี่ยนแปลงอยู่เสมอ)ให้กับ view (ส่วนแสดง)</h2>
+
+<p>ข้อมูลที่ส่งจาก controller (ตัวควบคุม)ให้กับ view (ส่วนแสดง)โดยส่งเป็น <strong>อาเรย</strong>์ หรือ แบบ<strong>วัตถ</strong>ุ ผ่านพารามิเตอร์ตัวที่สองของฟังก์ชันโหลด view (ส่วนแสดง) ตัวอย่างนี้เป็นการส่งข้อมูลแบบใช้อาเรย์:</p>
+<code>$data = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'title' => 'My Title',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'heading' => 'My Heading',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'message' => 'My Message'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+$this->load->view('blogview', <var>$data</var>);</code>
+<p>แล้วนี่เป็นตัวอย่างที่ใช้ข้อมูลที่เป็นวัตถุส่ง:</p>
+<code>$data = new Someclass();<br />
+  $this->load->view('blogview', <var>$data</var>);</code>
+<p>หมายเหตุ: ถ้าคุณใช้วิธีส่งแบบวัตถุ ตัวแปรต่างๆของคลาสจะถูกคืนค่าเป็นอาเรย์ มาลองทำในไฟล์ controller (ตัวควบคุม)ของคุณ เปิดไฟล์แล้วเพิ่มโค้ดนี้ลงไป:
+  <textarea class="textarea" style="width:100%" cols="50" rows="14">
+&lt;?php
+class Blog extends Controller {
+
+	function index()
+	{
+		$data['title'] = "My Real Title";
+		$data['heading'] = "My Real Heading";
+		
+		$this->load->view('blogview', $data);
+	}
+}
+?&gt;
+  </textarea>
+</p>
+<p>ทีนี้เปิดไฟล์ view (ส่วนแสดง)ขึ้นมาแล้วเพิ่มตัวแปรที่เหมือนกับคีย์ของอาเรย์ของข้อมูลของคุณ:
+  <textarea class="textarea" style="width:100%" cols="50" rows="10">
+&lt;html>
+&lt;head>
+&lt;title>&lt;?php echo $title;?>&lt;/title>
+&lt;/head>
+&lt;body>
+	&lt;h1>&lt;?php echo $heading;?>&lt;/h1>
+&lt;/body>
+&lt;/html>
+  </textarea>
+</p>
+<p>แล้วทำการโหลดหน้านี้ด้วย URL ที่คุณเคยใช้มาคุณจะเห็นข้อมูลที่มาจากตัวแปรแสดงออกมาแทนแบบเดิม</p>
+<h2>การสร้างแบบใช้การวนรอบ</h2>
+
+<p>ข้อมูลแบบอาเรย์ที่คุณส่งไปให้กับไฟล์ view (ส่วนแสดง) ไม่ใช่แค่จะเป็นข้อมูลธรรมดาๆเท่านั้น แต่สามารถเป็นอาเรย์แบบหลายมิติได้ ซึ่งสามารถวนรอบตัวแปรเหล่านี้เพื่อสร้างแถวข้อมูลแบบหลายๆแถวได้ มาดูตัวอย่างถ้าคุณดึงข้อมูลออกมาจากฐานข้อมูลปกติเนี่ยมันจะออกมาในรูปแบบอาเรย์หลายมิติ</p>
+<p>นี่คือตัวอย่างของหัวข้อที่กล่าวมา นำโค้ดนี้เพิ่มเข้าไปใน controller (ตัวควบคุม)ของคุณ:
+  <textarea class="textarea" style="width:100%" cols="50" rows="17">
+&lt;?php
+class Blog extends Controller {
+
+	function index()
+	{
+		$data['todo_list'] = array('Clean House', 'Call Mom', 'Run Errands');
+
+		$data['title'] = "My Real Title";
+		$data['heading'] = "My Real Heading";
+		
+		$this->load->view('blogview', $data);
+	}
+}
+?&gt;
+  </textarea>
+</p>
+<p>แล้วเปิดไฟล์ view (ส่วนแสดง) แล้วเขียนแบบนี้:
+  <textarea class="textarea" style="width:100%" cols="50" rows="24">
+&lt;html>
+&lt;head>
+&lt;title>&lt;?php echo $title;?>&lt;/title>
+&lt;/head>
+&lt;body>
+&lt;h1>&lt;?php echo $heading;?>&lt;/h1>
+	
+&lt;h3>My Todo List&lt;/h3>	
+
+&lt;ul>
+&lt;?php foreach($todo_list as $item):?>
+
+&lt;li>&lt;?php echo $item;?>&lt;/li>
+
+&lt;?php endforeach;?>
+&lt;/ul>
+	
+&lt;/body>
+&lt;/html>
+  </textarea>
+</p>
+<p><strong>หมายเหตุ: </strong>ตัวอย่างข้างบนเราเขียน PHP อีกแบบนึง ถ้า ถ้าคุณไม่คุ้นละก็ให้คุณลองไปอ่าน<a href="alternative_php.html">ที่นี้</a>ดู</p>
+<h2>คืนค่าจาก view (ส่วนแสดง) ออกมาเป็นข้อมูล</h2>
+
+<p>พารามิเตอร์ตัวที่สามเป็น<strong>ตัวเลือก</strong>ที่ให้คุณเปลี่ยนวิธีการคืนค่าออกมาจากฟังก์ชันเป็นสตริงได้แทนที่จะส่งผลลัพธ์ไปให้กับบราวเซอร์เลยโดยตรง มันจะเป็นประโยชน์มากถ้าคุณต้องการประมวลผลข้อมูลในบางวิธี ถ้าตั้งค่าให้พารามิเตอร์ตัวนี้เป็น <kbd>true</kbd> (บูลีน) การคืนค่าจะออกมาเป็นข้อมูล ถ้าตั้งค่าเป็น <kbd>false</kbd> ซึ่งเป็นค่าโดยปริยายอยู่แล้วมันจะส่งผลลัพธ์ไปให้บราวเซอร์เลยโดยตรง</p>
+ <code>$string = $this->load->view('<var>myfile</var>', '', <kbd>true</kbd>);</code>
+<p>ซึ่งจริงๆแล้วมักถูกใช้เวลาที่ต้องคำนวณ view ในหน้านั้นให้เสร็จก่อนเพื่อนำไปใช้ร่วมกับ view อื่นๆ</p>
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="reserved_names.html">คำสงวน</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="models.html">Models (แบบจำลอง)</a>
+</p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

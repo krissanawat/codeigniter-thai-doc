@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>การกำหนดเส้นทาง URI CodeIgniter</title>
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='การกำหนดเส้นทาง URI CodeIgniter' />
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+การกำหนดเส้นทาง URI
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>การกำหนดเส้นทาง URI</h1>
+
+<p>แบบปกติแล้วเป็นแบบ 1 ต่อ 1 โดยเป็นความสัมพันธ์ระหว่าง URL ซึ่งสอดคล้องกับ ชื่อคลาส (class) หรือเมธอด (method) ของตัวควบคุม (controller) โดยส่วนต่างๆของ URI จะเป็นตามแบบนี้</p>
+
+<code>example.com/<dfn>class</dfn>/<samp>function</samp>/<var>id</var>/</code>
+
+<p>โดยในบางสิ่งคุณอาจจะอยากเปลี่ยนการเชื่อมความสัมพันธ์ในต่างคลาสหรือฟังก์ชัน โดยสามารถถูกเรียกแทนเพื่อให้สอดคล้องกับ URL ได้</p>
+
+<p>ตัวอย่างเช่น, คุณบอกว่าคุณต้องการต้นแบบ URLs แบบนี้:</p>
+
+<p>
+example.com/product/1/<br />
+example.com/product/2/<br />
+example.com/product/3/<br />
+example.com/product/4/
+</p>
+
+<p>โดยปกติแล้วส่วนที่สองนั้นเป็น URL สำหรับชื่อฟังก์ชัน แต่ในตัวอย่างมันเป็น ID ของสินค้า
+ในการที่จะพิชิตสิ่งนี้ CodeIgniter ยอมให้คุณปรับเปลี่ยนการจัดการ URI ได้</p>
+
+
+<h2>กำหนดกฎเส้นทางของคุณเอง</h2>
+
+<p>กฎเส้นทางถูกทำไว้ในไฟล์ <var>application/config/routes.php</var> ที่นั้นคุณจะเห็นอาเรย์ที่เรียกว่า <dfn>$route</dfn> ซึ่งยินยอมให้คุณกำหนดกฎเกณฑ์ของเส้นทางของคุณเองได้ เส้นทางยังสามารถถูกกำหนดได้ด้วย <dfn>สัญลักษณ์ตัวแทน(wildcards)</dfn> หรือ <dfn>เครื่องหมายธรรมดา(Regular Expressions)</dfn> อีกด้วย</p>
+
+
+<h2>สัญลักษณ์ตัวแทน(Wildcards)</h2>
+
+<p>ตัวอย่างเส้นทางโดยใช้สัญลักษณ์ตัวแทนโดยอาจจะมีลักษณะดังนี้:</p>
+
+<code>$route['product/:num'] = "catalog/product_lookup";</code>
+
+<p>ในเส้นทางในอาเรย์คีย์จะใส่ URI ที่ัจับคู่ไว้ โดยค่าในอาเรย์จะใส่ค่าของเส้นทางที่จะถูกกำหนดเส้นทางไปอีกที
+ในตัวอย่างด้านบนนั้นถ้ามีคำว่า &quot;product&quot; อยู่ในส่วนที่หนึ่งของ URL และตามด้วยตัวเลขในส่วนที่สอง
+จะถูกใช้ด้วยคลาส "catalog"และฟังก์ชัน "product_lookup"แทน.</p>
+<p class="important"><strong>สังเกตุ:</strong> ทางด้านซ้ายคือสิ่งที่จะถูกใช้ใน URL จริงและทางด้านขวาคือการบอกเส้นทางเพื่อไปทำงานภายในระบบ (ซึ่งใช้ URL)</p>
+
+<p>คุณสามารถจับคู่ค่าตัวอักษรหรือคุณจะใช้สัญลักษณ์ตัวแทน(wildcard) ทั้งสองนี้ได้:</p>
+
+<p>
+:num<br />
+:any
+</p>
+
+<p><strong>:num</strong> จะจับคู่ในส่วนนั้นเฉพาะเป็นตัวเลขเท่านั้น<br />
+<strong>:any</strong> จะจับคู่ในส่วนเมื่อเป็นอักษรใดๆ (ดังนั้นถ้าไม่ใส่ค่ามาก็จะไม่จับนั้นเอง)</p>
+
+<p class="important"><strong>สังเกตุ:</strong> เส้นทางจะทำงานตามลำดับที่ถูกสร้างไว้
+เส้นทางที่อยู่สูงกว่าจะมีลำดับเหนือกว่าอันที่ต่ำกว่า</p>
+
+<h2>ตัวอย่างเช่น</h2>
+
+<p>นี้คือบางส่วนของตัวอย่างเส้นทาง</p>
+
+<code>$route['journals'] = "blogs";</code>
+<p> URL ที่มีคำว่า &quot;journals&quot; ในส่วนแรกจะถูกเปลี่ยนเส้นทางไปที่คลาส "blogs&quot;</p>
+
+<code>$route['blog/joe'] = "blogs/users/34";</code>
+<p>URL ที่มีส่วนเป็น blog/joe จะถูกเปลี่ยนเป็นคลาส "blogs" ฟังก์ชัน "users" และ ID จะมีค่าเป็น "34"</p>
+
+<code>$route['product/:any'] = "catalog/product_lookup";</code>
+<p>URL ที่มีคำว่า "product" เป็นส่วนแรกและในส่วนที่สองเป็นอะไรก็ได้จะถูกเปลี่ยนเป็นคลาส "catalog" ฟังก์ชัน "product_lookup&quot;</p>
+
+<code>$route['product/(:num)'] = "catalog/product_lookup_by_id/$1";</code>
+<p>URL ที่มีคำว่า "product" อยู่ในส่วนแรกและตามด้วยตัวเลขใดๆในส่วนที่สองจะถูกเปลี่ยนเป็นคลาส "catalog" และฟังก์ชัน "product_lookup_by_id" โดยผ่านค่าตัวเลขในส่วนที่สองไปยังตัวแปรของฟังก์ชัน ($1 นั้นเอง)</p>
+
+<p class="important"><strong>ข้อสำคัญ:</strong> อย่าใช้เครื่องหมายสแลช (/) นำหน้าหรือต่อท้าย เช่น &quot;/blog/joe&quot; , &quot;blog/joe/&quot; หรือ &quot;/blog/joe/&quot; ทั้งอาเรย์คีและค่าในอาเรย์</p>
+
+<h2>เครื่องหมายธรรมดา(Regular Expressions)</h2>
+
+<p>ถ้าคุณต้องการใช้เครื่องหมายธรรมดาเพื่อกำหนดกฎเส้นทาง  ซึ่งอันไหนที่ถูกต้องตามเครื่องหมายธรรมดาจะถูกใช้เป็น &quot;back-references&quot;</p>
+
+<p class="important"><strong>ข้อสังเกตุ:</strong>&nbsp; ถ้าคุณใช้ &quot;back-references&quot; คุณจะต้องใช้เครื่องหมายดอลลาร์ แทนการใส่  backslash สองตัว (\\)</p>
+
+<p>ตัวอย่างเส้นทางด้วยเครื่องหมายธรรมดาจะหน้าเป็นแบบนี้</p>
+
+<code>$route['products/([a-z]+)/(\d+)'] = "$1/id_$2";</code>
+
+<p>ในตัวอย่างด้านบน URI เป็น <dfn>products/shirts/123</dfn> จะถูกเรียกแทนเป็นตัวควบคุมคลาส <dfn>shirts</dfn> และฟังก์ชัน <dfn>id_123</dfn></p>
+
+<p>คุณยังสามารถรวมระหว่างสัญลักษณ์ตัวแทนและเครื่องหมายธรรมดาได้ (regular expressions)</p>
+
+<h2>เส้นทางที่ถูกจอง</h2>
+
+<p>มีสองเส้นทางที่ถูกจองไว้:</p>
+
+<code>$route['default_controller'] = 'welcome';</code>
+
+<p>เส้นทางนี้ชี้ทางไปหาคลาสควบคุมตัวไหนจะถูกโหลดขึ้นเมื่อ URI ไม่มีข้อมูลใดๆเลย ซึ่งเป็นกรณีที่คนโหลด URL หน้าแรกของคุณขึ้นมา ตัวอย่างด้านบนคลาส "welcome" จะถูกโหลด  คุณต้องมีเส้นทางอัตโนมัตินี้ไม่งั้นหน้า 404 จะประกฎขึ้นแทน</p>
+
+<code>$route['scaffolding_trigger'] = 'scaffolding';</code>
+
+<p>เส้นทางนี้ยอมให้คุณตั้งค่า &quot;คำลับ&quot; ซึ่งเมื่อถูกเขียนลงไปใน URL จะทำให้ใช้คุณสมบัติของโครงยกพื้น(scaffolding)
+รายละเอียดลองอ่านหน้า  <a href="scaffolding.html">Scaffolding (โครงยกพื้น)</a></p>
+
+<p class="important"><strong>ข้อสำคัญ:</strong>&nbsp; เส้นทางที่ถูกจองนี้จะต้องมาก่อนเส้นทางที่มีสัญลักษณ์ตัวแทนหรือเครื่องหมายธรรมดา</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="common_functions.html">ฟังก์ชันทั่วไป</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="errors.html">รับมือกับข้อผิดพลาด</a>
+</p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="th">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Models (แบบจำลอง) CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Models (แบบจำลอง) CodeIgniter' />
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>คู่มือการใช้งาน CodeIgniter Version 2.1.0</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">ตารางเนื้อหา</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.in.th/">CodeIgniter.in.th</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a> &nbsp;&#8250;&nbsp;
+Models (แบบจำลอง)
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />ค้นหา วิธีการใช้งาน&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Models (แบบจำลอง)</h1>
+
+<p>Model (แบบจำลอง) เป็นทางเลือกสำหรับผู้ที่ต้องการใช้รูปแบบ MVC แบบดั้งเดิม</p>
+<ul>
+<li><a href="#what">อะไรคือ Model (แบบจำลอง)?</a></li>
+<li><a href="#anatomy">กายวิภาคของ Model (แบบจำลอง)</a></li>
+<li><a href="#loading">การโหลด Model (แบบจำลอง)</a></li>
+<li><a href="#auto_load_model">การโหลด Model (แบบจำลอง) โดยอัติโนมัติ</a> </li>
+<li><a href="#conn">การติดต่อกับฐานข้อมูล</a></li>
+</ul>
+
+
+
+<h2><a name="what"></a>อะไรคือ Model (แบจำลอง)?</h2>
+
+<p>Model (แบบจำลอง)คือคลาสต่างๆที่ออกแบบมาเพื่อให้ทำงานกับข้อมูลในฐานข้อมูล ตัวอย่าง สมมติว่าคุณนำ CodeIgniter มาเป็นตัวจัดการกับบล๊อค (blog)ของคุณ คุณมีคลาส model (แบบจำลอง)ที่มีฟังก์ชันต่างๆสำหรับ แทรก, ปรับปรุง, และรับข้อมูลที่ออกมาจากฐานข้อมูล หน้าตาของ model (แบบจำลอง) ก็จะออกมาแบบดังตัวอย่างต่อไปนี้:</p>
+<code> class&nbsp;Blogmodel&nbsp;extends&nbsp;CI_Model&nbsp;{<br />
+    <br />
+&nbsp;&nbsp;&nbsp;&nbsp;var $title&nbsp;&nbsp; = '';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;var $content = '';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;var $date&nbsp;&nbsp;&nbsp; = '';<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;__construct()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Call the Model constructor<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent::__construct();<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;get_last_ten_entries()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$query = $this->db->get('entries', 10);<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return $query->result();<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;insert_entry()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->title&nbsp;&nbsp; = $_POST['title']; // please read the below note<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->content = $_POST['content'];<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->date&nbsp;&nbsp;&nbsp; = time();<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->db->insert('entries',&nbsp;$this);<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;update_entry()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->title&nbsp;&nbsp; = $_POST['title'];<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->content = $_POST['content'];<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->date&nbsp;&nbsp;&nbsp; = time();<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->db->update('entries',&nbsp;$this, array('id' => $_POST['id']));<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+<br />
+}</code>
+<p>หมายเหตุ: ฟังก์ชันด้านบนนั้นใช้ฟังก์ชันฐานข้อมูลแบบ <a href="../database/active_record.html">Active Record</a></p>
+<p class="important"><strong>หมายเหตุ:</strong> ตัวอย่างข้างต้นเราใช้ $_POST เข้าถึงโดยตรง ซึ่งมันเป็นการปฏิบัติที่ไม่ดีนัก โดยปกติ(่ที่ดี)เราจะใช้ <a href="../libraries/input.html">คลาสรับข้อมูล</a> ก็จะเป็น $this-&gt;input-&gt;post('title')</p>
+<h2><a name="anatomy"></a>กายวิภาคของ Model (แบบจำลอง)</h2>
+
+<p>คลาสต่างๆของ model (แบบจำลอง)จะเก็บไว้ใน <dfn>application/models/</dfn> ซึ่งสามารถสร้างโฟลเดอร์ย่อยไว้ในนี้ได้ ถ้าคุณต้องการการจัดการลักษณะนี้</p>
+<p>ต้นแบบของคลาส model (แบบจำลอง)คือแบบนี้:</p>
+<code> class&nbsp;<var>Model_name</var>&nbsp;extends&nbsp;Model&nbsp;{<br />
+    <br />
+&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;<var>Model_name</var>()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent::Model();<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+}</code>
+<p><var>Model_name</var> เป็นชื่อของคลาส model (แบบจำลอง) ชื่อของคลาส<strong>ต้อง</strong>ขึ้นต้นด้วยตัวใหญ่แล้วตามด้วยตัวเล็ก แล้วอย่าลืมขยาย (extends)คลาสของคุณ มาจากคลาส Model (แบบจำลอง)ด้วยนะ</p>
+<p>ชื่อไฟล์ก็ควรจะเป็นชื่อที่เหมือนกับของคลาสแต่ให้เป็นตัวเล็กหมดแทน ดังตัวอย่างนี้ ถ้าคลาสของคุณเ็ป็นแบบนี้:</p>
+<code> class&nbsp;<var>User_model</var>&nbsp;extends&nbsp;Model&nbsp;{<br />
+    <br />
+&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;<var>User_model</var>()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent::Model();<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+}</code>
+<p>ไฟล์ของคุณก็จะเป็นแบบนี้:</p>
+<code>application/models/<var>user_model.php</var></code>
+<h2><a name="loading"></a>การโหลด Model (แบบจำลอง)</h2>
+
+<p>ปกติแล้ว model จะถูกโหลดด้วยฟังก์ชันของ <a href="controllers.html">controller</a>(ตัวควบคุม) คุณจะใช้ฟังก์ชันดังด้านล่างนี้สำหรับการโหลด model (แบบจำลอง):</p>
+ <code>$this->load->model('<var>Model_name</var>');</code>
+<p>ถ้า model (แบบจำลอง)ของคุณเก็บไว้ในโฟลเดอร์ย่อย ให้คุณระบุชื่อโฟลเดอร์นั้นไปด้วย ดังตัวอย่าง ถ้าคุณมี model (แบบจำลอง)ที่อยู่ใน <dfn>application/models/blog/queries.php</dfn> คุณจะโหลด model (แบบจำลอง)โดยเขียนแบบนี้:</p>
+<code>$this->load->model('<var>blog/queries</var>');</code>
+<p>แต่ก่อนที่จะโหลดเสร็จ คุณอาจจะเรียกฟังก์ชันใน model (แบบจำลอง)ของคุณโดยใช้วัตถุที่ชื่อเดียวกับคลาส model (แบบจำลอง)ของคุณเอง:</p>
+<code> $this->load->model('<var>Model_name</var>');<br />
+    <br />
+    $this-><var>Model_name</var>->function(); </code>
+<p>ถ้าคุณต้องการระบุชื่อวัตถุที่เป็น model (แบบจำลอง)ไม่ให้เหมือนกับชื่อคลาสคุณสามารถกำหนดชื่อที่คุณต้องการเองได้ไว้ในพารามิเตอร์ตัวที่สองดังนี้:</p>
+ <code> $this->load->model('<var>Model_name</var>', '<kbd>fubar</kbd>');<br />
+    <br />
+    $this-><kbd>fubar</kbd>->function(); </code>
+<p>นี่เป็นตัวอย่างของ controller (ตัวควบคุม)ที่โหลด model (แบบจำลอง)แล้วก็โหลด view (ส่วนแสดง):</p>
+<code> class&nbsp;Blog_controller&nbsp;extends&nbsp;Controller&nbsp;{<br />
+    <br />
+&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;blog()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->load->model('Blog');<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$data['query'] = $this->Blog->get_last_ten_entries();<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->load->view('blog', $data);<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+}</code>
+<h2><a name="auto_load_model" id="auto_load_model"></a>การโหลด Model (แบบจำลอง)โดยอัติโนมัติ</h2>
+<p>ถ้าคุณพบว่าคุณต้องการ model (แบบจำลอง)ที่คุณต้องการใช้ตลอดแอพพลิเคชันของคุณ คุณสามารถกำหนดให้ CodeIgniter โหลด model (แบบจำลอง)โดยอัติโนมัติระหว่างกระบวนการเริ่มต้น วิธีการนี้ทำได้โดยเปิดไฟล์ application/config/autoload.php ขึ้นมา แล้วก็เพิ่ม model (แบบจำลอง)ที่คุณต้องการให้โหลดโดยอัติโนมัติใส่ในอาเรย์ ตัวอย่างเช่น</p>
+<code>$autoload['model'] = array('blog/queries');</code>
+<h2><a name="conn"></a>การติดต่อกับฐานข้อมูล</h2>
+
+<p>เมื่อ model (แบบจำลอง)ถูกโหลดแล้ว มันจะไม่ติดต่อกับฐานข้อมูลให้คุณโดยอัติโนมัติ ตัวเลือกข้างล่างนี้เป็นวิธีการติดต่อกับฐานข้อมูลที่คุณสามารถเลือกทำได้:</p>
+<ul>
+<li>คุณสามารถติดต่อได้โดยการใช้เมธอดมาตรฐานต่างๆ ซึ่งได<a href="../database/connecting.html">้บรรยายไว้ที่นี่แล้ว</a> สามารถทำได้ทั้งในคลาส Controller (ตัวควบคุม)หรือคลาส Model (แบบจำลอง)</li>
+<li>คุณสามารถกำหนดให้ model (แบบจำลอง)โหลดฟังก์ชันในการติดต่อกับฐานข้อมูลโดยอัติโนมัติได้โดยส่งค่า <kbd>TRUE</kbd> (บูลีน)ผ่านพารามิเตอร์ตัวที่สาม แล้การตั้งค่ากิจกรรมต่างๆในการติดต่อกับฐานข้อมูลที่คุณตั้งค่าเอาไว้ในไฟล์ config จะถูกใช้:<code>$this->load->model('<var>Model_name</var>', '', <kbd>TRUE</kbd>);</code>	</li>
+
+
+<li>คุณสามารกำหนดกิจกรรมต่างๆที่ใช้ในการติดต่อกับฐานข้อมูลด้วยตัวคุณเองผ่านพารามิเตอร์ตัวที่สามดังนี้:<code>$config['hostname'] = "localhost";<br />
+		$config['username'] = "myusername";<br />
+		$config['password'] = "mypassword";<br />
+		$config['database'] = "mydatabase";<br />
+		$config['dbdriver'] = "mysql";<br />
+		$config['dbprefix'] = "";<br />
+		$config['pconnect'] = FALSE;<br />
+		$config['db_debug'] = TRUE;<br />
+		<br />
+		$this->load->model('<var>Model_name</var>', '', <kbd>$config</kbd>);</code></li>
+</ul>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+หัวข้อที่แล้ว :&nbsp;&nbsp;<a href="views.html">Views (ส่วนแสดง)</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">ขึ้นบน</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">คู่มือการใช้งาน CodeIgniter</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+หัวข้อถัดไป :&nbsp;&nbsp;<a href="helpers.html">Helpers (ผู้ช่วย)</a>
+</p>
+<p><a href="http://codeigniter.in.th">CodeIgniter.in.th</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2011 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>
