@@ -56,151 +56,136 @@ Config Class
 <div id="content">
 
 
-<h1>Config Class</h1>
+<h1>คลาสที่ใช้ดึงค่าต่างๆ ของระบบ</h1>
 
-<p>The Config class provides a means to retrieve configuration preferences.  These preferences can
-come from the default config file (<samp>application/config/config.php</samp>) or from your own custom config files.</p>
+<p>คลาสนี้ จะใช้ดึงค่าที่ใช้ตั้งค่าต่างๆ ของระบบขึ้นมา โดยดึงขึ้นมาจากไฟล์(<samp>application/config/config.php</samp>) </p>
 
-<p class="important"><strong>Note:</strong> This class is initialized automatically by the system so there is no need to do it manually.</p>
+<p class="important"><strong>หมายเหตุ:</strong>คลาสนี้เริ่มทำงานโดยอัตโนมัติอยูเเล้ว ไม่จำเป็นต้องประกาศเพิ่ม.</p>
 
 
-<h2>Anatomy of a Config File</h2>
+<h2>โครงสร้างของไฟล์ config </h2>
 
-<p>By default, CodeIgniter has one primary config file, located at <samp>application/config/config.php</samp>.  If you open the file using
-your text editor you'll see that config items are stored in an array called <var>$config</var>.</p>
+<p>โดยค่าเริ่มต้น, CodeIgniter มีไฟล์ config หลักอยู่ที่ <samp>application/config/config.php</samp>.  โดยจะเก็บ
+ไวที่ตัวแปรอาเรย์ชื่อ<var>$config</var>.</p>
 
-<p>You can add your own config items to
-this file, or if you prefer to keep your configuration items separate (assuming you even need config items),
-simply create your own file and save it in <dfn>config</dfn> folder.</p>
+<p>เราจะสร้างไฟล์ config ส่วนตัวของเรา ขึ้นมาก็ได้นะครับ แต่ควรจะเก็บไว้ที่โฟลเดอร์ <dfn>config</dfn> .</p>
 
-<p><strong>Note:</strong> If you do create your own config files use the same format as the primary one, storing your items in
-an array called  <var>$config</var>. CodeIgniter will intelligently manage these files so there will be no conflict even though
-the array has the same name (assuming an array index is not named the same as another).</p>
+<p><strong>หมายเหตุ:</strong> ถึงเราจะสร้างไฟล์ที่ใช้ ในการเก็บค่าการตั้งค่าต่างๆ ไว้ในตัวแปร  <var>$config</var>. CodeIgniter 
+ก็สามารถใช้งานไฟล์ ของเราได้โดยไม่ ไปขัดแย้งกับไฟล์หลักแต่คีย์ของ อาเรย์ต้องไปไม่เหมือนที่มีอยู่แล้ว.</p>
 
-<h2>Loading a Config File</h2>
+<h2>การโหลดไฟ์ config</h2>
 
-<p><strong>Note:</strong> CodeIgniter automatically loads the primary config file (<samp>application/config/config.php</samp>),
-so you will only need to load a config file if you have created your own.</p>
+<p><strong>หมายเหตุ:</strong> CodeIgniter จะโหลดไฟล์ (<samp>application/config/config.php</samp>),
+หลักของมัน โดยอัติโนมัติอยู่แล้วครับ แต่ถ้าเราต้องการโหลดไฟล์หลัก ของเรา มีอยู่ 2 วิธีให้เลือก</p>
 
-<p>There are two ways to load a config file:</p>
 
-<ol><li><strong>Manual Loading</strong>
 
-<p>To load one of your custom config files you will use the following function within the <a href="../general/controllers.html">controller</a> that needs it:</p>
+<ol><li><strong>โหลดแบบแมนนวล</strong>
+
+<p>โดยใช้ฟังก์ชันนี้ใน<a href="../general/controllers.html">controller</a> </p>
 
 <code>$this->config->load('<var>filename</var>');</code>
 
-<p>Where <var>filename</var> is the name of your config file, without the .php file extension.</p>
+<p>โดย <var>filename</var> คือชื่อไฟล์ของเรา ไม่ต้องใ่ส่ .php ลงไปด้วยนะครับ.</p>
 
-<p>If you need to load multiple config files normally they will be merged into one master config array.  Name collisions can occur, however, if
-you have identically named array indexes in different config files.  To avoid collisions you can set the second parameter to <kbd>TRUE</kbd>
-and each config file will be stored in an array index corresponding to the name of the config file. Example:</p>
+<p>ถ้าเราต้องการโหลดไฟล์ config หลายๆ ไฟล์ควรจะผนวกเข้ากับไฟล์หลัก ไม่ยังงั้นจะเกิดการขัดแย้งของไฟล์ โดยเราจะใส่พารามิเตอร์ที่สองไปว่า <kbd>TRUE</kbd>
+:</p>
 
 <code>
 // Stored in an array with this prototype:  $this->config['blog_settings'] = $config<br />
 $this->config->load('<var>blog_settings</var>', <kbd>TRUE</kbd>);</code>
 
-<p>Please see the section entitled <dfn>Fetching Config Items</dfn> below to learn how to retrieve config items set this way.</p>
+<p>ในส่วนต่อไป <dfn>การดึงค่าการตั้งค่า</dfn>เราจะมาดูวิธีการอ่านค่า จากไฟล์ config.</p>
 
 <p>The third parameter allows you to suppress errors in the event that a config file does not exist:</p>
 
 <code>$this->config->load('<var>blog_settings</var>', <dfn>FALSE</dfn>, <kbd>TRUE</kbd>);</code>
 
 </li>
-<li><strong>Auto-loading</strong>
+<li><strong>การโหลดไฟล์แบบอัติโนมัติ</strong>
 
-<p>If you find that you need a particular config file globally, you can have it loaded automatically by the system.  To do this,
-open the <strong>autoload.php</strong> file, located at <samp>application/config/autoload.php</samp>, and add your config file as
-indicated in the file.</p>
+<p>ถ้าไฟล์ config ที่เราสร้างขึ้นมาเอง ต้องการใช้งานค่าทั่ว ทั้งเว็บเราสามารถนำไปเพิ่มลง
+ในไฟล์ชื่อ<strong>autoload.php</strong> ซึ่งอยู่ที่<samp>application/config/autoload.php</samp>.</p>
 </li>
 </ol>
 
 
-<h2>Fetching Config Items</h2>
+<h2>การดึงค่าการตั้งค่า</h2>
 
-<p>To retrieve an item from your config file, use the following function:</p>
+<p>โดยใช้ฟังก์ชัน item ในการดึง:</p>
 
 <code>$this->config->item('<var>item name</var>');</code>
 
-<p>Where <var>item name</var> is the $config array index you want to retrieve. For example, to fetch your language choice you'll do this:</p>
+<p>โดย <var>item name</var> คือคีย์ของอาเรย์ $config อย่างตัวอย่างด้านล่าง เราต้องการดึงค่าภาษาขึ้นมา :</p>
 
 <code>$lang = $this->config->item('language');</code>
 
-<p>The function returns FALSE (boolean) if the item you are trying to fetch does not exist.</p>
+<p>ฟังก์ชันจะส่งค่า false ถ้าไม่มีคีย์นั้นอยู่.</p>
 
-<p>If you are using the second parameter of the <kbd>$this->config->load</kbd> function in order to assign your config items to a specific index
-you can retrieve it by specifying the index name in the second parameter of the <kbd>$this->config->item()</kbd> function.  Example:</p>
+<p>ถ้าเราใส่พารามิเตอร์ตัวที่สองให้กับฟังก์ชัน <kbd>$this->config->load</kbd> ฟังก์ชันนี้จะทำการดึงค่า
+จากไฟล์ config ขึ้นมาเใส่ในอาเรย์ แล้วก็ใช้ฟังก์ชัน <kbd>$this->config->item()</kbd>อ่านค่าออกมาเลย</p>
 
 <code>
-// Loads a config file named blog_settings.php and assigns it to an index named "blog_settings"<br />
+// ดึงค่าจากไฟล์ blog_settings.php แล้วใส่ให้อาเรย์ชื่อ "blog_settings"<br />
 $this->config->load('<var>blog_settings</var>', <kbd>TRUE</kbd>);<br /><br />
 
-// Retrieve a config item named site_name contained within the blog_settings array<br />
+// ดึงค่าจากคีย์ชื่อ site_name จ่ากอาเรย์ blog_settings<br />
 $site_name = $this->config->item('<dfn>site_name</dfn>', '<var>blog_settings</var>');<br /><br />
 
-// An alternate way to specify the same item:<br />
+// ถ้าขี้เกียจพิมพ์ยาวๆ เราก็ฝากค่าใส่ตัวแปร :<br />
 $blog_config = $this->config->item('<var>blog_settings</var>');<br />
 $site_name = $blog_config['site_name'];</code>
 
-<h2>Setting a Config Item</h2>
+<h2>การแก้ไขค่า</h2>
 
-<p>If you would like to dynamically set a config item or change an existing one, you can do so using:</p>
+<p>ใช้ฟังก์ชัน ตามตัวอย่างแก้เลยครับ</p>
 
 <code>$this->config->set_item('<var>item_name</var>', '<var>item_value</var>');</code>
 
-<p>Where <var>item_name</var> is the $config array index you want to change, and <var>item_value</var> is its value.</p>
+<p>โดย <var>item_name</var> คือคีย์ในอาเรย์ $config และ <var>item_value</var> คือค่าที่เราจะเพิ่ม.</p>
 
 <a name="environments"></a>
-<h2>Environments</h2>
+<h2>Environment ( การตั้งค่าหลักของระบบ ) </h2>
 
 <p>
-    You may load different configuration files depending on the current environment.
-    The <kbd>ENVIRONMENT</kbd> constant is defined in index.php, and is described
-    in detail in the <a href="../general/environments.html">Handling Environments</a>
-    section.
+    เราสามารถโหลด การตั้งค่าที่ขึ้นอยู่กับ สถานะของเว็บได้โดยตัวแปร.
+     <kbd>ENVIRONMENT</kbd> ถูกตั้งไว้ใน index.php และถูกอธิบายไว้ที่
+     <a href="../general/environments.html">Handling Environments</a>
+    
 </p>
 
 <p>
-    To create an environment-specific configuration file,
-    create or copy a configuration file in application/config/{ENVIRONMENT}/{FILENAME}.php
+    แล้วเราก็สร้างโฟลเดอร์กับไฟล์ตามรูปแบบนี้ application/config/{ENVIRONMENT}/{FILENAME}.php
 </p>
 
-<p>For example, to create a production-only config.php, you would:</p>
+<p>อย่างเราจะ สร้างการตั้งค่าของตอนที่เว็บที่อยู่ในช่วง production ที่อยู่ของไฟล์ config.php ควรเป็นแบบนี้:</p>
 
 <ol>
-    <li>Create the directory application/config/production/</li>
-    <li>Copy your existing config.php into the above directory</li>
-    <li>Edit application/config/production/config.php so it contains your production settings</li>
+    <li>สร้างโฟลเดอ์ application/config/production/</li>
+    <li>คัดลอกไฟล์ config.php ไปที่โฟลเดอร์ที่สร้างไว้</li>
+    <li>แก้ไข application/config/production/config.php ตามที่เราต้องการ</li>
 </ol>
 
 <p>
-    When you set the <kbd>ENVIRONMENT</kbd> constant to 'production', the settings
-    for your new production-only config.php will be loaded.
+    เมื่อเราเปลี่ยนค่าของตัวแปร <kbd>ENVIRONMENT</kbd> เป็น 'production'ค่าจากไฟล์ config ในโฟลเดอร์ production ก็จะถูกโหลด
 </p>
 
-<p>You can place the following configuration files in environment-specific folders:</p>
-	
-<ul>
-<li>Default CodeIgniter configuration files</li>
-<li>Your own custom configuration files</li>
-</ul>
+<p><strong>หมายเหตุ:</strong> CodeIgniter  จะโหลดการตั้งค่าของ สภาพแวดล้อมปัจจุบันที่ถูกตั้งไว้
+ถ้าไม่มี มันก็จะโหลดการตั้งค่าที่มีเริ่มต้นมา หมายความว่าเราไม่สามารถ วางไฟล์ config หลายไฟล์รวมไว้ใน
+โฟลเดอร์เดียวกันได้่</p>
 
-<p><strong>Note:</strong> CodeIgniter always tries to load the configuration files for the current environment first. If the file does not exist, the global config file (i.e., the one in <samp>application/config/</samp>) is loaded. This means you are not obligated to place <strong>all</strong> of your configuration files in an environment folder &minus; only the files that change per environment.</p>
+<h2>ฟังก์ชันอื่นๆ</h2>
 
-<h2>Helper Functions</h2>
-
-<p>The config class has the following helper functions:</p>
+<p>นอกจากฟังก์ชันที่กล่าวมาข้างต้นแล้ว ยังมีฟังก์ชันอื่นๆ </p>
 
 <h2>$this->config->site_url();</h2>
-<p>This function retrieves the URL to your site, along with the "index" value you've specified in the config file.</p>
+<p>ใช้ดึงค่าจากคีย์ชื่อ site_url </p>
 
 <h2>$this->config->base_url();</h2>
-<p>This function retrieves the URL to your site, plus an optional path such as to a stylesheet or image.</p>
+<p> ใช้ดึงค่า url หลักของเว็บอย่างเช่น locallhost .</p>
 
-<p>The two functions above are normally accessed via the corresponding functions in the <a href="../helpers/url_helper.html">URL Helper.</a></p>    
-    
 <h2>$this->config->system_url();</h2>
-<p>This function retrieves the URL to your <dfn>system folder</dfn>.</p>
+<p>ใช้ดึง URL ของโฟลเดอร์ <dfn>system</dfn>.</p>
 
 
 </div>

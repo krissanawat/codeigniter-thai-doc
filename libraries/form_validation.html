@@ -54,33 +54,33 @@ Form Validation
 <!-- START CONTENT -->
 <div id="content">
 
-<h1>Form Validation</h1>
+<h1>Form Validation ( การตรวจฟอร์ม )</h1>
 
-<p>CodeIgniter provides a comprehensive form validation and data prepping class that helps minimize the amount of code you'll write.</p>
+<p>CodeIgniter ได้เตรียมคลาสนี้มาให้เราใช้ในการ ตรวจค่าต่างๆ ที่ป้อนเข้ามาในฟอร์ม ว่าเป็นไปตามที่เรากำหนดหรือไม่.</p>
 
 <ul>
-<li><a href="#overview">Overview</a></li>
-<li><a href="#tutorial">Form Validation Tutorial</a>
+<li><a href="#overview">ภาพรวม</a></li>
+<li><a href="#tutorial">การใช้งาน</a>
 
 	<ul>
-		<li><a href="#theform">The Form</a></li>
-		<li><a href="#thesuccesspage">The Success Page</a></li>
+		<li><a href="#theform">ฟอร์ม</a></li>
+		<li><a href="#thesuccesspage">หน้าแสดงว่าการตรวจสอบผ่านแล้ว</a></li>
 		<li><a href="#thecontroller">The Controller</a></li>
-		<li><a href="#validationrules">Setting Validation Rules</a></li>
-		<li><a href="#validationrulesasarray">Setting Validation Rules Using an Array</a></li>
+		<li><a href="#validationrules">การตั้งค่ากฏของการตรวจสอบ</a></li>
+		<li><a href="#validationrulesasarray">การตั้งค่ากฏในรูปแบบอาเรย์</a></li>
 		<li><a href="#cascadingrules">Cascading Rules</a></li>
-		<li><a href="#preppingdata">Prepping Data</a></li>
+		<li><a href="#preppingdata">การเตรียมข้ออมูลเพื่อตรวจสอบ</a></li>
 		<li><a href="#repopulatingform">Re-populating the Form</a></li>
 		<li><a href="#callbacks">Callbacks</a></li>
-		<li><a href="#settingerrors">Setting Error Messages</a></li>
+		<li><a href="#settingerrors">การตั้งค่าข้อความแสดงข้อผิดพลาด</a></li>
 		<li><a href="#errordelimiters">Changing the Error Delimiters</a></li>
-		<li><a href="#translatingfn">Translating Field Names</a></li>
-		<li><a href="#individualerrors">Showing Errors Individually</a></li>
-		<li><a href="#savingtoconfig">Saving Sets of Validation Rules to a Config File</a></li>
+		<li><a href="#translatingfn">การแปลชื่อของฟอร์ม</a></li>
+		<li><a href="#individualerrors">การสร้าง------------</a></li>
+		<li><a href="#savingtoconfig">การบันทึก </a></li>
 		<li><a href="#arraysasfields">Using Arrays as Field Names</a></li>
 	</ul>
 </li>
-<li><a href="#rulereference">Rule Reference</a></li>
+<li><a href="#rulereference">รายชื่อกฏในการตรวจสอบ</a></li>
 <li><a href="#preppingreference">Prepping Reference</a></li>
 <li><a href="#functionreference">Function Reference</a></li>
 <li><a href="#helperreference">Helper Reference</a></li>
@@ -95,63 +95,49 @@ Form Validation
 <p>&nbsp;</p>
 
 <a name="overview"></a>
-<h1>Overview</h1>
-
-
-<p>Before explaining CodeIgniter's approach to data validation, let's describe the ideal scenario:</p>
-
+<h1>ภาพรวม</h1>
 <ol>
-<li>A form is displayed.</li>
-<li>You fill it in and submit it.</li>
-<li>If you submitted something invalid, or perhaps missed a required item, the form is redisplayed containing your data
-along with an error message describing the problem.</li>
-<li>This process continues until you have submitted a valid form.</li>
+<li>มีฟอร์มอยู่</li>
+<li>เราใส่ข้อมูลเข้าไปแล้วกดซับมิท</li>
+<li>ถ้าข้อมูลที่ป้อนเข้ามาไม่ถูกต้องตามกฏ ก็จะแสดงค่า error ที่เรากำหนดไว้.</li>
+<li>กระบวนการก็ย้อนกลับมาเหมือนเดิม ถ้าเราป้อนข้อมูลลงไปใหม่</li>
 </ol>
 
-<p>On the receiving end, the script must:</p>
+<p>เมื่อเราป้อนข้อมูลลงไป การตรวจสอบจะมีขั้นตอนต่อไปนี้</p>
 
 <ol>
-<li>Check for required data.</li>
-<li>Verify that the data is of the correct type, and meets the correct criteria. For example, if a username is submitted
-it must be validated to contain only permitted characters.  It must be of a minimum length,
-and not exceed a maximum length. The username can't be someone else's existing username, or perhaps even a reserved word. Etc.</li>
-<li>Sanitize the data for security.</li>
-<li>Pre-format the data if needed (Does the data need to be trimmed?  HTML encoded?  Etc.)</li>
-<li>Prep the data for insertion in the database.</li>
+<li>ตรวจว่าฟอร์มนี้อนุญาตุให้ว่างได้ไหม.</li>
+<li>ตรวจสอบว่าข้อมูลตรงกับชนิดที่กำหนดไว้ไหม, และถูกต้องตามกฏไหม. ยกตัวอย่าง, ถ้าเราป้อน username เข้ามา
+เริ่มแรกก็จะตรวจว่ามีตัวอักษร ต้องห้ามไหม.  และจำนวนไม่มากหรือไม่น้อยเป็นไป ตามที่กำหนด,
+และไม่ซ้ำกับที่มีอยู่.</li>
+<li>ตรวจสอบว่ามีค่าที่ไม่ปลอดภัยไหม</li>
+<li>จัดรูปแบบ</li>
+<li>บันทึกข้อมูลลง database.</li>
 </ol>
-
-
-<p>Although there is nothing terribly complex about the above process, it usually requires a significant
-amount of code, and to display error messages, various control structures are usually placed within the form HTML.
-Form validation, while simple to create, is generally very messy and tedious to implement.</p>
 
 <p>&nbsp;</p>
 
 
 <a name="tutorial"></a>
-<h1>Form Validation Tutorial</h1>
+<h1>ตัวอย่างใช้งาน</h1>
 
-<p>What follows is a "hands on" tutorial for implementing CodeIgniters Form Validation.</p>
-
-
-<p>In order to implement form validation you'll need three things:</p>
+<p>เราต้องมี 3 อย่างนี้</p>
 
 <ol>
-<li>A <a href="../general/views.html">View</a> file containing a form.</li>
-<li>A View file containing a "success" message to be displayed upon successful submission.</li>
-<li>A <a href="../general/controllers.html">controller</a> function to receive and process the submitted data.</li>
+<li> <a href="../general/views.html">View</a> ไฟล์ html ที่ใช้สร้างฟอร์ม.</li>
+<li>หน้า view ที่ใช้แสดงข้อความสำเร็จ</li>
+<li>A <a href="../general/controllers.html">controller</a> ข้างในเราจะสร้างฟังก์ชันไว้ตรวจสอบ.</li>
 </ol>
 
-<p>Let's create those three things, using a member sign-up form as the example.</p>
+<p>ต่อไปเราจะใช้ การลงทะเบียนในการตรวจสอบ.</p>
 
 
 
 <a name="theform"></a>
 
-<h2>The Form</h2>
+<h2>ฟอร์ม</h2>
 
-<p>Using a text editor, create a form called <dfn>myform.php</dfn>.  In it, place this code and save it to your <samp>applications/views/</samp>
-folder:</p>
+<p>สร้างไฟล์<dfn>myform.php</dfn>แล้วบันทึกลงใน โฟลเดอร์<samp>applications/views/</samp></p>
 
 
 <textarea class="textarea" style="width:100%" cols="50" rows="30">&lt;html>
@@ -188,11 +174,10 @@ folder:</p>
 
 
 <a name="thesuccesspage"></a>
-<h2>The Success Page</h2>
+<h2>หน้าแสดงข้อความว่าตรวจผ่านแล้ว</h2>
 
 
-<p>Using a text editor, create a form called <dfn>formsuccess.php</dfn>.  In it, place this code and save it to your <samp>applications/views/</samp>
-folder:</p>
+<p>สร้างไฟล์ชื่อ <dfn>formsuccess.php</dfn>.แล้ววางไว้ใน โฟลเดอร์<samp>applications/views/</samp></p>
 
 
 <textarea class="textarea" style="width:100%" cols="50" rows="14">
@@ -213,10 +198,9 @@ folder:</p>
 
 
 <a name="thecontroller"></a>
-<h2>The Controller</h2>
+<h2>Controller</h2>
 
-<p>Using a text editor, create a controller called <dfn>form.php</dfn>.  In it, place this code and save it to your <samp>applications/controllers/</samp>
-folder:</p>
+<p>สร้างไฟล์ชื่อ<dfn>form.php</dfn>. แล้วบันทึกลงในโฟลเดอร์ <samp>applications/controllers/</samp></p>
 
 
 <textarea class="textarea" style="width:100%" cols="50" rows="21">&lt;?php
@@ -242,64 +226,55 @@ class Form extends CI_Controller {
 ?></textarea>
 
 
-<h2>Try it!</h2>
+<h2>ลองดูกัน</h2>
 
-<p>To try your form, visit your site using a URL similar to this one:</p>
+<p>เรียกใช้หน้าลงทะเบียนโดยเรียก url ตามนี้</p>
 
 <code>example.com/index.php/<var>form</var>/</code>
 
-<p><dfn>If you submit the form you should simply see the form reload.  That's because you haven't set up any validation
-rules yet.</dfn></p>
-
-<p><strong>Since you haven't told the Form Validation class to validate anything yet, it returns <kbd>FALSE</kbd> (boolean false) by default.  The <samp>run()</samp>
-function only returns <kbd>TRUE</kbd> if it has successfully applied your rules without any of them failing.</strong></p>
+<p><strong>ถ้าเราไม่ได้ใส่กฏใดๆ ค่าที่ส่งกลับมาจะเป็น <kbd>FALSE</kbd>ซึ่งเป็นค่าเริ่มต้นเสมอ . ส่วนฟังก์ชัน <samp>run()</samp>
+จะส่งค่า <kbd>TRUE</kbd> ในกรณี ถ้าค่าที่เข้ามาถูกต้อง.</strong></p>
 
 
-<h2>Explanation</h2>
 
-<p>You'll notice several things about the above pages:</p>
+<p>จะเห็นว่ามีหลายสิ่งหลายอย่างเกี่ยวข้อง กับหน้าข้างต้น:</p>
 
-<p>The <dfn>form</dfn> (myform.php) is a standard web form with a couple exceptions:</p>
+<p> <dfn>form</dfn> (myform.php) เป็นรูปแบบหน้าเเว็บธรรมดาทั่วไป</p>
 
 <ol>
-<li>It uses a <dfn>form helper</dfn> to create the form opening.
-Technically, this isn't necessary.  You could create the form using standard HTML.  However, the benefit of using the helper
-is that it generates the action URL for you, based on the URL in your config file.  This makes your application more portable in the event your URLs change.</li>
+<li>แต่เราใช้ <dfn>form helper</dfn> เพื่อสร้างฟอร์ม ซึ่งไม่จำเป็นก็ได้. แต่ถ้าใช้ URL ที่สร้างขึ้น
+    จะดึงข้อมูลมาจากไฟล์ config จะทำให้แก้ไขได้ง่าย.</li>
 
-<li>At the top of the form you'll notice the following function call:
+<li>บนหัวของฟอร์ม เราจะประกาศตัวแปรนี้ เพื่อแสดงข้อความบอกข้อผิดพลาด
 <code>&lt;?php echo validation_errors(); ?&gt;</code>
 
-<p>This function will return any error messages sent back by the validator. If there are no messages it returns an empty string.</p>
 </li>
 </ol>
 
-<p>The <dfn>controller</dfn> (form.php) has one function: <dfn>index()</dfn>. This function initializes the validation class and
-loads the <var>form helper</var> and <var>URL helper</var> used by your view files. It also <samp>runs</samp>
-the validation routine. Based on
-whether the validation was successful it either presents the form or the success page.</p>
+<p> <dfn>controller</dfn> (form.php) มีหนึ่งฟังก์ชัน คือ: <dfn>index()</dfn>. ซึ่งจะเริ่มทำงานเมื่อคลาส ทำการโหลด
+    <var>form helper</var> และ <var>URL helper</var>  </p>
 
 
 
 
 <a name="validationrules"></a>
 
-<h2>Setting Validation Rules</h2>
+<h2>การตั้งกฏในการตรวจสอบ</h2>
 
-<p>CodeIgniter lets you set as many validation rules as you need for a given field, cascading them in order, and it even lets you prep and pre-process the field data
-at the same time. To set validation rules you will use the <dfn>set_rules()</dfn> function:</p>
+<p>CodeIgniter มีกฏให้ใช้ในการตรวจสอบหลากหลาย โดยใช้ฟังก์ชัน<dfn>set_rules()</dfn> เพื่อเรียก</p>
 
 <code>$this->form_validation->set_rules();</code>
 
-<p>The above function takes <strong>three</strong> parameters as input:</p>
+<p>ฟังก์ชันนี้รับพารามิเตอร์ <strong>3</strong> ตัว:</p>
 
 <ol>
-	<li>The field name - the exact name you've given the form field.</li>
-	<li>A "human" name for this field, which will be inserted into the error message. For example, if your field is named "user" you might give it a human name of "Username". <strong>Note:</strong> If you would like the field name to be stored in a language file, please see <a href="#translatingfn">Translating Field Names</a>.</li>
-	<li>The validation rules for this form field.</li>
+	<li>ชื่อของฟิวส์ในฟอร์ม</li>
+	<li>คำอธิบายว่าฟิวส์ให้ใส่อะไร. </li>
+	<li>กฏที่เราจะใช้.</li>
 </ol>
 
 
-<p><br />Here is an example. In your <dfn>controller</dfn> (form.php), add this code just below the validation initialization function:</p>
+<p><br />นี้คือตัวอย่างการใช้งานใน <dfn>controller</dfn></p>
 
 <code>
 $this->form_validation->set_rules('username', 'Username', 'required');<br />
@@ -308,7 +283,7 @@ $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required
 $this->form_validation->set_rules('email', 'Email', 'required');<br />
 </code>
 
-<p>Your controller should now look like this:</p>
+<p>ตัวอย่างโค้ดใน controller</p>
 
 <textarea class="textarea" style="width:100%" cols="50" rows="28">&lt;?php
 
@@ -337,20 +312,15 @@ class Form extends CI_Controller {
 }
 ?></textarea>
 
-<p><dfn>Now submit the form with the fields blank and you should see the error messages.
-If you submit the form with all the fields populated you'll see your success page.</dfn></p>
-
-<p class="important"><strong>Note:</strong> The form fields are not yet being re-populated with the data when
-there is an error.  We'll get to that shortly.</p>
+<p class="important"><strong>หมายเหตุ</strong> ค่าในฟอร์มจะไม่ถูกเติมโดยอัติโนมัติในกรณีที่ มีข้อผิดพลาด.</p>
 
 
 
 
 <a name="validationrulesasarray"></a>
-<h2>Setting Rules Using an Array</h2>
+<h2>การสร้างอาเรย์ของกฏ</h2>
 
-<p>Before moving on it should be noted that the rule setting function can be passed an array if you prefer to set all your rules in one action.
-If you use this approach you must name your array keys as indicated:</p>
+<p>ตัวอย่างนี้เราจะสร้างกฏจำนวนมาก เพื่อควบคุมหลายๆ ฟิวส์:</p>
 
 <code>
 $config = array(<br />
@@ -385,9 +355,9 @@ $this->form_validation->set_rules($config);
 
 
 <a name="cascadingrules"></a>
-<h2>Cascading Rules</h2>
+<h2>การผสมกฏ</h2>
 
-<p>CodeIgniter lets you pipe multiple rules together.  Let's try it. Change your rules in the third parameter of rule setting function, like this:</p>
+<p>เพื่อความสะดวก codeigniter อนุญาตให้เราใส่กฏหลายตัวใน ฟิวส์ๆ เดียวได้</p>
 
 <code>
 $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|max_length[12]|is_unique[users.username]');<br />
@@ -396,24 +366,20 @@ $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required
 $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[users.email]');<br />
 </code>
 
-<p>The above code sets the following rules:</p>
+<p>ฟังก์ชันดเหล่านี้ มีกฏอยู่ดังนี้ครับ:</p>
 
 <ol>
-<li>The username field be no shorter than 5 characters and no longer than 12.</li>
-<li>The password field must match the password confirmation field.</li>
-<li>The email field must contain a valid email address.</li>
+<li>username ต้องไม่สั้นกว่า 5 ตัวและไม่ยาวเกินกว่า 12.</li>
+<li>รหัสผ่านต้องตรงกับช่องยืนยัน รหัสผ่าน.</li>
+<li>email ต้องตรงกับรูปแบบ</li>
 </ol>
-
-<p>Give it a try! Submit your form without the proper data and you'll see new error messages that correspond to your new rules.
-There are numerous rules available which you can read about in the validation reference.</p>
 
 
 
 <a name="preppingdata"></a>
-<h2>Prepping Data</h2>
+<h2>การลบตัวอักษรพิเศษ</h2>
 
-<p>In addition to the validation functions like the ones we used above, you can also prep your data in various ways.
-For example, you can set up rules like this:</p>
+<p>การแปลงรูปแบบของข้อมูล</p>
 
 <code>
 $this->form_validation->set_rules('username', 'Username', '<kbd>trim</kbd>|required|min_length[5]|max_length[12]|<kbd>xss_clean</kbd>');<br />
@@ -423,13 +389,9 @@ $this->form_validation->set_rules('email', 'Email', '<kbd>trim</kbd>|required|va
 </code>
 
 
-<p>In the above example, we are "trimming" the fields, converting the password to MD5, and running the username through
-the "xss_clean" function, which removes malicious data.</p>
+<p>ในตัวอย่าง เราทำการแปลงรหัสผ่าน เป็น MD5,และทำการตวจสอบ ว่ามีการทำ XSS ไหม</p>
 
-<p><strong>Any native PHP function that accepts one parameter can be used as a rule, like <dfn>htmlspecialchars</dfn>,
-<dfn>trim</dfn>,  <dfn>MD5</dfn>, etc.</strong></p>
-
-<p><strong>Note:</strong> You will generally want to use the prepping functions <strong>after</strong>
+<p><strong>หมายเหตุ</strong> You will generally want to use the prepping functions <strong>after</strong>
 the validation rules so if there is an error, the original data will be shown in the form.</p>
 
 
