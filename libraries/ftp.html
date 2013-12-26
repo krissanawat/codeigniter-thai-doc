@@ -56,25 +56,23 @@ FTP Class
 <div id="content">
 
 
-<h1>FTP Class</h1>
+<h1>คลาส FTP</h1>
 
-<p>CodeIgniter's FTP Class permits files to be transfered to a remote server. Remote files can also be moved, renamed,
-and deleted.  The FTP class also includes a "mirroring" function that permits an entire local directory to be recreated remotely via FTP.</p>
+<p>คลาสนี้ทำให้เราสามารถ จัดการไฟล์ที่อยู่บน FTP ได้ง่ายขึ้น ฟังก์ชันสำคัญของคลาสนี้คือ การทำให้ข้อมูลบนเครื่องของเราตรงกับ บน ftp</p>
 
-<p class="important"><strong>Note:</strong>&nbsp; SFTP and SSL FTP protocols are not supported, only standard FTP.</p>
+<p class="important"><strong>หมายเหตุ:</strong>&nbsp; ไม่สนับสนุน SFTP หรือการใช้ ssl กับ ftp.</p>
 
-<h2>Initializing the Class</h2>
+<h2>การเรียกใช้งาน</h2>
 
-<p>Like most other classes in CodeIgniter, the FTP class is initialized in your controller using the <dfn>$this->load->library</dfn> function:</p>
+<p>เหมือนกกับไลบราลี่ตัวอื่น เราจะใช้ฟังก์ชัน<dfn>$this->load->library</dfn> ในการเรียกใช้งาน:</p>
 
 <code>$this->load->library('ftp');</code>
-<p>Once loaded, the FTP object will be available using: <dfn>$this->ftp</dfn></p>
+<p>ถ้าโหลดเเล้ว เราก็เรียกใช้ได้แบบนี้เลยครับ <dfn>$this->ftp</dfn></p>
 
 
-<h2>Usage Examples</h2>
+<h2>การใช้งานเบื้องต้น</h2>
 
-<p>In this example a connection is opened to the FTP server, and a local file is read and uploaded in ASCII mode. The
-file permissions are set to 755.</p>
+<p>ในตัวอย่าง ไฟล์จะถูกเขียนโดย ASCII และไฟล์ที่จะถูกเขียนได้จะต้องมีค่า permission เป็น 755.</p>
 
 <code>
 $this->load->library('ftp');<br />
@@ -93,7 +91,7 @@ $this->ftp->close();
 </code>
 
 
-<p>In this example a list of files is retrieved from the server.</p>
+<p>ตามตัวอย่างไฟล์จะถูก ส่งไปยัง server.</p>
 
 <code>
 $this->load->library('ftp');<br />
@@ -112,7 +110,7 @@ print_r($list);<br />
 $this->ftp->close();
 </code>
 
-<p>In this example a local directory is mirrored on the server.</p>
+<p>ในตัวอย่างค่าต่างๆ ในโฟลเดอร์จะถูกทำให้ตรงกับบน server.</p>
 
 
 <code>
@@ -131,15 +129,14 @@ $this->ftp->close();
 </code>
 
 
-<h1>Function Reference</h1>
+<h1>ฟังก์ชันที่เกี่ยวข้อง</h1>
 
 <h2>$this->ftp->connect()</h2>
 
-<p>Connects and logs into to the FTP server. Connection preferences are set by passing an array
-to the function, or you can store them in a config file.</p>
+<p>เชื่อมต่อไปยัง ftp server โดยเราสามารถเก็บ username หรือ password ไวในไฟล์ config ได้</p>
 
 
-<p>Here is an example showing how you set preferences manually:</p>
+<p>ในตัวอย่างนี้ เราจะตั้งค่าแบบ manual:</p>
 
 <code>
 $this->load->library('ftp');<br />
@@ -154,50 +151,47 @@ $config['debug']&nbsp;&nbsp;&nbsp;&nbsp;= TRUE;<br />
 $this->ftp->connect($config);<br />
 </code>
 
-<h3>Setting FTP Preferences in a Config File</h3>
+<h3>การตั้งค่าการเชื่อมต่อ ftp ในไฟล์  config</h3>
 
-<p>If you prefer you can store your FTP preferences in a config file.
-Simply create a new file called the <var>ftp.php</var>,  add the <var>$config</var>
-array in that file. Then save the file at <var>config/ftp.php</var> and it will be used automatically.</p>
+<p>สร้างไฟล์ชื่อ <var>ftp.php</var>,  แล้วใส่อาเรย์ชื่อ<var>$config</var>
+แล้วบันทึกลงใน <var>config/ftp.php</var>แล้วค่าในไฟล์จะถูกคลาส FTP เรียกใช้โดยอัติโนมัติ.</p>
 
-<h3>Available connection options:</h3>
+<h3>ค่าที่เราใช้ในการตั้งค่า ftp:</h3>
 
 
 <ul>
-<li><strong>hostname</strong> - the FTP hostname.  Usually something like:&nbsp; <dfn>ftp.example.com</dfn></li>
-<li><strong>username</strong> - the FTP username.</li>
-<li><strong>password</strong> - the FTP password.</li>
-<li><strong>port</strong> - The port number. Set to <dfn>21</dfn> by default.</li>
-<li><strong>debug</strong> - <kbd>TRUE/FALSE</kbd> (boolean). Whether to enable debugging to display error messages.</li>
-<li><strong>passive</strong> - <kbd>TRUE/FALSE</kbd> (boolean). Whether to use passive mode.  Passive is set automatically by default.</li>
+<li><strong>hostname</strong> - ที่อยู่ของ ftp:&nbsp; <dfn>ftp.example.com</dfn></li>
+<li><strong>username</strong> -  FTP username.</li>
+<li><strong>password</strong> -  FTP password.</li>
+<li><strong>port</strong> - พอร์ตที่ใช้เชื่อมต่อ โดยจะใช้พอร์ต <dfn>21</dfn> เป็นค่าเริ่มต้น.</li>
+<li><strong>debug</strong> - <kbd>TRUE/FALSE</kbd> (boolean). ถ้าตั้งให้เป็น true จะแสดงข้อผิดพลาด ระหว่างการโอนถ่าย.</li>
+<li><strong>passive</strong> - <kbd>TRUE/FALSE</kbd> (boolean).ถ้าตั้งค่าเป็น true จะใช้การโอนนถ่ายแบบ passive คือสร้างการเชื่อมต่อทิ้งไว้ ไม่ต้องสร้างใหม่ในทุกๆ ครั้ง.</li>
 </ul>
 
 
 
 <h2>$this->ftp->upload()</h2>
 
-<p>Uploads a file to your server.  You must supply the local path and the remote path, and you can optionally set the mode and permissions.
-Example:</p>
+<p>ใช้อัพโหลดไฟล์ขึ้นไปบน server โดยเราต้องใส่ที่อยู่ของไฟล์บนเครื่อง และบน ftp ลงไปด้วย</p>
 
 
 <code>$this->ftp->upload('/local/path/to/myfile.html', '/public_html/myfile.html', 'ascii', 0775);</code>
 
-<p><strong>Mode options are:</strong>&nbsp; <kbd>ascii</kbd>, <kbd>binary</kbd>, and <kbd>auto</kbd> (the default). If
-<kbd>auto</kbd> is used it will base the mode on the file extension of the source file.</p>
+<p><strong>วิธีการโอนถ่าย:</strong>&nbsp;จะมี <kbd>ascii</kbd>, <kbd>binary</kbd>, และ <kbd>auto</kbd> (the default).ถ้าตั้งเป็น
+<kbd>auto</kbd> จะเลือกโหมดโดยดูนามสกุลของไฟล์</p>
 
-<p>Permissions can be passed as an <kbd>octal</kbd> value in the fourth parameter.</p>
+<p>Permissions จะเป็นเลขฐาน <kbd>9</kbd> ตรงในพารามิเตอร์ตัวที่ 4.</p>
 
 <h2>$this->ftp->download()</h2>
 
-<p>Downloads a file from your server.  You must supply the remote path and the local path, and you can optionally set the mode.
-Example:</p>
+<p>ดาวน์โหลดไฟล์จาก server :</p>
 
 <code>$this->ftp->download('/public_html/myfile.html', '/local/path/to/myfile.html', 'ascii');</code>
 
-<p><strong>Mode options are:</strong>&nbsp; <kbd>ascii</kbd>, <kbd>binary</kbd>, and <kbd>auto</kbd> (the default). If
-<kbd>auto</kbd> is used it will base the mode on the file extension of the source file.</p>
+<p><strong>วิธีการโอนถ่าย:</strong>&nbsp;จะมี <kbd>ascii</kbd>, <kbd>binary</kbd>, และ <kbd>auto</kbd> (the default).ถ้าตั้งเป็น
+<kbd>auto</kbd> จะเลือกโหมดโดยดูนามสกุลของไฟล์</p>
 
-<p>Returns FALSE if the download does not execute successfully (including if PHP does not have permission to write the local file)</p>
+<p>ถ้าค่าส่งกลับมาเป็น false แปลว่าดาวน์โหลดไม่สำเร็จ</p>
 
 
 <h2>$this->ftp->rename()</h2>

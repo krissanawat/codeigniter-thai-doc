@@ -56,40 +56,34 @@ Image Manipulation Class
 <div id="content">
 
 
-<h1>Image Manipulation Class</h1>
+<h1>Image Manipulation Class(คลาสจัดการรูป)</h1>
 
-<p>CodeIgniter's Image Manipulation class lets you perform the following actions:</p>
+<p>คลาสนี้มีความสามารถดังนี้ครับ:</p>
 
 <ul>
-<li>Image Resizing</li>
-<li>Thumbnail Creation</li>
-<li>Image Cropping</li>
-<li>Image Rotating</li>
-<li>Image Watermarking</li>
+<li>ย่อรูป</li>
+<li>สร้างภาพ thumbnail</li>
+<li>ตัดรูป</li>
+<li>หมุนรูป</li>
+<li>สร้างลายน้ำ</li>
 </ul>
 
-<p>All three major image libraries are supported:  GD/GD2, NetPBM, and ImageMagick</p>
+<p>สามารถใช้ร่วมกับไลบราลี่ที่ใช้จัดการรูปอย่าง  GD/GD2, NetPBM, and ImageMagick</p>
 
-<p class="important"><strong>Note:</strong> Watermarking is only available using the GD/GD2 library.
-In addition, even though other libraries are supported, GD is required in
-order for the script to calculate the image properties.  The image processing, however, will be performed with the
-library you specify.</p>
+<p class="important"><strong>หมายเหตุ:</strong> การทำลายน้ำจะใช้ได้เมื่อมีไลบราลี่อย่าง  GD/GD2 .</p>
 
 
-<h2>Initializing the Class</h2>
+<h2>การเรียกใช้งาน</h2>
 
-<p>Like most other classes in CodeIgniter, the image class is initialized in your controller
-using the <dfn>$this->load-&gt;library</dfn> function:</p>
-<code>$this->load->library('image_lib');</code>
+<p>เหมือนกับคลาสอื่นๆ ของ CodeIgniter คือใช้ฟังก์ชัน<dfn>$this->load-&gt;library</dfn> :</p>
+แล้วทีนี้เราก็จะเรียกคลาสโดย<code>$this->load->library('image_lib');</code>
 
-<p>Once the library is loaded it will be ready for use.  The image library object you will use to call all functions is: <dfn>$this->image_lib</dfn></p>
+<p> เมื่อคลาสถูกเรียกแล้ว เรก็สามารถเรียกแบบสั้นๆ ได้อีก<dfn>$this->image_lib</dfn></p>
 
 
-<h2>Processing an Image</h2>
+<h2>การจัดการรูป</h2>
 
-<p>Regardless of the type of processing you would like to perform (resizing, cropping, rotation, or watermarking), the general process is
-identical. You will set some preferences corresponding to the action you intend to perform, then
-call one of four available processing functions.  For example, to create an image thumbnail you'll do this:</p>
+<p>เริ่มต้นด้วยการตั้งค่า ตัวแปรต่างๆ ที่เราจะใช้ในคลาสก่อน</p>
 
 <code>$config['image_library'] = 'gd2';<br />
 $config['source_image']	= '/path/to/image/mypic.jpg';<br />
@@ -103,16 +97,14 @@ $this->load->library('image_lib', $config);
 <br />
 $this->image_lib->resize();</code>
 
-<p>The above code tells the <dfn>image_resize</dfn> function to look for an image called <em>mypic.jpg</em>
-located in the <dfn>source_image</dfn> folder, then create a thumbnail that is 75 X 50 pixels using the GD2 <dfn>image_library</dfn>.
-Since the <dfn>maintain_ratio</dfn> option is enabled, the thumb will be as close to the target <dfn>width</dfn> and
-<dfn>height</dfn> as possible while preserving the original aspect ratio.  The thumbnail will be called <em>mypic_thumb.jpg</em>
+<p>โค้ดในตัวอย่างคือเราเรียก ใช้งานฟังก์ชัน <dfn>image_resize</dfn>เพื่อทำการย่อรูปที่ชื่อ <em>mypic.jpg</em>
+ซึ่งที่อยู่ก็อยู่ในตัวแปร <dfn>source_image</dfn>และสร้างรูปย่อขนาด 75 X 50 pixels โดยใช้ไลบราลี่ GD2 
+เมื่อตัวแปร <dfn>maintain_ratio</dfn> ถูกตั้งค่าให้เป็น true,ขนาดของภาพจะถูกคำนวน อัตราส่วนในการย่อ ตามขนาดของรูป  
+และชื่อของภาพย่อคือ<em>mypic_thumb.jpg</em>
 </p>
 
-<p class="important"><strong>Note:</strong> In order for the image class to be allowed to do any processing, the
-folder containing the image files must have write permissions.</p>
 
-<p class="important"><strong>Note:</strong> Image processing can require a considerable amount of server memory for some operations. If you are experiencing out of memory errors while processing images you may need to limit their maximum size, and/or adjust PHP memory limits.</p>
+<p class="important"><strong>หมายเหตุ:</strong> การประมวลผลรูปนั้น ต้องการทรัพยากรของ server สูง</p>
 
 <h2>Processing Functions</h2>
 

@@ -56,47 +56,43 @@ Input Class
 <div id="content">
 
 
-<h1>Input Class</h1>
+<h1>Input Class ( คลาสที่ใช้จัดการค่าที่ป้อนเข้ามา )</h1>
 
-<p>The Input Class serves two purposes:</p>
+<p>คลาสนี้สร้างมาเพื่อ</p>
 
 <ol>
-<li>It pre-processes global input data for security.</li>
-<li>It provides some helper functions for fetching input data and pre-processing it.</li>
+<li>ตรวจสอบค่าที่ป้อนเข้ามา.</li>
+<li>ทำให้สามารถเรียกใช้งาน helper class ได้.</li>
 </ol>
 
-<p class="important"><strong>Note:</strong> This class is initialized automatically by the system so there is no need to do it manually.</p>
+<p class="important"><strong>หมายเหตุ:</strong>คลาสนี้ถูกเรียกใช้งานโดยอัติโนมัติอยู่เเล้ว.</p>
 
 
-<h2>Security Filtering</h2>
+<h2>การกรองค่าเพื่อความปลอดภัย</h2>
 
-<p>The security filtering function is called automatically when a new <a href="../general/controllers.html">controller</a> is invoked.  It does the following:</p>
+<p>ความสามารถของคลาสนี้</p>
 
 <ul>
-<li>If $config['allow_get_array'] is FALSE(default is TRUE), destroys the global GET array.</li>
-<li>Destroys all global variables in the event register_globals is turned on.</li>
-<li>Filters the GET/POST/COOKIE array keys, permitting only alpha-numeric (and a few other) characters.</li>
-<li>Provides XSS (Cross-site Scripting Hacks) filtering.  This can be enabled globally, or upon request.</li>
-<li>Standardizes newline characters to \n(In Windows \r\n)</li>
+<li>ถ้าตัวแปร $config['allow_get_array'] ถูกตั้งให้เป็น FALSE(เริ่มต้นจะเป็น TRUE),คลาสนี้จะทำหยุดการ global get array.</li>
+<li>หยุดการใช้งานตัวแปรระดับ global เมื่อ register_globals ถูกเปิด.</li>
+<li>กรองค่า GET/POST/COOKIE โดยอนุญาตให้ตัวอักษร หรือตัวเลขเท่านั้น.</li>
+<li>ป้องกันการทำ XSS</li>
+<li>เพิ่มเครื่องหมายการขึ้นบรรทัดใหม่ให้ </li>
 </ul>
 
 
-<h2>XSS Filtering</h2>
+<h2>การป้องกัน XSS </h2>
 
-<p>The Input class has the ability to filter input automatically to prevent cross-site scripting attacks.  If you want the filter to run automatically every time it encounters POST or COOKIE data you can enable it by opening your
-<kbd>application/config/config.php</kbd> file and setting this:</p>
+<p>ถ้าเราต้องการให้ เปิดการป้องกันแบบอัติโนมัติ ให้เปิดไฟล์
+<kbd>application/config/config.php</kbd> แล้วเติมค่าด้านล่างลงไป</p>
 
 <code>$config['global_xss_filtering'] = TRUE;</code>
 
-<p>Please refer to the <a href="security.html">Security class</a> documentation for information on using XSS Filtering in your application.</p>
 
+<h2>การใช้ POST, COOKIE, SERVER </h2>
 
-<h2>Using POST, COOKIE, or SERVER Data</h2>
-
-<p>CodeIgniter comes with three helper functions that let you fetch POST, COOKIE or SERVER items.  The main advantage of using the provided
-functions rather than fetching an item directly ($_POST['something']) is that the functions will check to see if the item is set and
-return false (boolean) if not.  This lets you conveniently use data without having to test whether an item exists first.
-In other words, normally you might do something like this:</p>
+<p>CodeIgniter มีตัวช่วยในการจัดการ POST, COOKIE และ SERVER ซึ่งถ้าเป็น php ธรรมดา
+เราจะจัดการคำร้องขอที่ถูกส่งเข้ามาแบบนี้ใช่ไหมครับ :</p>
 
 <code>
 if ( ! isset($_POST['something']))<br />
@@ -108,11 +104,11 @@ else<br />
 &nbsp;&nbsp;&nbsp;&nbsp;$something = $_POST['something'];<br />
 }</code>
 
-<p>With CodeIgniter's built in functions you can simply do this:</p>
+<p>แต่ใน CodeIgniter มีฟังก์ชันที่ใช้แทนด้านบน คือ:</p>
 
 <code>$something = $this->input->post('something');</code>
 
-<p>The three functions are:</p>
+<p>ซึ่งแบบตามรูปแบบของคำร้องขอ:</p>
 
 <ul>
 <li>$this->input->post()</li>
@@ -122,13 +118,13 @@ else<br />
 
 <h2>$this->input->post()</h2>
 
-<p>The first parameter will contain the name of the POST item you are looking for:</p>
+<p>พารามิเตอร์แรกคือชื่อของฟิวส์ที่ส่งค่ามา:</p>
 
 <code>$this->input->post('some_data');</code>
 
-<p>The function returns FALSE (boolean) if the item you are attempting to retrieve does not exist.</p>
+<p> ถ้าค่าที่ส่งคืนมาเป็น false แสดงว่าไม่มีค่าอะไรส่งมา</p>
 
-<p>The second optional parameter lets you run the data through the XSS filter.  It's enabled by setting the second parameter to boolean TRUE;</p>
+<p>พารามิเตอร์ตัวที่สองบอกว่าเราจะทำป้องกันการทำ Xss</p>
 
 <code>$this->input->post('some_data', TRUE);</code>
 
@@ -148,9 +144,7 @@ else<br />
 
 <code>$this->input->get('some_data', TRUE);</code>
 
-<p>To return an array of all GET items call without any parameters.</p>
-<p>To return all GET items and pass them through the XSS filter set the first parameter NULL while setting the second parameter to boolean;</p>
-<p>The function returns FALSE (boolean) if there are no items in the GET.</p>
+<p>ถ้าใส่ให้เป็น null</p>
 
 <code>
 	$this->input->get(NULL, TRUE); // returns all GET items with XSS filter

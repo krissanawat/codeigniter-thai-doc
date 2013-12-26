@@ -391,24 +391,20 @@ $this->form_validation->set_rules('email', 'Email', '<kbd>trim</kbd>|required|va
 
 <p>ในตัวอย่าง เราทำการแปลงรหัสผ่าน เป็น MD5,และทำการตวจสอบ ว่ามีการทำ XSS ไหม</p>
 
-<p><strong>หมายเหตุ</strong> You will generally want to use the prepping functions <strong>after</strong>
-the validation rules so if there is an error, the original data will be shown in the form.</p>
-
 
 
 
 <a name="repopulatingform"></a>
-<h2>Re-populating the form</h2>
+<h2>การเติมข้อมูลลงในฟิวส์หลังจากการรีเฟรช</h2>
 
-<p>Thus far we have only been dealing with errors.  It's time to repopulate the form field with the submitted data. CodeIgniter offers several helper functions
-that permit you to do this. The one you will use most commonly is:</p>
+<p>เมื่อกดซับมิทฟอร์ม แล้วเกิด error ก็จะส่งกลับมาหน้าเดิม ต่อไปเราจะเติมค่าลงในฟอร์มอีกครั้ง โดยใช้ฟังก์ชันต่อไปนี้</p>
 
 <code>set_value('field name')</code>
 
 
-<p>Open your <dfn>myform.php</dfn> view file and update the <strong>value</strong> in each field using the <dfn>set_value()</dfn> function:</p>
+<p>เปิดไฟล์ <dfn>myform.php</dfn> แก้ไขตัวแปร <strong>value</strong> ทุกอันโดยใส่ ฟังก์ชัน <dfn>set_value()</dfn></p>
 
-<p><strong>Don't forget to include each field name in the <dfn>set_value()</dfn> functions!</strong></p>
+<p>ตัวอย่าง</p>
 
 
 <textarea class="textarea" style="width:100%" cols="50" rows="30">
@@ -442,10 +438,7 @@ that permit you to do this. The one you will use most commonly is:</p>
 &lt;/html>
 </textarea>
 
-
-<p><dfn>Now reload your page and submit the form so that it triggers an error.  Your form fields should now be re-populated</dfn></p>
-
-<p class="important"><strong>Note:</strong> The <a href="#functionreference">Function Reference</a> section below contains functions that
+<p class="important"><strong>หมายเหตุ</strong> The <a href="#functionreference">Function Reference</a> section below contains functions that
 permit you to re-populate &lt;select> menus, radio buttons, and checkboxes.</p>
 
 

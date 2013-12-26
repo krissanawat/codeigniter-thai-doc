@@ -59,13 +59,13 @@ JavaScript Driver
 <p class="important"><strong>Note:</strong> This driver is experimental. Its feature set and implementation may change in future releases.</p><br>
 
 <h1>Javascript Class</h1>
-<p>CodeIgniter provides a library to help you with certain common functions that you may want to use with Javascript. Please note that CodeIgniter does not require the jQuery library to run, and that any scripting library will work equally well. The jQuery library is simply presented as a convenience if you choose to use it.</p>
-<h2>Initializing the Class</h2>
-<p>To initialize the Javascript class manually in your controller constructor, use the <dfn>$this-&gt;load-&gt;library</dfn> function. Currently, the only available library is jQuery, which will automatically be loaded like this:</p>
+<p> คลาสนี้ไม่ต้องอธิบายอะไรมากครับ มันคือคลาสที่ใช้ php เขียน javascript ขึ้นมานั้นเอง การอำนวยความสะดวกให้ กับคนที่กำลังเรียนรู้การเขียน javascript </p>
+<h2>การเรียกใช้งาน</h2>
+<p>ใช้ฟังก์ชัน<dfn>$this-&gt;load-&gt;library</dfn> ในที่นี้เราจะใช้ jQuery :</p>
 
 <code>$this-&gt;load-&gt;library('javascript');</code>
 
-<p>The Javascript class also accepts parameters, <dfn>js_library_driver (string) default 'jquery'</dfn> and <dfn>autoload (bool) default TRUE</dfn>.  You may override the defaults if you wish by sending an associative array:</p>
+<p>โดยคลาสนี้จะรับพารามิเตอร์อยู่ 3 ตัว, <dfn>ตัว javascript ไลบราลี่ที่เราต้องการ โดยเริ่มต้นจะเป็น 'jquery'</dfn> และ <dfn>autoload (bool) ค่าเริ่มต้นจะเป็น TRUE</dfn>. ใช้เพื่อโหลด javascript  </p>
 
 <code>$this-&gt;load-&gt;library('javascript', array('js_library_driver' =&gt; 'scripto', 'autoload' =&gt; FALSE));</code>
 
