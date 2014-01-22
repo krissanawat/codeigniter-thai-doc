@@ -56,21 +56,20 @@ Zip Encoding Class
 <div id="content">
 
 
-<h1>Zip Encoding Class</h1>
-<p>CodeIgniter's Zip Encoding Class classes permit you to create Zip archives. Archives can be downloaded to your
-desktop or saved to a directory.</p>
+<h1>Zip Encoding Class ( คลาสจัดการไฟล์ ZIP)</h1>
+<p>คลาสนี้ใช้ในการสร้างไฟล์ zip เพื่อการดาวน์โหลด.</p>
 
 
-<h2>Initializing the Class</h2>
-<p>Like most other classes in CodeIgniter, the Zip class is initialized in your controller using the <dfn>$this->load->library</dfn> function:</p>
+<h2>การเรียกใช้งานคลาส</h2>
+<p>เหมือนกับทุกๆ คลาสของ codeigniter เราจะใช้ฟังก์ชัน<dfn>$this->load->library</dfn> ในการโหลดคลาสนี้:</p>
 
 <code>$this->load->library('zip');</code>
-<p>Once loaded, the Zip library object will be available using: <dfn>$this->zip</dfn></p>
+<p>เมื่อโหลดแล้วเราก็จะใช้งานคลาสได้ดังนี้ <dfn>$this->zip</dfn></p>
 
 
-<h2>Usage Example</h2>
+<h2>ตัวอย่างการใช้งาน</h2>
 
-<p>This example demonstrates how to compress a file, save it to a folder on your server, and download it to your desktop.</p>
+<p>ตัวอย่างนี้จะทำการบีบอัดไฟล์แล้วเก็บลงใน server หรือตอนที่ให้ผู้ใช้งานดาวน์โหลดไฟล์.</p>
 
 <code>
 $name = 'mydata1.txt';<br />
@@ -78,19 +77,18 @@ $data = 'A Data String!';<br />
 <br />
 $this->zip->add_data($name, $data);<br />
 <br />
-// Write the zip file to a folder on your server. Name it "my_backup.zip"<br />
+// บันทึกไฟล์ zip ที่ชื่อ "my_backup.zip" ลงบน server<br />
 $this->zip->archive('/path/to/directory/my_backup.zip');
 <br /><br />
  // Download the file to your desktop.  Name it "my_backup.zip"<br />
 $this->zip->download('my_backup.zip');
 </code>
 
-<h1>Function Reference</h1>
+<h1>ฟังก์ชันที่เกี่ยวข้อง</h1>
 
 <h2>$this->zip->add_data()</h2>
 
-<p>Permits you to add data to the Zip archive. The first parameter must contain the name you would like
-given to the file, the second parameter must contain the file data as a string:</p>
+<p>ใช้ในการบีบอัดไฟล์. พารามิเตอร์แรกใช้ตั้งชื่อไฟล์,พารามิเตอร์ที่สองคือข้อมูลของไฟล์:</p>
 
 <code>
 $name = 'my_bio.txt';<br />
@@ -99,20 +97,9 @@ $data = 'I was born in an elevator...';<br />
 $this->zip->add_data($name, $data);
 </code>
 
-<p>You are allowed multiple calls to this function in order to
-add several files to your archive.  Example:</p>
 
-<code>
-$name = 'mydata1.txt';<br />
-$data = 'A Data String!';<br />
-$this->zip->add_data($name, $data);<br />
-<br />
-$name = 'mydata2.txt';<br />
-$data = 'Another Data String!';<br />
-$this->zip->add_data($name, $data);<br />
-</code>
 
-<p>Or you can pass multiple files using an array:</p>
+<p>หรือเราจะบีบหลายไฟล์ ลงใน zip เดียวกันได้:</p>
 
 <code>
 $data = array(<br />
@@ -125,7 +112,6 @@ $this->zip->add_data($data);<br />
 $this->zip->download('my_backup.zip');
 </code>
 
-<p>If you would like your compressed data organized into sub-folders, include the path as part of the filename:</p>
 
 <code>
 $name = '<kbd>personal/</kbd>my_bio.txt';<br />
@@ -134,15 +120,14 @@ $data = 'I was born in an elevator...';<br />
 $this->zip->add_data($name, $data);
 </code>
 
-<p>The above example will place <dfn>my_bio.txt</dfn> inside a folder called <kbd>personal</kbd>.</p>
+<p>ตัวอย่างนี้เราจะทำการบีบไฟล์ <dfn>my_bio.txt</dfn> ในโฟลเดอร์ <kbd>personal</kbd>.</p>
 
 
 <h2>$this->zip->add_dir()</h2>
 
-<p>Permits you to add a directory.  Usually this function is unnecessary since you can place your data into folders when
-using <dfn>$this->zip->add_data()</dfn>, but if you would like to create an empty folder you can do so.  Example:</p>
+<p>ใช้ในการสร้างโฟเดอร์ปล่าว:</p>
 
-<code>$this->zip->add_dir('myfolder'); // Creates a folder called "myfolder"</code>
+<code>$this->zip->add_dir('myfolder'); </code>
 
 
 
